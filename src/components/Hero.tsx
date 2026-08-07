@@ -22,9 +22,9 @@ export default function Hero({ ready }: { ready: boolean }) {
         )
         .fromTo(
           ".hero-spline",
-          { opacity: 0, x: 120, filter: "blur(16px)" },
-          { opacity: 1, x: 0, filter: "blur(0px)", duration: 1.4 },
-          "-=1",
+          { opacity: 0, scale: 1.06 },
+          { opacity: 1, scale: 1, duration: 1.6 },
+          0,
         );
 
       gsap.to(".glow-orb", {
@@ -43,40 +43,10 @@ export default function Hero({ ready }: { ready: boolean }) {
     <section
       id="home"
       ref={root}
-      className="hero-bg relative flex min-h-screen items-center overflow-hidden pt-28 pb-16"
+      className="hero-bg relative flex h-screen min-h-[640px] w-full items-end overflow-hidden"
     >
-      <div className="glow-orb pointer-events-none absolute top-24 left-[8%] h-56 w-56 rounded-full bg-primary/25 blur-[90px]" />
-      <div className="glow-orb pointer-events-none absolute right-[12%] bottom-24 h-72 w-72 rounded-full bg-accent/20 blur-[110px]" />
-      <div className="glow-orb pointer-events-none absolute top-1/2 left-1/2 h-64 w-64 rounded-full bg-neon-violet/20 blur-[120px]" />
-
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 px-6 lg:grid-cols-2">
-        <div>
-          <span className="hero-line inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-[0.2em] text-muted-foreground uppercase glass">
-            Instant digital delivery
-          </span>
-          <h1 className="hero-line mt-6 text-4xl leading-[1.05] font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-            <span className="text-gradient">2G SHOP</span>
-            <br />
-            Premium subscriptions online
-          </h1>
-          <p className="hero-line mt-6 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Streaming, music, gaming, AI and VPN subscriptions at the best prices — delivered to you
-            in minutes, with warranty and 24/7 support.
-          </p>
-          <div className="mt-9 flex flex-wrap gap-4">
-            <a
-              href="#plans"
-              className="hero-cta btn-neon hover:-translate-y-0.5 hover:scale-[1.04] glow-strong"
-            >
-              Shop now
-            </a>
-            <a href="#why" className="hero-cta btn-ghost-neon hover:-translate-y-0.5">
-              Why us <ArrowDown size={16} weight="light" />
-            </a>
-          </div>
-        </div>
-
-        <div className="hero-spline relative h-[380px] w-full overflow-hidden rounded-3xl glass sm:h-[520px]">
+      <div className="hero-spline absolute inset-0">
+        {ready && (
           <iframe
             title="3D robot"
             src="https://my.spline.design/nexbotbyaximoriscopycopy-yfZ7bdWYajBxb40GbmUnVyOq/"
@@ -84,7 +54,36 @@ export default function Hero({ ready }: { ready: boolean }) {
             className="h-full w-full"
             loading="lazy"
           />
-          <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-primary/25" />
+        )}
+      </div>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/45 to-background/70" />
+
+      <div className="glow-orb pointer-events-none absolute top-24 left-[8%] h-56 w-56 rounded-full bg-foreground/10 blur-[90px]" />
+      <div className="glow-orb pointer-events-none absolute right-[12%] bottom-24 h-72 w-72 rounded-full bg-foreground/10 blur-[110px]" />
+
+      <div className="relative mx-auto w-full max-w-6xl px-6 pb-20 text-center">
+        <span className="hero-line inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-[0.3em] text-muted-foreground uppercase glass">
+          Instant digital delivery
+        </span>
+        <h1 className="hero-line mx-auto mt-6 max-w-4xl text-4xl leading-[1.05] font-semibold tracking-tight sm:text-6xl lg:text-7xl">
+          <span className="text-gradient">2G SHOP</span>
+          <br />
+          Premium subscriptions online
+        </h1>
+        <p className="hero-line mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          Streaming, music, gaming, AI and VPN subscriptions at the best prices — delivered in
+          minutes, with warranty and 24/7 support.
+        </p>
+        <div className="mt-9 flex flex-wrap justify-center gap-4">
+          <a
+            href="#plans"
+            className="hero-cta btn-neon hover:-translate-y-0.5 hover:scale-[1.04] glow-strong"
+          >
+            Shop now
+          </a>
+          <a href="#why" className="hero-cta btn-ghost-neon hover:-translate-y-0.5">
+            Why us <ArrowDown size={16} weight="light" />
+          </a>
         </div>
       </div>
     </section>
