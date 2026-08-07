@@ -6,6 +6,12 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
   const [pct, setPct] = useState(0);
 
   useEffect(() => {
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      onDone();
+    };
     const counter = { v: 0 };
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
@@ -32,10 +38,14 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
           filter: "blur(8px)",
           duration: 0.9,
           ease: "power2.inOut",
-          onComplete: onDone,
+          onComplete: finish,
         });
     }, root);
-    return () => ctx.revert();
+    const fallback = setTimeout(finish, 4200);
+    return () => {
+      clearTimeout(fallback);
+      ctx.revert();
+    };
   }, [onDone]);
 
   return (
