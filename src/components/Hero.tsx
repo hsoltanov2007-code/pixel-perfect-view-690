@@ -43,7 +43,7 @@ export default function Hero({ ready }: { ready: boolean }) {
     <section
       id="home"
       ref={root}
-      className="hero-bg relative flex h-screen min-h-[640px] w-full items-end overflow-hidden"
+      className="hero-bg relative flex h-screen min-h-[640px] w-full items-center overflow-hidden"
     >
       <div className="hero-spline absolute inset-0">
         {ready && (
@@ -71,28 +71,28 @@ export default function Hero({ ready }: { ready: boolean }) {
       <div className="glow-orb pointer-events-none absolute top-24 left-[8%] h-56 w-56 rounded-full bg-foreground/10 blur-[90px]" />
       <div className="glow-orb pointer-events-none absolute right-[12%] bottom-24 h-72 w-72 rounded-full bg-foreground/10 blur-[110px]" />
 
-      <div className="relative z-30 mx-auto w-full max-w-6xl px-6 pb-28 text-center">
-        <span className="hero-line inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-[0.3em] text-muted-foreground uppercase glass">
+      <div className="relative z-30 mx-auto w-full max-w-6xl px-6 pb-8 pt-24 text-center">
+        <span className="hero-line inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] tracking-[0.3em] text-muted-foreground uppercase glass">
           Instant digital delivery
         </span>
-        <h1 className="hero-line mx-auto mt-6 max-w-4xl text-4xl leading-[1.05] font-semibold tracking-tight sm:text-6xl lg:text-7xl">
+        <h1 className="hero-line mx-auto mt-4 max-w-3xl text-3xl leading-[1.05] font-semibold tracking-tight sm:text-5xl lg:text-6xl">
           <span className="text-gradient">2G SHOP</span>
           <br />
           Premium subscriptions online
         </h1>
-        <p className="hero-line mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <p className="hero-line mx-auto mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base">
           Streaming, music, gaming, AI and VPN subscriptions at the best prices — delivered in
           minutes, with warranty and 24/7 support.
         </p>
-        <div className="mt-9 flex flex-wrap justify-center gap-4">
+        <div className="mt-7 flex flex-wrap justify-center gap-3">
           <a
             href="#plans"
-            className="hero-cta btn-neon hover:-translate-y-0.5 hover:scale-[1.04] glow-strong"
+            className="hero-cta btn-neon px-5 py-2.5 text-sm hover:-translate-y-0.5 hover:scale-[1.04] glow-strong"
           >
             Shop now
           </a>
-          <a href="#why" className="hero-cta btn-ghost-neon hover:-translate-y-0.5">
-            Why us <ArrowDown size={16} weight="light" />
+          <a href="#why" className="hero-cta btn-ghost-neon px-5 py-2.5 text-sm hover:-translate-y-0.5">
+            Why us <ArrowDown size={14} weight="light" />
           </a>
         </div>
       </div>
