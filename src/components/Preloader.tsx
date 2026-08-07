@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 export default function Preloader({ onDone }: { onDone: () => void }) {
   const root = useRef<HTMLDivElement>(null);
-  const [pct, setPct] = useState(0);
 
   useEffect(() => {
     let done = false;
@@ -12,36 +11,51 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       done = true;
       onDone();
     };
-    const counter = { v: 0 };
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
       tl.fromTo(
         ".pre-logo",
-        { opacity: 0, y: 30, filter: "blur(14px)" },
-        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" },
+        { opacity: 0, y: 24, letterSpacing: "0.5em", filter: "blur(16px)" },
+        {
+          opacity: 1,
+          y: 0,
+          letterSpacing: "0.02em",
+          filter: "blur(0px)",
+          duration: 1.5,
+          ease: "power3.out",
+        },
       )
-        .to(
-          counter,
-          {
-            v: 100,
-            duration: 1.4,
-            ease: "power2.out",
-            onUpdate: () => setPct(Math.round(counter.v)),
-          },
-          "-=0.5",
+        .fromTo(
+          ".pre-sub",
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" },
+          "-=0.7",
         )
-        .to(".progress-bar", { width: "100%", duration: 1.4, ease: "power2.out" }, "<")
-        .to(".pre-meta", { opacity: 0, duration: 0.4 })
-        .to(".preloader", {
-          opacity: 0,
-          scale: 0.92,
-          filter: "blur(8px)",
-          duration: 0.9,
-          ease: "power2.inOut",
-          onComplete: finish,
-        });
+        .fromTo(
+          ".pre-rule",
+          { scaleX: 0, opacity: 0 },
+          { scaleX: 1, opacity: 1, duration: 1.2, ease: "power2.inOut" },
+          "-=1.1",
+        )
+        .to({}, { duration: 0.5 })
+        .to([".pre-sub", ".pre-rule"], { opacity: 0, duration: 0.5, ease: "power2.in" })
+        .to(
+          ".pre-logo",
+          { opacity: 0, letterSpacing: "0.35em", filter: "blur(12px)", duration: 0.9, ease: "power2.inOut" },
+          "-=0.35",
+        )
+        .to(
+          ".preloader",
+          {
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.inOut",
+            onComplete: finish,
+          },
+          "-=0.4",
+        );
     }, root);
-    const fallback = setTimeout(finish, 4200);
+    const fallback = setTimeout(finish, 6000);
     return () => {
       clearTimeout(fallback);
       ctx.revert();
@@ -51,18 +65,14 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
   return (
     <div ref={root}>
       <div className="preloader hero-bg fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background">
-        <h1 className="pre-logo text-gradient text-5xl font-semibold tracking-tight sm:text-7xl">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.06] blur-[130px]" />
+        <h1 className="pre-logo relative text-gradient text-5xl font-semibold tracking-tight sm:text-7xl">
           2G SHOP
         </h1>
-        <div className="pre-meta mt-10 w-56 sm:w-72">
-          <div className="h-[3px] w-full overflow-hidden rounded-full bg-secondary">
-            <div className="progress-bar glow-strong h-full w-0 rounded-full bg-primary" />
-          </div>
-          <div className="mt-3 flex justify-between text-[11px] tracking-[0.25em] text-muted-foreground uppercase">
-            <span>Loading</span>
-            <span>{pct}%</span>
-          </div>
-        </div>
+        <div className="pre-rule mt-8 h-px w-40 origin-center bg-[var(--gradient-line)] sm:w-64" />
+        <span className="pre-sub mt-5 text-[10px] tracking-[0.45em] text-muted-foreground uppercase">
+          Premium subscriptions
+        </span>
       </div>
     </div>
   );
