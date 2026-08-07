@@ -2,32 +2,31 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
-  FileHtml,
-  FileCss,
-  FileJs,
-  Atom,
   Lightning,
-  Sparkle,
+  ShieldCheck,
+  CreditCard,
+  Headset,
+  Tag,
+  ArrowsClockwise,
 } from "@phosphor-icons/react";
-import profile from "@/assets/profile.jpg";
 
-const skills = [
-  { icon: FileHtml, label: "HTML" },
-  { icon: FileCss, label: "CSS" },
-  { icon: FileJs, label: "JavaScript" },
-  { icon: Atom, label: "React" },
-  { icon: Lightning, label: "GSAP" },
-  { icon: Sparkle, label: "Three.js" },
+const features = [
+  { icon: Lightning, label: "Instant delivery" },
+  { icon: ShieldCheck, label: "Warranty" },
+  { icon: CreditCard, label: "Safe payment" },
+  { icon: Headset, label: "24/7 support" },
+  { icon: Tag, label: "Best prices" },
+  { icon: ArrowsClockwise, label: "Easy renewal" },
 ];
 
-export default function About() {
+export default function Why() {
   const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        ".about-img",
+        ".why-visual",
         { opacity: 0, x: -80, filter: "blur(12px)" },
         {
           opacity: 1,
@@ -39,7 +38,7 @@ export default function About() {
         },
       );
       gsap.fromTo(
-        ".about-copy > *",
+        ".why-copy > *",
         { opacity: 0, y: 40, filter: "blur(10px)" },
         {
           opacity: 1,
@@ -52,7 +51,7 @@ export default function About() {
         },
       );
       gsap.fromTo(
-        ".skill-chip",
+        ".why-chip",
         { opacity: 0, y: 24, scale: 0.9 },
         {
           opacity: 1,
@@ -61,7 +60,7 @@ export default function About() {
           duration: 0.6,
           stagger: 0.08,
           ease: "back.out(1.6)",
-          scrollTrigger: { trigger: ".skill-grid", start: "top 85%" },
+          scrollTrigger: { trigger: ".why-grid", start: "top 85%" },
         },
       );
     }, root);
@@ -69,35 +68,30 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" ref={root} className="relative py-28">
+    <section id="why" ref={root} className="relative py-28">
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-6 md:grid-cols-[320px_1fr]">
-        <div className="about-img group relative mx-auto">
+        <div className="why-visual group relative mx-auto">
           <div className="absolute -inset-4 rounded-full bg-primary/25 blur-3xl transition-all duration-500 group-hover:bg-primary/40" />
-          <img
-            src={profile}
-            alt="Portrait of Milad, web developer"
-            width={768}
-            height={768}
-            loading="lazy"
-            className="relative h-60 w-60 rounded-full object-cover ring-2 ring-primary/40 transition-transform duration-500 group-hover:-translate-y-2 group-hover:rotate-3 sm:h-72 sm:w-72 glow-ring"
-          />
+          <div className="relative grid h-60 w-60 place-items-center rounded-full glass ring-2 ring-primary/40 transition-transform duration-500 group-hover:-translate-y-2 group-hover:rotate-3 sm:h-72 sm:w-72 glow-ring">
+            <span className="text-5xl font-semibold tracking-tight text-gradient sm:text-6xl">2G</span>
+          </div>
         </div>
 
-        <div className="about-copy">
-          <span className="text-xs tracking-[0.3em] text-accent uppercase">About me</span>
+        <div className="why-copy">
+          <span className="text-xs tracking-[0.3em] text-accent uppercase">Why 2G SHOP</span>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Building the web&rsquo;s <span className="text-gradient">next layer</span>
+            Digital goods, <span className="text-gradient">zero waiting</span>
           </h2>
           <p className="mt-5 max-w-xl leading-relaxed text-muted-foreground">
-            I&rsquo;m a front-end developer specialising in motion-rich interfaces. For the past
-            six years I&rsquo;ve shipped products where design, performance and interaction meet —
-            from 3D landing experiences to complex dashboards.
+            2G SHOP sells premium subscriptions, licence keys and top-ups online. Every order is
+            processed automatically, backed by a warranty and real human support whenever you need
+            it.
           </p>
-          <div className="skill-grid mt-9 grid grid-cols-3 gap-3 sm:grid-cols-6">
-            {skills.map((s) => (
+          <div className="why-grid mt-9 grid grid-cols-3 gap-3 sm:grid-cols-6">
+            {features.map((s) => (
               <div
                 key={s.label}
-                className="skill-chip flex flex-col items-center gap-2 rounded-2xl px-2 py-4 glass transition-all duration-300 hover:-translate-y-1 hover:glow-ring"
+                className="why-chip flex flex-col items-center gap-2 rounded-2xl px-2 py-4 text-center glass transition-all duration-300 hover:-translate-y-1 hover:glow-ring"
               >
                 <s.icon size={26} weight="light" className="text-accent" />
                 <span className="text-[11px] text-muted-foreground">{s.label}</span>

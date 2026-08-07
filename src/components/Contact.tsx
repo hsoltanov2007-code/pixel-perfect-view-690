@@ -54,7 +54,7 @@ export default function Contact() {
           Contact
         </span>
         <h2 className="contact-field mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Let&rsquo;s build something <span className="text-gradient">luminous</span>
+          Need help with an <span className="text-gradient">order?</span>
         </h2>
 
         <form onSubmit={onSubmit} className="mt-10 space-y-4 text-left">
@@ -75,7 +75,7 @@ export default function Contact() {
             required
             name="message"
             rows={5}
-            placeholder="Tell me about your project"
+            placeholder="Which subscription are you interested in?"
             className="contact-field field-glass resize-none focus:border-primary focus:glow-ring"
           />
           <button type="submit" disabled={sending} className="contact-submit btn-neon w-full">

@@ -52,26 +52,26 @@ export default function Hero({ ready }: { ready: boolean }) {
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 px-6 lg:grid-cols-2">
         <div>
           <span className="hero-line inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-[0.2em] text-muted-foreground uppercase glass">
-            Available for work
+            Instant digital delivery
           </span>
           <h1 className="hero-line mt-6 text-4xl leading-[1.05] font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-            {`'''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''`}
+            <span className="text-gradient">2G SHOP</span>
             <br />
-            <br />
-            pram kak v promt sdleay
+            Premium subscriptions online
           </h1>
           <p className="hero-line mt-6 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Immersive 3D and GSAP-powered web experiences by Milad, front-end developer.
+            Streaming, music, gaming, AI and VPN subscriptions at the best prices — delivered to you
+            in minutes, with warranty and 24/7 support.
           </p>
           <div className="mt-9 flex flex-wrap gap-4">
             <a
-              href="#contact"
+              href="#plans"
               className="hero-cta btn-neon hover:-translate-y-0.5 hover:scale-[1.04] glow-strong"
             >
-              Hire Me
+              Shop now
             </a>
-            <a href="#projects" className="hero-cta btn-ghost-neon hover:-translate-y-0.5">
-              View Work <ArrowDown size={16} weight="light" />
+            <a href="#why" className="hero-cta btn-ghost-neon hover:-translate-y-0.5">
+              Why us <ArrowDown size={16} weight="light" />
             </a>
           </div>
         </div>
