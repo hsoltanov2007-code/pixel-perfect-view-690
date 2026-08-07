@@ -75,7 +75,7 @@ export default function Contact() {
             required
             name="message"
             rows={5}
-            placeholder="Tell me about your project"
+            placeholder="Which subscription are you interested in?"
             className="contact-field field-glass resize-none focus:border-primary focus:glow-ring"
           />
           <button type="submit" disabled={sending} className="contact-submit btn-neon w-full">

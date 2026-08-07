@@ -79,9 +79,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Milad — Web Developer" },
-      { name: "description", content: "Immersive, motion-first web development portfolio." },
-      { name: "author", content: "Milad" },
+      { title: "2G SHOP — Premium Subscriptions Online" },
+      { name: "description", content: "Buy premium digital subscriptions online with instant delivery." },
+      { name: "author", content: "2G SHOP" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
