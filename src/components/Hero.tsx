@@ -71,7 +71,7 @@ export default function Hero({ ready }: { ready: boolean }) {
       <div className="glow-orb pointer-events-none absolute top-24 left-[8%] h-56 w-56 rounded-full bg-foreground/10 blur-[90px]" />
       <div className="glow-orb pointer-events-none absolute right-[12%] bottom-24 h-72 w-72 rounded-full bg-foreground/10 blur-[110px]" />
 
-      <div className="relative z-30 mx-auto w-full max-w-6xl px-6 pb-8 pt-24 text-center">
+      <div className="relative z-30 mx-auto w-full max-w-6xl px-6 pb-8 pt-24 text-center pointer-events-none">
         <span className="hero-line inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] tracking-[0.3em] text-muted-foreground uppercase glass">
           Instant digital delivery
         </span>
@@ -87,11 +87,11 @@ export default function Hero({ ready }: { ready: boolean }) {
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <a
             href="#plans"
-            className="hero-cta btn-neon px-5 py-2.5 text-sm hover:-translate-y-0.5 hover:scale-[1.04] glow-strong"
+            className="hero-cta btn-neon px-5 py-2.5 text-sm hover:-translate-y-0.5 hover:scale-[1.04] glow-strong pointer-events-auto"
           >
             Shop now
           </a>
-          <a href="#why" className="hero-cta btn-ghost-neon px-5 py-2.5 text-sm hover:-translate-y-0.5">
+          <a href="#why" className="hero-cta btn-ghost-neon px-5 py-2.5 text-sm hover:-translate-y-0.5 pointer-events-auto">
             Why us <ArrowDown size={14} weight="light" />
           </a>
         </div>
