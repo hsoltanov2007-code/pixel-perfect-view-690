@@ -85,7 +85,7 @@ export default function Hero({ ready }: { ready: boolean }) {
 
         {/* Scroll hint — visible only at the very top */}
         <div
-          className="scroll-hint pointer-events-none absolute inset-x-0 bottom-10 z-30 flex flex-col items-center gap-3"
+          className="scroll-hint pointer-events-none absolute inset-x-0 bottom-10 z-30 flex flex-col items-center gap-3 transition-opacity duration-700 ease-out"
           style={{ opacity: hintOpacity }}
         >
           <span className="text-[10px] tracking-[0.35em] text-muted-foreground uppercase">
