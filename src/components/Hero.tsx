@@ -71,7 +71,7 @@ export default function Hero({ ready }: { ready: boolean }) {
       <div className="glow-orb pointer-events-none absolute top-24 left-[8%] h-56 w-56 rounded-full bg-foreground/10 blur-[90px]" />
       <div className="glow-orb pointer-events-none absolute right-[12%] bottom-24 h-72 w-72 rounded-full bg-foreground/10 blur-[110px]" />
 
-      <div className="relative mx-auto w-full max-w-6xl px-6 pb-20 text-center">
+      <div className="relative z-30 mx-auto w-full max-w-6xl px-6 pb-28 text-center">
         <span className="hero-line inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-[0.3em] text-muted-foreground uppercase glass">
           Instant digital delivery
         </span>
