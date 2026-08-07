@@ -36,29 +36,13 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".pre-logo",
-        {
-          opacity: 0,
-          scale: 0.6,
-          rotateX: -75,
-          rotateY: 25,
-          z: -400,
-          filter: "blur(24px)",
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          rotateX: 0,
-          rotateY: 0,
-          z: 0,
-          filter: "blur(0px)",
-          duration: 1.6,
-          ease: "power4.out",
-        },
+        { opacity: 0, scale: 0.88, y: 20, filter: "blur(18px)" },
+        { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 1.4, ease: "power4.out" },
       );
-      gsap.to(".pre-logo", { rotateY: 10, duration: 1.6, ease: "sine.inOut", delay: 1.4 });
     }, root);
     return () => ctx.revert();
   }, [showLogo]);
+
 
   const onEnded = () => {
     const ctx = gsap.context(() => {
