@@ -14,7 +14,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      const heroHeight = window.innerHeight * 0.85;
+      const heroHeight = window.innerHeight * 0.5;
       setVisible(window.scrollY > heroHeight);
     };
     onScroll();
