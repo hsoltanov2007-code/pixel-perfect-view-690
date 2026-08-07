@@ -31,12 +31,18 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main className="relative animate-fade-in">
+      <SplineBackground />
       <Navbar />
       <Hero ready />
-      <Plans />
-      <Why />
-      <Contact />
-      <Footer />
+      <div className="relative z-10">
+        <Plans />
+        <div className="relative bg-background">
+          <div className="pointer-events-none absolute inset-x-0 -top-40 h-40 bg-gradient-to-b from-transparent to-background" />
+          <Why />
+          <Contact />
+          <Footer />
+        </div>
+      </div>
     </main>
   );
 }
