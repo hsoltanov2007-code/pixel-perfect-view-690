@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { List, X } from "@phosphor-icons/react";
 
 const links = [
@@ -10,9 +10,24 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const heroHeight = window.innerHeight * 0.85;
+      setVisible(window.scrollY > heroHeight);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+      }`}
+    >
       <nav className="mx-auto mt-4 flex max-w-6xl items-center justify-between rounded-full px-5 py-3 glass sm:px-7">
         <a href="#home" className="text-lg font-semibold tracking-tight text-gradient">
           2G SHOP
