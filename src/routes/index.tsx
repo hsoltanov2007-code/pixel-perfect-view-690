@@ -1,6 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import Preloader from "@/components/Preloader";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Why from "@/components/Why";
@@ -31,22 +29,14 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [ready, setReady] = useState(false);
-
   return (
-    <main className="relative">
-      {!ready && <Preloader onDone={() => setReady(true)} />}
-      <div
-        className="transition-opacity duration-700"
-        style={{ opacity: ready ? 1 : 0 }}
-      >
-        <Navbar />
-        <Hero ready={ready} />
-        <Plans />
-        <Why />
-        <Contact />
-        <Footer />
-      </div>
+    <main className="relative animate-fade-in">
+      <Navbar />
+      <Hero ready />
+      <Plans />
+      <Why />
+      <Contact />
+      <Footer />
     </main>
   );
 }
