@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
+import { TelegramLogo, InstagramLogo } from "@phosphor-icons/react";
 
 export default function Footer() {
   const root = useRef<HTMLElement>(null);
@@ -44,24 +44,24 @@ export default function Footer() {
         />
       ))}
       <div className="footer-inner relative mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 sm:flex-row sm:justify-between">
-        <span className="text-lg font-semibold text-gradient">Milad</span>
+        <span className="text-lg font-semibold text-gradient">2G SHOP</span>
         <nav className="flex gap-6 text-sm text-muted-foreground">
           <a href="#home" className="transition-colors hover:text-foreground">Home</a>
-          <a href="#about" className="transition-colors hover:text-foreground">About</a>
-          <a href="#projects" className="transition-colors hover:text-foreground">Projects</a>
+          <a href="#plans" className="transition-colors hover:text-foreground">Plans</a>
+          <a href="#why" className="transition-colors hover:text-foreground">Why us</a>
           <a href="#contact" className="transition-colors hover:text-foreground">Contact</a>
         </nav>
         <div className="flex gap-3">
-          <a href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub" className="rounded-full p-2 glass transition-colors hover:text-accent">
-            <GithubLogo size={18} weight="light" />
+          <a href="https://t.me" target="_blank" rel="noreferrer" aria-label="Telegram" className="rounded-full p-2 glass transition-colors hover:text-accent">
+            <TelegramLogo size={18} weight="light" />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="rounded-full p-2 glass transition-colors hover:text-accent">
-            <LinkedinLogo size={18} weight="light" />
+          <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full p-2 glass transition-colors hover:text-accent">
+            <InstagramLogo size={18} weight="light" />
           </a>
         </div>
       </div>
       <p className="relative mt-8 text-center text-xs text-muted-foreground">
-        &copy; {new Date().getFullYear()} Milad. Crafted with GSAP.
+        &copy; {new Date().getFullYear()} 2G SHOP. All rights reserved.
       </p>
     </footer>
   );

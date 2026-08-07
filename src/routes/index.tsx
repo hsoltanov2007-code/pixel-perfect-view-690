@@ -3,25 +3,25 @@ import { useState } from "react";
 import Preloader from "@/components/Preloader";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Projects from "@/components/Projects";
+import Why from "@/components/Why";
+import Plans from "@/components/Plans";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Milad — Web Developer & Motion-First Portfolio" },
+      { title: "2G SHOP — Premium Subscriptions & Digital Goods Online" },
       {
         name: "description",
         content:
-          "Portfolio of Milad, a web developer building immersive 3D, GSAP-animated and high-performance web experiences.",
+          "Buy premium subscriptions online at 2G SHOP: streaming, music, gaming, AI and VPN plans with instant delivery, warranty and 24/7 support.",
       },
-      { property: "og:title", content: "Milad — Web Developer & Motion-First Portfolio" },
+      { property: "og:title", content: "2G SHOP — Premium Subscriptions Online" },
       {
         property: "og:description",
         content:
-          "Immersive 3D and GSAP-powered web experiences by Milad, front-end developer.",
+          "Streaming, music, gaming, AI and VPN subscriptions delivered instantly, with warranty and 24/7 support.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -42,8 +42,8 @@ function Index() {
       >
         <Navbar />
         <Hero ready={ready} />
-        <About />
-        <Projects />
+        <Plans />
+        <Why />
         <Contact />
         <Footer />
       </div>

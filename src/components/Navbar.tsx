@@ -3,8 +3,8 @@ import { List, X } from "@phosphor-icons/react";
 
 const links = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
+  { label: "Plans", href: "#plans" },
+  { label: "Why us", href: "#why" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -15,7 +15,7 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50">
       <nav className="mx-auto mt-4 flex max-w-6xl items-center justify-between rounded-full px-5 py-3 glass sm:px-7">
         <a href="#home" className="text-lg font-semibold tracking-tight text-gradient">
-          Milad
+          2G SHOP
         </a>
         <ul className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
@@ -29,8 +29,8 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
-        <a href="#contact" className="hidden btn-neon !px-5 !py-2 !text-sm md:inline-flex">
-          Hire Me
+        <a href="#plans" className="hidden btn-neon !px-5 !py-2 !text-sm md:inline-flex">
+          Shop now
         </a>
         <button
           aria-label="Toggle menu"
@@ -56,8 +56,8 @@ export default function Navbar() {
             {l.label}
           </a>
         ))}
-        <a href="#contact" onClick={() => setOpen(false)} className="btn-neon mt-4">
-          Hire Me
+        <a href="#plans" onClick={() => setOpen(false)} className="btn-neon mt-4">
+          Shop now
         </a>
       </div>
     </header>
