@@ -5,6 +5,7 @@ import { ArrowDown } from "@phosphor-icons/react";
 export default function Hero({ ready }: { ready: boolean }) {
   const root = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -19,16 +20,6 @@ export default function Hero({ ready }: { ready: boolean }) {
   useEffect(() => {
     if (!ready) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".hero-spline",
-        { opacity: 0, scale: 1.12, filter: "blur(18px)" },
-        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 2, ease: "power3.out" },
-      );
-      gsap.fromTo(
-        ".scroll-hint",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "power3.out" },
-      );
       gsap.to(".glow-orb", {
         y: -24,
         duration: 3,
@@ -48,8 +39,10 @@ export default function Hero({ ready }: { ready: boolean }) {
     return () => ctx.revert();
   }, [ready]);
 
+  const revealed = ready && loaded;
   const textOpacity = progress;
-  const hintOpacity = 1 - Math.min(1, progress * 2.2);
+  const hintOpacity = revealed ? 1 - Math.min(1, progress * 2.2) : 0;
+
 
   return (
     <section
@@ -59,17 +52,24 @@ export default function Hero({ ready }: { ready: boolean }) {
       style={{ height: "185vh" }}
     >
       <div className="sticky top-0 flex h-screen min-h-[640px] w-full items-center overflow-hidden">
-        <div className="hero-spline absolute inset-0">
-          {ready && (
-            <iframe
-              title="3D robot"
-              src="https://my.spline.design/nexbotbyaximoriscopycopy-yfZ7bdWYajBxb40GbmUnVyOq/"
-              frameBorder="0"
-              className="h-full w-full"
-              loading="lazy"
-            />
-          )}
+        <div
+          className="hero-spline absolute inset-0 transition-opacity duration-[1400ms] ease-out"
+          style={{ opacity: revealed ? 1 : 0 }}
+        >
+          <iframe
+            title="3D robot"
+            src="https://my.spline.design/nexbotbyaximoriscopycopy-yfZ7bdWYajBxb40GbmUnVyOq/"
+            frameBorder="0"
+            className="h-full w-full"
+            onLoad={() => setLoaded(true)}
+          />
         </div>
+        {/* Soft veil that lifts as the scene appears */}
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] bg-background transition-opacity duration-[1200ms] ease-out"
+          style={{ opacity: revealed ? 0 : 1 }}
+        />
+
         {/* Softly masks the 3D viewer watermark badge */}
         <div className="pointer-events-none absolute right-0 bottom-0 z-10 h-24 w-64 bg-[radial-gradient(ellipse_at_bottom_right,var(--background)_35%,transparent_75%)] backdrop-blur-md" />
         <div
@@ -85,7 +85,7 @@ export default function Hero({ ready }: { ready: boolean }) {
 
         {/* Scroll hint — visible only at the very top */}
         <div
-          className="scroll-hint pointer-events-none absolute inset-x-0 bottom-10 z-30 flex flex-col items-center gap-3"
+          className="scroll-hint pointer-events-none absolute inset-x-0 bottom-10 z-30 flex flex-col items-center gap-3 transition-opacity duration-700 ease-out"
           style={{ opacity: hintOpacity }}
         >
           <span className="text-[10px] tracking-[0.35em] text-muted-foreground uppercase">
