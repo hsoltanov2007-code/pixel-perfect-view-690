@@ -54,7 +54,7 @@ export default function Contact() {
           Contact
         </span>
         <h2 className="contact-field mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Let&rsquo;s build something <span className="text-gradient">luminous</span>
+          Need help with an <span className="text-gradient">order?</span>
         </h2>
 
         <form onSubmit={onSubmit} className="mt-10 space-y-4 text-left">

@@ -41,8 +41,8 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
   return (
     <div ref={root}>
       <div className="preloader hero-bg fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background">
-        <h1 className="pre-logo text-gradient text-6xl font-semibold tracking-tight sm:text-8xl">
-          Milad
+        <h1 className="pre-logo text-gradient text-5xl font-semibold tracking-tight sm:text-7xl">
+          2G SHOP
         </h1>
         <div className="pre-meta mt-10 w-56 sm:w-72">
           <div className="h-[3px] w-full overflow-hidden rounded-full bg-secondary">
