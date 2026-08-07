@@ -52,17 +52,24 @@ export default function Hero({ ready }: { ready: boolean }) {
       style={{ height: "185vh" }}
     >
       <div className="sticky top-0 flex h-screen min-h-[640px] w-full items-center overflow-hidden">
-        <div className="hero-spline absolute inset-0">
-          {ready && (
-            <iframe
-              title="3D robot"
-              src="https://my.spline.design/nexbotbyaximoriscopycopy-yfZ7bdWYajBxb40GbmUnVyOq/"
-              frameBorder="0"
-              className="h-full w-full"
-              loading="lazy"
-            />
-          )}
+        <div
+          className="hero-spline absolute inset-0 transition-opacity duration-[1400ms] ease-out"
+          style={{ opacity: revealed ? 1 : 0 }}
+        >
+          <iframe
+            title="3D robot"
+            src="https://my.spline.design/nexbotbyaximoriscopycopy-yfZ7bdWYajBxb40GbmUnVyOq/"
+            frameBorder="0"
+            className="h-full w-full"
+            onLoad={() => setLoaded(true)}
+          />
         </div>
+        {/* Soft veil that lifts as the scene appears */}
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] bg-background transition-opacity duration-[1200ms] ease-out"
+          style={{ opacity: revealed ? 0 : 1 }}
+        />
+
         {/* Softly masks the 3D viewer watermark badge */}
         <div className="pointer-events-none absolute right-0 bottom-0 z-10 h-24 w-64 bg-[radial-gradient(ellipse_at_bottom_right,var(--background)_35%,transparent_75%)] backdrop-blur-md" />
         <div
