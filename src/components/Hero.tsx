@@ -20,23 +20,10 @@ export default function Hero({ ready }: { ready: boolean }) {
     if (!ready) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        ".hero-spline",
-        { opacity: 0, scale: 1.12, filter: "blur(18px)" },
-        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 2, ease: "power3.out" },
-      );
-      gsap.fromTo(
         ".scroll-hint",
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "power3.out" },
       );
-      gsap.to(".glow-orb", {
-        y: -24,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut",
-        stagger: 0.6,
-      });
       gsap.to(".scroll-dot", {
         y: 10,
         duration: 1.2,
@@ -48,41 +35,17 @@ export default function Hero({ ready }: { ready: boolean }) {
     return () => ctx.revert();
   }, [ready]);
 
-  const textOpacity = progress;
+  const textOpacity = Math.min(1, progress);
   const hintOpacity = 1 - Math.min(1, progress * 2.2);
 
   return (
     <section
       id="home"
       ref={root}
-      className="hero-bg relative w-full"
-      style={{ height: "185vh" }}
+      className="relative w-full"
+      style={{ height: "260vh" }}
     >
       <div className="sticky top-0 flex h-screen min-h-[640px] w-full items-center overflow-hidden">
-        <div className="hero-spline absolute inset-0">
-          {ready && (
-            <iframe
-              title="3D robot"
-              src="https://my.spline.design/nexbotbyaximoriscopycopy-yfZ7bdWYajBxb40GbmUnVyOq/"
-              frameBorder="0"
-              className="h-full w-full"
-              loading="lazy"
-            />
-          )}
-        </div>
-        {/* Softly masks the 3D viewer watermark badge */}
-        <div className="pointer-events-none absolute right-0 bottom-0 z-10 h-24 w-64 bg-[radial-gradient(ellipse_at_bottom_right,var(--background)_35%,transparent_75%)] backdrop-blur-md" />
-        <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/45 to-background/70 transition-opacity duration-300"
-          style={{ opacity: 0.25 + textOpacity * 0.75 }}
-        />
-
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-56 bg-gradient-to-b from-transparent via-background/80 to-background" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-px bg-[var(--gradient-line)]" />
-        <div className="glow-orb pointer-events-none absolute bottom-[-6rem] left-1/2 z-10 h-64 w-[70%] -translate-x-1/2 rounded-full bg-foreground/10 blur-[120px]" />
-        <div className="glow-orb pointer-events-none absolute top-24 left-[8%] h-56 w-56 rounded-full bg-foreground/10 blur-[90px]" />
-        <div className="glow-orb pointer-events-none absolute right-[12%] bottom-24 h-72 w-72 rounded-full bg-foreground/10 blur-[110px]" />
-
         {/* Scroll hint — visible only at the very top */}
         <div
           className="scroll-hint pointer-events-none absolute inset-x-0 bottom-10 z-30 flex flex-col items-center gap-3"
@@ -95,6 +58,7 @@ export default function Hero({ ready }: { ready: boolean }) {
             <span className="scroll-dot h-1.5 w-1.5 rounded-full bg-foreground/70" />
           </div>
         </div>
+
 
         {/* Content reveals on scroll */}
         <div
