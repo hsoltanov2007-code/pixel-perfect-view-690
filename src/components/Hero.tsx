@@ -5,6 +5,7 @@ import { ArrowDown } from "@phosphor-icons/react";
 export default function Hero({ ready }: { ready: boolean }) {
   const root = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -19,16 +20,6 @@ export default function Hero({ ready }: { ready: boolean }) {
   useEffect(() => {
     if (!ready) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".hero-spline",
-        { opacity: 0, scale: 1.12, filter: "blur(18px)" },
-        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 2, ease: "power3.out" },
-      );
-      gsap.fromTo(
-        ".scroll-hint",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "power3.out" },
-      );
       gsap.to(".glow-orb", {
         y: -24,
         duration: 3,
@@ -48,8 +39,10 @@ export default function Hero({ ready }: { ready: boolean }) {
     return () => ctx.revert();
   }, [ready]);
 
+  const revealed = ready && loaded;
   const textOpacity = progress;
-  const hintOpacity = 1 - Math.min(1, progress * 2.2);
+  const hintOpacity = revealed ? 1 - Math.min(1, progress * 2.2) : 0;
+
 
   return (
     <section
