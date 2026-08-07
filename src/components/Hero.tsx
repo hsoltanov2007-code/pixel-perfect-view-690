@@ -56,7 +56,10 @@ export default function Hero({ ready }: { ready: boolean }) {
           />
         )}
       </div>
+      {/* Hides the 3D viewer watermark badge */}
+      <div className="absolute right-0 bottom-0 z-10 h-14 w-48 bg-background" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/45 to-background/70" />
+
 
       <div className="glow-orb pointer-events-none absolute top-24 left-[8%] h-56 w-56 rounded-full bg-foreground/10 blur-[90px]" />
       <div className="glow-orb pointer-events-none absolute right-[12%] bottom-24 h-72 w-72 rounded-full bg-foreground/10 blur-[110px]" />
