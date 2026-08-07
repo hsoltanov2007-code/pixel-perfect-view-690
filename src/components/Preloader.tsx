@@ -50,8 +50,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
         .timeline({ onComplete: finish })
         .to(".pre-logo", {
           opacity: 0,
-          scale: 1.5,
-          z: 500,
+          scale: 1.25,
           filter: "blur(16px)",
           duration: 0.8,
           ease: "power2.in",
