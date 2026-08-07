@@ -9,7 +9,7 @@ export default function Hero({ ready }: { ready: boolean }) {
   useEffect(() => {
     const onScroll = () => {
       const vh = window.innerHeight;
-      setProgress(Math.min(1, Math.max(0, window.scrollY / (vh * 0.75))));
+      setProgress(window.scrollY / vh);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -35,8 +35,13 @@ export default function Hero({ ready }: { ready: boolean }) {
     return () => ctx.revert();
   }, [ready]);
 
-  const textOpacity = Math.min(1, progress);
-  const hintOpacity = 1 - Math.min(1, progress * 2.2);
+  const clamp = (v: number) => Math.min(1, Math.max(0, v));
+  // fade in between 0.15vh and 0.75vh, hold, then fade back out by 1.7vh
+  const fadeIn = clamp((progress - 0.15) / 0.6);
+  const fadeOut = 1 - clamp((progress - 1.15) / 0.5);
+  const textOpacity = Math.min(fadeIn, fadeOut);
+  const hintOpacity = 1 - clamp(progress * 3);
+
 
   return (
     <section
