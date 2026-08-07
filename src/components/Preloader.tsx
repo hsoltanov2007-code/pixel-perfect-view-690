@@ -19,15 +19,22 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
     if (!v) return;
     v.playbackRate = 1.3;
     v.play().catch(() => setShowLogo(true));
-    const fallback = setTimeout(() => setShowLogo(true), 12000);
+    const fallback = setTimeout(finish, 14000);
     return () => clearTimeout(fallback);
   }, []);
+
+  // Reveal the logo for the last ~3 seconds of playback
+  const onTimeUpdate = () => {
+    const v = videoRef.current;
+    if (!v || !v.duration || showLogo) return;
+    const remaining = (v.duration - v.currentTime) / (v.playbackRate || 1);
+    if (remaining <= 3) setShowLogo(true);
+  };
 
   useEffect(() => {
     if (!showLogo) return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ onComplete: finish });
-      tl.fromTo(
+      gsap.fromTo(
         ".pre-logo",
         {
           opacity: 0,
@@ -44,31 +51,31 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
           rotateY: 0,
           z: 0,
           filter: "blur(0px)",
-          duration: 1.8,
+          duration: 1.6,
           ease: "power4.out",
         },
-      )
-        .to(".pre-logo", { rotateY: 12, duration: 1.2, ease: "sine.inOut" }, "-=0.4")
-        .to(
-          ".pre-logo",
-          {
-            opacity: 0,
-            scale: 1.6,
-            z: 600,
-            filter: "blur(18px)",
-            duration: 1,
-            ease: "power2.in",
-          },
-          "+=0.2",
-        )
+      );
+      gsap.to(".pre-logo", { rotateY: 10, duration: 1.6, ease: "sine.inOut", delay: 1.4 });
+    }, root);
+    return () => ctx.revert();
+  }, [showLogo]);
+
+  const onEnded = () => {
+    const ctx = gsap.context(() => {
+      gsap
+        .timeline({ onComplete: finish })
+        .to(".pre-logo", {
+          opacity: 0,
+          scale: 1.5,
+          z: 500,
+          filter: "blur(16px)",
+          duration: 0.8,
+          ease: "power2.in",
+        })
         .to(".preloader", { opacity: 0, duration: 0.7, ease: "power2.inOut" }, "-=0.5");
     }, root);
-    const fallback = setTimeout(finish, 9000);
-    return () => {
-      clearTimeout(fallback);
-      ctx.revert();
-    };
-  }, [showLogo]);
+    void ctx;
+  };
 
   return (
     <div ref={root}>
@@ -79,10 +86,10 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
           muted
           playsInline
           autoPlay
-          loop
           preload="auto"
-          onEnded={() => setShowLogo(true)}
-          onError={() => setShowLogo(true)}
+          onTimeUpdate={onTimeUpdate}
+          onEnded={onEnded}
+          onError={finish}
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="pointer-events-none absolute inset-0 bg-background/40" />
