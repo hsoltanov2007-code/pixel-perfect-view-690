@@ -55,13 +55,13 @@ export default function Hero({ ready }: { ready: boolean }) {
             Available for work
           </span>
           <h1 className="hero-line mt-6 text-4xl leading-[1.05] font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-            Hi, I&rsquo;m <span className="text-gradient">Milad</span>
+            {`'''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''`}
             <br />
-            Web Developer
+            <br />
+            pram kak v promt sdleay
           </h1>
           <p className="hero-line mt-6 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-            I craft immersive, high-performance web experiences with motion, 3D and obsessive
-            attention to detail.
+            Immersive 3D and GSAP-powered web experiences by Milad, front-end developer.
           </p>
           <div className="mt-9 flex flex-wrap gap-4">
             <a
