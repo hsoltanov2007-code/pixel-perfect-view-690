@@ -96,16 +96,46 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
         {showLogo && (
           <div
             className="relative z-10 flex items-center justify-center"
-            style={{ perspective: "900px" }}
+            style={{ perspective: "1100px" }}
           >
-            <span
-              className="pre-logo text-gradient block text-[26vw] leading-none font-semibold tracking-tight sm:text-[18vw]"
-              style={{ transformStyle: "preserve-3d", textShadow: "0 0 60px rgba(255,255,255,0.25)" }}
+            <div
+              className="pre-logo relative"
+              style={{ transformStyle: "preserve-3d" }}
             >
-              2G
-            </span>
+              {/* extruded depth layers */}
+              {Array.from({ length: 14 }).map((_, i) => (
+                <span
+                  key={i}
+                  aria-hidden
+                  className="absolute inset-0 block text-[26vw] leading-none font-semibold tracking-tight sm:text-[18vw]"
+                  style={{
+                    transform: `translate3d(${-(i + 1) * 0.09}em, ${(i + 1) * 0.045}em, ${-(i + 1) * 6}px)`,
+                    color: `oklch(${0.42 - i * 0.026} 0 0)`,
+                    transformStyle: "preserve-3d",
+                  }}
+                >
+                  2G
+                </span>
+              ))}
+              {/* front face */}
+              <span
+                className="relative block text-[26vw] leading-none font-semibold tracking-tight sm:text-[18vw]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(160deg, oklch(1 0 0) 0%, oklch(0.86 0 0) 32%, oklch(0.5 0 0) 52%, oklch(0.95 0 0) 70%, oklch(0.7 0 0) 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                  filter: "drop-shadow(0 0 60px rgba(255,255,255,0.35))",
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                2G
+              </span>
+            </div>
           </div>
         )}
+
       </div>
     </div>
   );
