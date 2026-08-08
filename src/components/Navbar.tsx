@@ -4,6 +4,7 @@ import { List, X } from "@phosphor-icons/react";
 
 const links = [
   { label: "Home", href: "#home" },
+  { label: "Why us", href: "#why" },
   { label: "Catalog", href: "/catalog" },
   { label: "Contact", href: "/contact" },
 ];

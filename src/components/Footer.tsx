@@ -48,6 +48,7 @@ export default function Footer() {
         <span className="text-lg font-semibold text-gradient">2G SHOP</span>
         <nav className="flex gap-6 text-sm text-muted-foreground">
           <a href="/#home" className="transition-colors hover:text-foreground">Home</a>
+          <a href="/#why" className="transition-colors hover:text-foreground">Why us</a>
           <Link to="/catalog" className="transition-colors hover:text-foreground">Catalog</Link>
           <Link to="/contact" className="transition-colors hover:text-foreground">Contact</Link>
         </nav>

@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Products from "@/components/Products";
+import Why from "@/components/Why";
 import Footer from "@/components/Footer";
 
 
@@ -90,6 +91,7 @@ function Index() {
 
       <Hero ready />
       <Products />
+      <Why />
       <div className="pointer-events-auto relative z-10">
         <div className="pointer-events-auto relative bg-background">
 
