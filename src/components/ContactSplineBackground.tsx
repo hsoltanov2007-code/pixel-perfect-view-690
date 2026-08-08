@@ -2,31 +2,8 @@ import { useEffect, useRef, useState } from "react";
 
 export default function ContactSplineBackground() {
   const layerRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(true);
   const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    const start = () => {
-      if (!cancelled) setMounted(true);
-    };
-    const w = window as Window & {
-      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
-      cancelIdleCallback?: (id: number) => void;
-    };
-    let idleId: number | undefined;
-    let timeoutId: number | undefined;
-    if (typeof w.requestIdleCallback === "function") {
-      idleId = w.requestIdleCallback(start, { timeout: 1200 });
-    } else {
-      timeoutId = window.setTimeout(start, 300);
-    }
-    return () => {
-      cancelled = true;
-      if (idleId !== undefined) w.cancelIdleCallback?.(idleId);
-      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
-    };
-  }, []);
 
   useEffect(() => {
     const layer = layerRef.current;
@@ -62,7 +39,7 @@ export default function ContactSplineBackground() {
             title="Contact 3D background"
             src="https://my.spline.design/astarlikeourown-ot7R5c9QGBeDqKoS8pBSw9B1/"
             frameBorder="0"
-            className={`pointer-events-auto h-[112%] w-[112%] grayscale transition-opacity duration-1000 ${loaded ? "opacity-100" : "opacity-0"}`}
+            className={`pointer-events-auto h-[112%] w-[112%] grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
             style={{ marginLeft: "-6%", marginTop: "-6%" }}
             onLoad={() => setLoaded(true)}
           />
