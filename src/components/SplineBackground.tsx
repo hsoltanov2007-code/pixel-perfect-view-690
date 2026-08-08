@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function SplineBackground() {
+  const layerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
+
 
   useEffect(() => {
     // Defer the heavy 3D iframe until the browser is idle so the first paint
