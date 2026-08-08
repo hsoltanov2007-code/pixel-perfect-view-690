@@ -49,7 +49,7 @@ export default function Hero({ ready }: { ready: boolean }) {
     <section
       id="home"
       ref={root}
-      className="relative w-full"
+      className="pointer-events-none relative w-full"
       style={{ height: "260vh" }}
     >
       <div className="sticky top-0 flex h-screen min-h-[640px] w-full items-center overflow-hidden">
