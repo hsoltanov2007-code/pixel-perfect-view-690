@@ -94,13 +94,14 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
               2G SHOP
             </span>
           ) : (
-            <a
-              href={alwaysVisible ? "/" : "#home"}
+            <Link
+              to="/"
               className="text-lg font-semibold tracking-tight text-gradient"
             >
               2G SHOP
-            </a>
+            </Link>
           )}
+
           <ul className="hidden items-center gap-8 md:flex">
             {links.map((l, i) => (
               <li key={l.href}>
