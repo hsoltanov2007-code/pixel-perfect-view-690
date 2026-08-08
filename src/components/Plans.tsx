@@ -68,19 +68,6 @@ export default function Plans() {
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        ".plan-head > *",
-        { opacity: 0, y: 40, filter: "blur(10px)" },
-        {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          duration: 0.9,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: root.current, start: "top 80%" },
-        },
-      );
-      gsap.fromTo(
         ".plan-card",
         { opacity: 0, y: 60, scale: 0.94 },
         {
