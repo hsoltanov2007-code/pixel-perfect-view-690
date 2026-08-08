@@ -187,20 +187,20 @@ function CatalogPage() {
               className="catalog-card pointer-events-auto group relative"
             >
               {/* Soft nebula halo */}
-              <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-[radial-gradient(ellipse_at_50%_0%,var(--cosmos-nebula),transparent_65%)] opacity-15 blur-2xl transition-opacity duration-700 group-hover:opacity-30" />
+              <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-[radial-gradient(ellipse_at_50%_0%,var(--cosmos-nebula),transparent_65%)] opacity-10 blur-2xl transition-opacity duration-700 group-hover:opacity-20" />
 
               {/* Card body */}
-              <div className="cosmos-surface relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/8 backdrop-blur-2xl transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-white/15">
+              <div className="cosmos-card-surface relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/6 backdrop-blur-2xl transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-white/10">
                 {/* Starfield */}
-                <div className="cosmos-starfield pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-700 group-hover:opacity-90" />
+                <div className="cosmos-starfield pointer-events-none absolute inset-0 opacity-40 transition-opacity duration-700 group-hover:opacity-70" />
                 <StarField count={10} />
                 {/* Distant nebula wash */}
-                <div className="cosmos-drift pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-cosmos-nebula/25 blur-3xl" />
+                <div className="cosmos-drift pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-cosmos-nebula/15 blur-3xl" />
 
                 {/* Image */}
                 <div className="relative h-48 w-full overflow-hidden p-3">
                   <div className="absolute top-5 left-5 z-20">
-                    <span className="rounded-full border border-white/12 bg-cosmos-deep/60 px-3 py-1 text-[10px] font-medium tracking-[0.18em] text-cosmos-star uppercase backdrop-blur-md">
+                    <span className="rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-medium tracking-[0.18em] text-cosmos-star uppercase backdrop-blur-md">
                       {p.badge}
                     </span>
                   </div>
@@ -211,10 +211,10 @@ function CatalogPage() {
                       width={1024}
                       height={768}
                       loading="lazy"
-                      className="h-full w-full object-cover opacity-80 saturate-50 transition-all duration-1000 ease-out group-hover:scale-105 group-hover:opacity-100"
+                      className="h-full w-full object-cover opacity-70 saturate-50 transition-all duration-1000 ease-out group-hover:scale-105 group-hover:opacity-90"
                     />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--cosmos-deep),transparent_65%)]" />
-                    <div className="absolute inset-0 bg-cosmos-nebula/10 mix-blend-overlay" />
+                    <div className="absolute inset-0 bg-[linear-gradient(to_top,oklch(0.05_0.02_270/0.98),transparent_60%)]" />
+                    <div className="absolute inset-0 bg-black/25" />
                   </div>
                 </div>
 
@@ -258,7 +258,7 @@ function CatalogPage() {
                   {/* CTA */}
                   <button
                     onClick={() => toast.success(`${p.title} added — we'll contact you to finish checkout.`)}
-                    className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/8 py-4 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:bg-white/14 active:scale-[0.98]"
+                    className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-4 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98]"
                   >
                     Buy now
                     <ArrowRight
