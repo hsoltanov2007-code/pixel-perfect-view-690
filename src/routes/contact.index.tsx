@@ -231,48 +231,40 @@ function ContactIndex() {
       </div>
 
       <div className="contact-social relative mx-auto mt-10 max-w-5xl">
-        <div className="rounded-3xl border border-border bg-card/40 p-6 md:p-8">
-          <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
-            <div className="text-center md:text-left">
-              <h3 className="text-lg font-medium">Or reach us instantly</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Tap a messenger — we reply fastest on WhatsApp and Telegram.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              {[
-                {
-                  Icon: WhatsappLogo,
-                  label: "WhatsApp",
-                  href: "https://wa.me/",
-                  className: "hover:bg-[#25D366]/20 hover:border-[#25D366]/50 hover:text-[#25D366]",
-                },
-                {
-                  Icon: TelegramLogo,
-                  label: "Telegram",
-                  href: "https://t.me/",
-                  className: "hover:bg-[#2AABEE]/20 hover:border-[#2AABEE]/50 hover:text-[#2AABEE]",
-                },
-                {
-                  Icon: InstagramLogo,
-                  label: "Instagram",
-                  href: "https://instagram.com/",
-                  className: "hover:bg-[#E1306C]/20 hover:border-[#E1306C]/50 hover:text-[#E1306C]",
-                },
-              ].map(({ Icon, label, href, className }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={label}
-                  className={`group inline-flex items-center gap-2 rounded-full border border-border bg-background/50 px-5 py-2.5 text-sm font-medium text-foreground backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-card/80 ${className}`}
-                >
-                  <Icon size={18} weight="fill" className="transition-transform duration-300 group-hover:scale-110" />
-                  {label}
-                </a>
-              ))}
-            </div>
+        <div className="flex flex-col items-center gap-4">
+          <p className="text-sm text-muted-foreground">Or reach us instantly</p>
+          <div className="flex items-center gap-4">
+            {[
+              {
+                Icon: WhatsappLogo,
+                label: "WhatsApp",
+                href: "https://wa.me/",
+                className: "hover:bg-[#25D366]/20 hover:border-[#25D366]/50 hover:text-[#25D366]",
+              },
+              {
+                Icon: TelegramLogo,
+                label: "Telegram",
+                href: "https://t.me/",
+                className: "hover:bg-[#2AABEE]/20 hover:border-[#2AABEE]/50 hover:text-[#2AABEE]",
+              },
+              {
+                Icon: InstagramLogo,
+                label: "Instagram",
+                href: "https://instagram.com/",
+                className: "hover:bg-[#E1306C]/20 hover:border-[#E1306C]/50 hover:text-[#E1306C]",
+              },
+            ].map(({ Icon, label, href, className }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={label}
+                className={`group flex h-12 w-12 items-center justify-center rounded-full border border-border bg-background/50 text-foreground backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-card/80 ${className}`}
+              >
+                <Icon size={22} weight="fill" className="transition-transform duration-300 group-hover:scale-110" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
