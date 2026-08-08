@@ -129,7 +129,7 @@ export default function Products() {
     <section
       id="products"
       ref={root}
-      className="pointer-events-none relative z-10 -mt-[80rem] pt-0 pb-16"
+      className="pointer-events-none relative z-10 -mt-[52rem] pt-0 pb-16"
     >
       {/* Deep space wash behind cards so the fixed robot fades out */}
       <div
