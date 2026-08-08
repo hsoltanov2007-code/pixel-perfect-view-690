@@ -93,8 +93,7 @@ export default function Hero({ ready }: { ready: boolean }) {
             Premium subscriptions online
           </h1>
           <p className="mx-auto mt-3 max-w-md text-xs leading-relaxed text-foreground/70 [text-shadow:0_1px_16px_color-mix(in_oklab,var(--background)_90%,transparent)] sm:text-sm">
-            Streaming, music, gaming, AI and VPN subscriptions at the best prices — delivered in
-            minutes, with warranty and 24/7 support.
+            Best-price streaming, music, gaming, AI and VPN subscriptions — delivered in minutes with warranty and 24/7 support.
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-3">
             <a
