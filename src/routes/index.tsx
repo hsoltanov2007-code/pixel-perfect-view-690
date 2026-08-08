@@ -43,8 +43,8 @@ function Index() {
     let frame = 0;
     const onScroll = () => {
       const y = window.scrollY;
-      const trigger = window.innerHeight * 0.55;
-      const floor = window.innerHeight * 0.35;
+      const trigger = window.innerHeight * 0.8;
+      const floor = window.innerHeight * 0.68;
 
       if (y >= trigger) introPassed = true;
       if (introPassed && y < floor - 1 && !frame) {
