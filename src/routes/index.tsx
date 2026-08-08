@@ -36,20 +36,21 @@ function Index() {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
 
-    // One-way scrolling: the page never travels back above the furthest point
-    // reached, so the intro robot view stays behind once passed.
-    let max = 0;
+    // The clean robot intro is shown only once. After it has been passed, keep
+    // a small floor inside the text reveal, while leaving the rest of the page
+    // free to scroll in either direction.
+    let introPassed = false;
     let frame = 0;
     const onScroll = () => {
       const y = window.scrollY;
-      if (y > max) {
-        max = y;
-        return;
-      }
-      if (y < max - 1 && !frame) {
+      const trigger = window.innerHeight * 0.55;
+      const floor = window.innerHeight * 0.35;
+
+      if (y >= trigger) introPassed = true;
+      if (introPassed && y < floor - 1 && !frame) {
         frame = requestAnimationFrame(() => {
           frame = 0;
-          window.scrollTo(0, max);
+          window.scrollTo(0, floor);
         });
       }
     };
