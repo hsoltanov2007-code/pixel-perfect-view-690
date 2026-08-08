@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
+const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+
 export default function SplineBackground({ active = true }: { active?: boolean }) {
   const layerRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
@@ -38,11 +41,38 @@ export default function SplineBackground({ active = true }: { active?: boolean }
     };
   }, [mounted]);
 
+  // Fade the robot into the background as the user scrolls toward the products
+  // section, so the cards remain readable without losing the scene entirely.
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    let frame = 0;
+    const apply = () => {
+      frame = 0;
+      const vh = window.innerHeight;
+      const progress = window.scrollY / vh;
+      const opacity = clamp(1 - (progress - 0.85) / 0.55, 0.08, 1);
+      wrap.style.opacity = String(opacity);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    apply();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [active]);
+
   return (
     // Kept mounted across route changes so the 3D scene stays warm in memory
     // and reappears instantly when coming back to the home page.
     <div
-      className="pointer-events-none fixed inset-0 z-0"
+      ref={wrapRef}
+      className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300"
       style={active ? undefined : { visibility: "hidden", opacity: 0 }}
       aria-hidden={!active}
     >
