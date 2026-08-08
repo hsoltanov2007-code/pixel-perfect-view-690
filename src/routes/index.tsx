@@ -76,8 +76,10 @@ function Index() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      if (restore) cancelAnimationFrame(restore);
       window.removeEventListener("scroll", onScroll);
     };
+
   }, []);
 
 
