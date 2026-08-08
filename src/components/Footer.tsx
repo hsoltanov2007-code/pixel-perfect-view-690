@@ -47,9 +47,9 @@ export default function Footer() {
       <div className="footer-inner relative mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 sm:flex-row sm:justify-between">
         <span className="text-lg font-semibold text-gradient">2G SHOP</span>
         <nav className="flex gap-6 text-sm text-muted-foreground">
-          <a href="#home" className="transition-colors hover:text-foreground">Home</a>
-          <a href="#plans" className="transition-colors hover:text-foreground">Plans</a>
-          <a href="#why" className="transition-colors hover:text-foreground">Why us</a>
+          <a href="/#home" className="transition-colors hover:text-foreground">Home</a>
+          <Link to="/catalog" className="transition-colors hover:text-foreground">Catalog</Link>
+          <a href="/#why" className="transition-colors hover:text-foreground">Why us</a>
           <Link to="/contact" className="transition-colors hover:text-foreground">Contact</Link>
         </nav>
         <div className="flex gap-3">

@@ -9,6 +9,13 @@ const links = [
   { label: "Contact", href: "/contact" },
 ];
 
+function blockKeyNav(e: React.KeyboardEvent) {
+  if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+}
+
 export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
   const { pathname } = useLocation();
   const isHome = pathname === "/";
@@ -78,7 +85,12 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
           }}
         >
           {isHome ? (
-            <span className="cursor-default text-lg font-semibold tracking-tight text-gradient">
+            <span
+              aria-disabled="true"
+              tabIndex={-1}
+              onKeyDown={blockKeyNav}
+              className="cursor-default text-lg font-semibold tracking-tight text-gradient"
+            >
               2G SHOP
             </span>
           ) : (
@@ -104,6 +116,9 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                   </Link>
                 ) : l.label === "Home" && isHome ? (
                   <span
+                    aria-disabled="true"
+                    tabIndex={-1}
+                    onKeyDown={blockKeyNav}
                     className={`cursor-default text-sm text-foreground transition-all duration-500 ${
                       visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
                     }`}
@@ -164,6 +179,9 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
           ) : l.label === "Home" && isHome ? (
             <span
               key={l.href}
+              aria-disabled="true"
+              tabIndex={-1}
+              onKeyDown={blockKeyNav}
               className="cursor-default text-2xl font-light text-foreground/50"
             >
               {l.label}
