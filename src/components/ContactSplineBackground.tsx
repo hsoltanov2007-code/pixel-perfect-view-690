@@ -62,7 +62,7 @@ export default function ContactSplineBackground() {
             title="Contact 3D background"
             src="https://my.spline.design/astarlikeourown-ot7R5c9QGBeDqKoS8pBSw9B1/"
             frameBorder="0"
-            className={`pointer-events-auto h-[112%] w-[112%] transition-opacity duration-1000 ${loaded ? "opacity-100" : "opacity-0"}`}
+            className={`pointer-events-auto h-[112%] w-[112%] grayscale transition-opacity duration-1000 ${loaded ? "opacity-100" : "opacity-0"}`}
             style={{ marginLeft: "-6%", marginTop: "-6%" }}
             onLoad={() => setLoaded(true)}
           />
