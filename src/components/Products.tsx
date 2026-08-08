@@ -97,7 +97,7 @@ export default function Products() {
     <section
       id="products"
       ref={root}
-      className="pointer-events-none relative z-10 -mt-52 pt-2 pb-16"
+      className="pointer-events-none relative z-10 -mt-80 pt-0 pb-16"
     >
       <div className="pointer-events-none absolute top-1/4 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-foreground/10 blur-[130px]" />
       <div className="product-grid relative mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
