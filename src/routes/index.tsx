@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import SplineBackground from "@/components/SplineBackground";
 import Hero from "@/components/Hero";
 import Why from "@/components/Why";
-import Plans from "@/components/Plans";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -45,7 +44,6 @@ function Index() {
       <Navbar />
       <Hero ready />
       <div className="pointer-events-auto relative z-10">
-        <Plans />
         <div className="pointer-events-auto relative bg-background">
           <div className="pointer-events-none absolute inset-x-0 -top-40 h-40 bg-gradient-to-b from-transparent to-background" />
           <Why />
