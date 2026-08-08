@@ -128,6 +128,16 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                   >
                     {l.label}
                   </span>
+                ) : l.label === "Home" ? (
+                  <Link
+                    to="/"
+                    className={`text-sm text-muted-foreground transition-all duration-500 hover:text-foreground ${
+                      visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
+                    }`}
+                    style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
+                  >
+                    {l.label}
+                  </Link>
                 ) : (
                   <a
                     href={alwaysVisible && l.href.startsWith("#") ? `/${l.href}` : l.href}
@@ -139,6 +149,7 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                     {l.label}
                   </a>
                 )}
+
               </li>
             ))}
           </ul>
