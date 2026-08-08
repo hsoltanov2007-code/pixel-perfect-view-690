@@ -147,7 +147,7 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
           ) : (
             <a
               key={l.href}
-              href={l.href}
+              href={alwaysVisible && l.href.startsWith("#") ? `/${l.href}` : l.href}
               onClick={() => setOpen(false)}
               className="text-2xl font-light text-foreground"
             >
