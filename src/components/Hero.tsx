@@ -82,8 +82,8 @@ export default function Hero({ ready }: { ready: boolean }) {
           className="pointer-events-none relative z-30 mx-auto w-full max-w-3xl px-6 pt-20 pb-8 text-center"
           style={{
             opacity: textOpacity,
-            transform: `translateY(${(1 - textOpacity) * 24}px)`,
-            filter: `blur(${(1 - textOpacity) * 6}px)`,
+            transform: `translateY(${(1 - textOpacity) * 16}px)`,
+            filter: `blur(${(1 - textOpacity) * 3}px)`,
           }}
         >
           <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[9px] tracking-[0.3em] text-foreground/90 uppercase glass">
