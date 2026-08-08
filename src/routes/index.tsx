@@ -48,7 +48,7 @@ function Index() {
       let tries = 0;
       const settle = () => {
         window.scrollTo(0, floorOf());
-        if (++tries < 20) restore = requestAnimationFrame(settle);
+        if (++tries < 60) restore = requestAnimationFrame(settle);
       };
       settle();
     } else {
