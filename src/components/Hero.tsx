@@ -66,50 +66,50 @@ export default function Hero({ ready }: { ready: boolean }) {
         </div>
 
 
-        {/* Readability scrim behind the copy */}
+        {/* Readability scrim — darker behind the copy, transparent around the robot */}
         <div
           className="pointer-events-none absolute inset-0 z-20"
           style={{
             opacity: textOpacity,
             background:
-              "radial-gradient(ellipse 46% 34% at 50% 50%, color-mix(in oklab, var(--background) 82%, transparent) 0%, color-mix(in oklab, var(--background) 55%, transparent) 55%, transparent 100%)",
+              "radial-gradient(ellipse 42% 30% at 50% 52%, color-mix(in oklab, var(--background) 88%, transparent) 0%, color-mix(in oklab, var(--background) 60%, transparent) 50%, transparent 100%)",
           }}
         />
 
         {/* Content reveals on scroll */}
         <div
-          className="pointer-events-none relative z-30 mx-auto w-full max-w-6xl px-6 pt-24 pb-8 text-center"
+          className="pointer-events-none relative z-30 mx-auto w-full max-w-3xl px-6 pt-20 pb-8 text-center"
           style={{
             opacity: textOpacity,
-            transform: `translateY(${(1 - textOpacity) * 40}px)`,
-            filter: `blur(${(1 - textOpacity) * 10}px)`,
+            transform: `translateY(${(1 - textOpacity) * 24}px)`,
+            filter: `blur(${(1 - textOpacity) * 6}px)`,
           }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[9px] tracking-[0.3em] text-foreground/80 uppercase glass">
+          <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[9px] tracking-[0.3em] text-foreground/90 uppercase glass">
             Instant digital delivery
           </span>
-          <h1 className="mx-auto mt-3 max-w-2xl text-2xl leading-[1.08] font-semibold tracking-tight [text-shadow:0_2px_24px_color-mix(in_oklab,var(--background)_90%,transparent)] sm:text-3xl lg:text-4xl">
+          <h1 className="mx-auto mt-4 max-w-2xl text-3xl leading-[1.05] font-semibold tracking-tight [text-shadow:0_2px_30px_color-mix(in_oklab,var(--background)_95%,transparent)] sm:text-4xl lg:text-5xl">
             <span className="text-gradient">2G SHOP</span>
             <br />
             Premium subscriptions online
           </h1>
-          <p className="mx-auto mt-3 max-w-md text-xs leading-relaxed text-foreground/70 [text-shadow:0_1px_16px_color-mix(in_oklab,var(--background)_90%,transparent)] sm:text-sm">
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-foreground/85 [text-shadow:0_1px_20px_color-mix(in_oklab,var(--background)_95%,transparent)] sm:text-base">
             Best-price streaming, music, gaming, AI and VPN subscriptions — delivered in minutes with warranty and 24/7 support.
           </p>
-          <div className="mt-5 flex flex-wrap justify-center gap-3">
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
               href="#plans"
-              className="btn-neon glow-strong px-4 py-2 text-xs hover:-translate-y-0.5 hover:scale-[1.04]"
+              className="btn-neon glow-strong px-5 py-2.5 text-sm hover:-translate-y-0.5 hover:scale-[1.04]"
               style={{ pointerEvents: textOpacity > 0.6 ? "auto" : "none" }}
             >
               Shop now
             </a>
             <a
               href="#why"
-              className="btn-ghost-neon px-4 py-2 text-xs hover:-translate-y-0.5"
+              className="btn-ghost-neon px-5 py-2.5 text-sm hover:-translate-y-0.5"
               style={{ pointerEvents: textOpacity > 0.6 ? "auto" : "none" }}
             >
-              Why us <ArrowDown size={13} weight="light" />
+              Why us <ArrowDown size={14} weight="light" />
             </a>
           </div>
         </div>
