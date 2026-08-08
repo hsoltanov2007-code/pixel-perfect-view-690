@@ -13,13 +13,21 @@ export default function Navbar() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
+    let frame = 0;
+    const apply = () => {
+      frame = 0;
       const heroHeight = window.innerHeight * 0.5;
       setVisible(window.scrollY > heroHeight);
     };
-    onScroll();
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    apply();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (
