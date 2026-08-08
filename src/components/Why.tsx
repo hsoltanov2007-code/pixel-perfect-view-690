@@ -71,9 +71,19 @@ export default function Why() {
     <section id="why" ref={root} className="relative py-28">
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-6 md:grid-cols-[320px_1fr]">
         <div className="why-visual group relative mx-auto">
-          <div className="absolute -inset-4 rounded-full bg-primary/25 blur-3xl transition-all duration-500 group-hover:bg-primary/40" />
-          <div className="relative grid h-60 w-60 place-items-center rounded-full glass ring-2 ring-primary/40 transition-transform duration-500 group-hover:-translate-y-2 group-hover:rotate-3 sm:h-72 sm:w-72 glow-ring">
-            <span className="text-5xl font-semibold tracking-tight text-gradient sm:text-6xl">2G</span>
+          <div className="absolute -inset-10 rounded-full bg-primary/20 blur-[80px] transition-all duration-700 group-hover:bg-primary/30" />
+          <div className="relative animate-[float-y_5s_ease-in-out_infinite]">
+            <div className="orbit-ring opacity-60" style={{ animationDuration: "10s" }} />
+            <div
+              className="orbit-ring opacity-40"
+              style={{ animationDuration: "16s", animationDirection: "reverse", inset: "-14px" }}
+            />
+            <div className="absolute -inset-1 rounded-full bg-primary/10 blur-xl animate-[pulse-glow_4s_ease-in-out_infinite]" />
+            <div className="relative grid h-60 w-60 place-items-center rounded-full bg-gradient-to-b from-foreground/12 to-foreground/4 badge-glow transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-[1.02] sm:h-72 sm:w-72">
+              <span className="text-5xl font-semibold tracking-tight text-3d transition-transform duration-500 group-hover:scale-105 sm:text-6xl">
+                2G
+              </span>
+            </div>
           </div>
         </div>
 
