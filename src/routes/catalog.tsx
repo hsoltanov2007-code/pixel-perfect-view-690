@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Check, Lightning, ArrowLeft } from "@phosphor-icons/react";
+import { Check, ArrowRight, ArrowLeft } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import CatalogSplineBackground from "@/components/CatalogSplineBackground";
