@@ -9,7 +9,6 @@ import { getCookie } from "@tanstack/react-start/server";
 import {
   createLovableAiGatewayProvider,
   getLovableAiGatewayRunId,
-  withLovableAiGatewayRunIdHeader,
 } from "@/lib/ai-gateway.server";
 
 const SYSTEM_PROMPT = `You are a helpful support assistant for 2G SHOP, an online store that sells premium digital subscriptions (streaming, music, gaming, AI, VPN) at the best prices with instant delivery, warranty and 24/7 support.
