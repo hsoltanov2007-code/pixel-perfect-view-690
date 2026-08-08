@@ -200,7 +200,7 @@ function CatalogPage() {
                 {/* Image */}
                 <div className="relative h-48 w-full overflow-hidden p-3">
                   <div className="absolute top-5 left-5 z-20">
-                    <span className="rounded-full border border-white/12 bg-cosmos-deep/60 px-3 py-1 text-[10px] font-medium tracking-[0.18em] text-cosmos-star uppercase backdrop-blur-md">
+                    <span className="rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-medium tracking-[0.18em] text-cosmos-star uppercase backdrop-blur-md">
                       {p.badge}
                     </span>
                   </div>
@@ -211,10 +211,10 @@ function CatalogPage() {
                       width={1024}
                       height={768}
                       loading="lazy"
-                      className="h-full w-full object-cover opacity-80 saturate-50 transition-all duration-1000 ease-out group-hover:scale-105 group-hover:opacity-100"
+                      className="h-full w-full object-cover opacity-70 saturate-50 transition-all duration-1000 ease-out group-hover:scale-105 group-hover:opacity-90"
                     />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--cosmos-deep),transparent_65%)]" />
-                    <div className="absolute inset-0 bg-cosmos-nebula/10 mix-blend-overlay" />
+                    <div className="absolute inset-0 bg-[linear-gradient(to_top,oklch(0.05_0.02_270/0.98),transparent_60%)]" />
+                    <div className="absolute inset-0 bg-black/25" />
                   </div>
                 </div>
 
