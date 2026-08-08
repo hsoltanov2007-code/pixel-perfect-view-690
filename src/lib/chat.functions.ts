@@ -101,3 +101,19 @@ export const escalateThread = createServerFn({ method: "POST" })
     if (insertError) throw insertError;
     return { ok: true };
   });
+
+export const getOperatorStatus = createServerFn({ method: "GET" }).handler(
+  async () => {
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+    const { data, error } = await supabaseAdmin
+      .from("operator_status")
+      .select("online")
+      .order("updated_at", { ascending: false })
+      .limit(1)
+      .single();
+    if (error || !data) return { online: false };
+    return { online: data.online };
+  }
+);
