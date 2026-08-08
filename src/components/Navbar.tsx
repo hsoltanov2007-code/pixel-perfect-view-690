@@ -9,6 +9,13 @@ const links = [
   { label: "Contact", href: "/contact" },
 ];
 
+function blockKeyNav(e: React.KeyboardEvent) {
+  if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+}
+
 export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
   const { pathname } = useLocation();
   const isHome = pathname === "/";
