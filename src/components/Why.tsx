@@ -13,7 +13,6 @@ const benefits = [
 
 export default function Why() {
   const root = useRef<HTMLElement>(null);
-  const orbWrap = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -52,38 +51,6 @@ export default function Why() {
     return () => ctx.revert();
   }, []);
 
-  // Cursor-driven 3D tilt for the orb — no native zoom/pan.
-  useEffect(() => {
-    const wrap = orbWrap.current;
-    if (!wrap) return;
-    let raf = 0;
-    let tx = 0;
-    let ty = 0;
-    let mx = 0;
-    let my = 0;
-
-    const onMove = (e: MouseEvent) => {
-      const rect = wrap.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      mx = (e.clientX - cx) / (rect.width / 2);
-      my = (e.clientY - cy) / (rect.height / 2);
-      if (!raf) raf = requestAnimationFrame(apply);
-    };
-
-    const apply = () => {
-      raf = 0;
-      tx += (mx * 6 - tx) * 0.08;
-      ty += (my * -6 - ty) * 0.08;
-      wrap.style.transform = `perspective(900px) rotateY(${tx}deg) rotateX(${ty}deg)`;
-    };
-
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [mounted]);
 
   return (
     <section
@@ -93,22 +60,16 @@ export default function Why() {
     >
       <div className="relative mx-auto flex w-full max-w-3xl flex-col items-center px-6 text-center">
         {/* Orb — scaled to push the Spline watermark outside the mask */}
-        <div className="why-fade relative mb-8 h-[320px] w-[320px] sm:h-[420px] sm:w-[420px]">
-          <div
-            ref={orbWrap}
-            className="absolute inset-0 will-change-transform"
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            <div className="absolute -inset-[15%] overflow-hidden rounded-full">
-              {mounted && (
-                <iframe
-                  src={SPLINE_URL}
-                  title="Why 2G SHOP"
-                  className="pointer-events-none absolute -inset-[15%] h-[130%] w-[130%] border-0"
-                  style={{ border: 0 }}
-                />
-              )}
-            </div>
+        <div className="why-fade relative mb-8 h-[220px] w-[220px] sm:h-[300px] sm:w-[300px]">
+          <div className="absolute -inset-[15%] overflow-hidden rounded-full">
+            {mounted && (
+              <iframe
+                src={SPLINE_URL}
+                title="Why 2G SHOP"
+                className="pointer-events-none absolute -inset-[15%] h-[130%] w-[130%] border-0"
+                style={{ border: 0 }}
+              />
+            )}
           </div>
         </div>
 
