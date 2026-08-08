@@ -176,11 +176,14 @@
 @utility field-glass {
   width: 100%;
   border-radius: 0.9rem;
-  background: var(--glass);
-  border: 1px solid oklch(0.99 0 0 / 10%);
-  padding: 0.9rem 1.1rem;
+  background: oklch(1 0 0 / 8%);
+  border: 1px solid oklch(0.99 0 0 / 18%);
+  padding: 0.95rem 1.15rem;
   font-size: 0.95rem;
   color: var(--foreground);
   outline: none;
   transition: all var(--transition-smooth);
+}
+@utility field-glass::placeholder {
+  color: oklch(1 0 0 / 45%);
 }
