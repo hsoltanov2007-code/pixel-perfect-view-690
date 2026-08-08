@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Check, Lightning, ArrowLeft } from "@phosphor-icons/react";
+import { Check, ArrowRight, ArrowLeft } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import CatalogSplineBackground from "@/components/CatalogSplineBackground";
@@ -152,91 +152,97 @@ function CatalogPage() {
         </div>
 
         <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {catalogItems.map((p) => (
+          {catalogItems.map((p, idx) => (
             <article
               key={p.title}
               className="catalog-card pointer-events-auto group relative"
             >
-              {/* Ambient glow */}
-              <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-r from-neon-violet/20 via-neon-cyan/20 to-neon-violet/20 opacity-50 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+              {/* Ambient neon glow */}
+              <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-neon-violet to-neon-cyan opacity-20 blur transition-opacity duration-1000 group-hover:opacity-40 group-hover:duration-200" />
 
               {/* Card body */}
-              <div className="relative flex h-full flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-card/80 shadow-2xl ring-1 ring-white/10 backdrop-blur-xl transition-all duration-500 group-hover:-translate-y-2">
-                {/* Image container */}
-                <div className="relative h-56 overflow-hidden">
-                  <img
-                    src={p.img}
-                    alt={`${p.title} subscription`}
-                    width={1024}
-                    height={768}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-                  <div
-                    className="absolute inset-0 opacity-30"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-                      backgroundSize: "20px 20px",
-                      maskImage: "radial-gradient(ellipse at center, black, transparent)",
-                    }}
-                  />
-
-                  {/* Badge */}
-                  <div className="absolute top-5 left-5 flex items-center gap-2 rounded-full border border-white/10 bg-black/60 px-3 py-1.5 backdrop-blur-xl">
-                    <span className="h-1.5 w-1.5 rounded-full bg-neon-violet shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
-                    <span className="text-[10px] font-bold tracking-widest text-foreground uppercase">
+              <div className="relative flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-white/10 bg-background/60 shadow-2xl backdrop-blur-2xl transition-transform duration-500 group-hover:-translate-y-1.5">
+                {/* Image */}
+                <div className="relative h-48 w-full overflow-hidden p-3">
+                  <div className="absolute top-5 left-5 z-20">
+                    <span className="rounded-full border border-neon-cyan/30 bg-neon-cyan/10 px-3 py-1 text-[10px] font-bold tracking-widest text-neon-cyan uppercase backdrop-blur-md">
                       {p.badge}
                     </span>
+                  </div>
+                  <div className="relative h-full w-full overflow-hidden rounded-2xl">
+                    <img
+                      src={p.img}
+                      alt={`${p.title} subscription`}
+                      width={1024}
+                      height={768}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-1 flex-col p-8 pt-4">
-                  {/* Title & price */}
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="font-display text-2xl font-semibold tracking-tight leading-tight">
-                      {p.title}
-                    </h3>
+                <div className="flex flex-1 flex-col px-6 pb-8">
+                  <div className="mb-4 flex items-end justify-between gap-3">
+                    <div>
+                      <h3 className="font-display text-2xl font-bold tracking-tight text-foreground">
+                        {p.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">2G SHOP Exclusive</p>
+                    </div>
                     <div className="text-right">
-                      <div className="font-display text-2xl font-semibold flex items-baseline gap-0.5">
+                      <span className="font-display text-2xl font-bold tracking-tighter text-foreground">
                         {p.price}
-                        <span className="text-muted-foreground font-normal">/</span>
-                      </div>
-                      <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
-                        month
                       </span>
+                      <span className="block text-xs text-muted-foreground">/month</span>
                     </div>
                   </div>
 
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
                     {p.desc}
                   </p>
 
-                  {/* Perks */}
-                  <ul className="mt-6 space-y-3">
-                    {p.perks.map((t) => (
-                      <li key={t} className="flex items-center gap-3 text-sm text-foreground/85">
-                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-neon-violet/20 bg-neon-violet/10">
-                          <Check size={12} weight="bold" className="text-neon-violet" />
-                        </div>
-                        {t}
-                      </li>
-                    ))}
+                  <ul className="mb-8 space-y-3">
+                    {p.perks.map((t, i) => {
+                      const cyan = (i + idx) % 2 === 1;
+                      return (
+                        <li key={t} className="flex items-center gap-3 text-sm text-foreground/80">
+                          <div
+                            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
+                              cyan
+                                ? "border-neon-cyan/30 bg-neon-cyan/10"
+                                : "border-neon-violet/30 bg-neon-violet/10"
+                            }`}
+                          >
+                            <Check
+                              size={12}
+                              weight="bold"
+                              className={cyan ? "text-neon-cyan" : "text-neon-violet"}
+                            />
+                          </div>
+                          {t}
+                        </li>
+                      );
+                    })}
                   </ul>
 
                   {/* CTA */}
                   <button
                     onClick={() => toast.success(`${p.title} added — we'll contact you to finish checkout.`)}
-                    className="group/btn relative mt-auto w-full overflow-hidden rounded-2xl bg-white py-4 text-sm font-bold tracking-tight text-black transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.4)] active:scale-[0.98]"
+                    className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-white py-4 text-sm font-bold text-black transition-colors duration-300 hover:bg-neutral-200 active:scale-[0.98]"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-neon-violet to-neon-cyan opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100" />
-                    <span className="relative z-10 flex items-center justify-center gap-2 transition-colors duration-300 group-hover/btn:text-white">
-                      Buy now <Lightning size={16} weight="fill" />
-                    </span>
+                    Buy now
+                    <ArrowRight
+                      size={16}
+                      weight="bold"
+                      className="transition-transform duration-300 group-hover/btn:translate-x-1"
+                    />
                   </button>
                 </div>
+
+                {/* Bottom inner glow */}
+                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-neon-violet/50 to-transparent" />
               </div>
             </article>
           ))}
