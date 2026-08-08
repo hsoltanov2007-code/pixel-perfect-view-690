@@ -61,22 +61,16 @@ export default function Why() {
     >
       <div className="relative mx-auto flex w-full max-w-3xl flex-col items-center px-6 text-center">
         {/* Orb — scaled to push the Spline watermark outside the mask */}
-        <div className="why-fade relative mb-8 h-[320px] w-[320px] sm:h-[420px] sm:w-[420px]">
-          <div
-            ref={orbWrap}
-            className="absolute inset-0 will-change-transform"
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            <div className="absolute -inset-[15%] overflow-hidden rounded-full">
-              {mounted && (
-                <iframe
-                  src={SPLINE_URL}
-                  title="Why 2G SHOP"
-                  className="pointer-events-none absolute -inset-[15%] h-[130%] w-[130%] border-0"
-                  style={{ border: 0 }}
-                />
-              )}
-            </div>
+        <div className="why-fade relative mb-8 h-[220px] w-[220px] sm:h-[300px] sm:w-[300px]">
+          <div className="absolute -inset-[15%] overflow-hidden rounded-full">
+            {mounted && (
+              <iframe
+                src={SPLINE_URL}
+                title="Why 2G SHOP"
+                className="pointer-events-none absolute -inset-[15%] h-[130%] w-[130%] border-0"
+                style={{ border: 0 }}
+              />
+            )}
           </div>
         </div>
 
