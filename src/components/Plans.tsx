@@ -98,7 +98,8 @@ export default function Plans() {
   }, []);
 
   return (
-    <section id="plans" ref={root} className="relative py-28">
+    <section id="plans" ref={root} className="relative pt-[45vh] pb-28">
+      <div className="pointer-events-none absolute inset-x-0 top-[25vh] bottom-0 bg-gradient-to-b from-transparent via-background/70 to-background/85" />
       <div className="pointer-events-none absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-neon-violet/15 blur-[130px]" />
       <div className="mx-auto max-w-6xl px-6">
         <div className="plan-head max-w-xl">
