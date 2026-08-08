@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import SplineBackground from "@/components/SplineBackground";
 import Hero from "@/components/Hero";
 import Why from "@/components/Why";
-import Plans from "@/components/Plans";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
