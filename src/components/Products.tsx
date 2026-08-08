@@ -97,9 +97,9 @@ export default function Products() {
     <section
       id="products"
       ref={root}
-      className="pointer-events-none relative z-10 py-28"
+      className="pointer-events-none relative z-10 -mt-24 pt-10 pb-16"
     >
-      <div className="pointer-events-none absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-foreground/10 blur-[130px]" />
+      <div className="pointer-events-none absolute top-1/4 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-foreground/10 blur-[130px]" />
       <div className="product-grid relative mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
         {items.map((p) => (
           <article
@@ -142,7 +142,7 @@ export default function Products() {
         ))}
       </div>
 
-      <div className="product-cta relative mt-12 flex justify-center px-6">
+      <div className="product-cta relative mt-8 flex justify-center px-6">
         <button
           onClick={() => toast("Full catalog is coming soon.")}
           className="btn-ghost-neon pointer-events-auto hover:-translate-y-0.5"
