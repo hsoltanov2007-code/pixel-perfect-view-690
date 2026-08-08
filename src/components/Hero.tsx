@@ -36,11 +36,12 @@ export default function Hero({ ready }: { ready: boolean }) {
   }, [ready]);
 
   const clamp = (v: number) => Math.min(1, Math.max(0, v));
-  // fade in between 0.15vh and 0.75vh, hold, then fade back out by 1.7vh
-  const fadeIn = clamp((progress - 0.15) / 0.6);
-  const fadeOut = 1 - clamp((progress - 1.15) / 0.5);
+  // fade in between 0.12vh and 0.62vh, hold, then fade back out by 1.55vh
+  const fadeIn = clamp((progress - 0.12) / 0.5);
+  const fadeOut = 1 - clamp((progress - 1.05) / 0.5);
   const textOpacity = Math.min(fadeIn, fadeOut);
   const hintOpacity = 1 - clamp(progress * 3);
+
 
 
   return (
