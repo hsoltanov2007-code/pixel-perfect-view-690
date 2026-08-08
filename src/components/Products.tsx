@@ -73,7 +73,7 @@ export default function Products() {
           duration: 0.85,
           stagger: 0.08,
           ease: "power3.out",
-          scrollTrigger: { trigger: root.current, start: "top 85%" },
+          scrollTrigger: { trigger: root.current, start: "top 72%" },
         },
       );
 
