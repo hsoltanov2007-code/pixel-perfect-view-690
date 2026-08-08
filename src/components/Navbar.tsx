@@ -102,6 +102,15 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                   >
                     {l.label}
                   </Link>
+                ) : l.label === "Home" && isHome ? (
+                  <span
+                    className={`cursor-default text-sm text-foreground transition-all duration-500 ${
+                      visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
+                    }`}
+                    style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
+                  >
+                    {l.label}
+                  </span>
                 ) : (
                   <a
                     href={alwaysVisible && l.href.startsWith("#") ? `/${l.href}` : l.href}
