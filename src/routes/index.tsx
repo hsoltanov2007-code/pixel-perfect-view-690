@@ -30,8 +30,16 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  // Always start from the top on reload — restoring a mid-page offset before
+  // the sticky hero / 3D scene are ready caused the visual jank.
+  useEffect(() => {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <main className="pointer-events-none relative animate-fade-in">
+
       <SplineBackground />
       <Navbar />
       <Hero ready />
