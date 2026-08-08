@@ -13,7 +13,6 @@ const benefits = [
 
 export default function Why() {
   const root = useRef<HTMLElement>(null);
-  const orbWrap = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
