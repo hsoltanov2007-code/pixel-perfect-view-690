@@ -45,7 +45,7 @@ export default function CatalogSplineBackground() {
         {mounted && (
           <iframe
             title="Catalog 3D robot"
-            src="https://my.spline.design/x2qorobotcharacterconcept-FEm1F95xUvkmqtB9koPpJwHf/"
+            src="https://my.spline.design/x2qorobotcharacterconcept-dN1i7oU8vFGveIxqA3EFd0ed/"
             frameBorder="0"
             tabIndex={-1}
             scrolling="no"
