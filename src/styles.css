@@ -298,6 +298,11 @@
   box-shadow: var(--shadow-cosmos);
 }
 
+@utility cosmos-card-surface {
+  background: var(--gradient-cosmos-card);
+  box-shadow: var(--shadow-cosmos);
+}
+
 @utility cosmos-starfield {
   background-image:
     radial-gradient(1px 1px at 12% 22%, oklch(0.95 0.02 250 / 0.85), transparent 60%),
