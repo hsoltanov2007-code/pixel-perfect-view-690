@@ -94,19 +94,20 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
               2G SHOP
             </span>
           ) : (
-            <a
-              href={alwaysVisible ? "/" : "#home"}
+            <Link
+              to="/"
               className="text-lg font-semibold tracking-tight text-gradient"
             >
               2G SHOP
-            </a>
+            </Link>
           )}
+
           <ul className="hidden items-center gap-8 md:flex">
             {links.map((l, i) => (
               <li key={l.href}>
-                {l.href === "/contact" ? (
+                {l.href === "/contact" || l.href === "/catalog" ? (
                   <Link
-                    to="/contact"
+                    to={l.href}
                     className={`text-sm text-muted-foreground transition-all duration-500 hover:text-foreground ${
                       visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
                     }`}
@@ -115,6 +116,7 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                     {l.label}
                   </Link>
                 ) : l.label === "Home" && isHome ? (
+
                   <span
                     aria-disabled="true"
                     tabIndex={-1}
@@ -126,6 +128,16 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                   >
                     {l.label}
                   </span>
+                ) : l.label === "Home" ? (
+                  <Link
+                    to="/"
+                    className={`text-sm text-muted-foreground transition-all duration-500 hover:text-foreground ${
+                      visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
+                    }`}
+                    style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
+                  >
+                    {l.label}
+                  </Link>
                 ) : (
                   <a
                     href={alwaysVisible && l.href.startsWith("#") ? `/${l.href}` : l.href}
@@ -137,6 +149,7 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                     {l.label}
                   </a>
                 )}
+
               </li>
             ))}
           </ul>
@@ -167,10 +180,10 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
         style={{ background: "oklch(0.09 0 0 / 98%)", backdropFilter: "blur(28px)" }}
       >
         {links.map((l) =>
-          l.href === "/contact" ? (
+          l.href === "/contact" || l.href === "/catalog" ? (
             <Link
               key={l.href}
-              to="/contact"
+              to={l.href}
               onClick={() => setOpen(false)}
               className="text-2xl font-light text-foreground"
             >
@@ -186,6 +199,15 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
             >
               {l.label}
             </span>
+          ) : l.label === "Home" ? (
+            <Link
+              key={l.href}
+              to="/"
+              onClick={() => setOpen(false)}
+              className="text-2xl font-light text-foreground"
+            >
+              {l.label}
+            </Link>
           ) : (
             <a
               key={l.href}
@@ -197,6 +219,7 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
             </a>
           )
         )}
+
         <Link to="/catalog" onClick={() => setOpen(false)} className="btn-neon mt-4">
           Shop now
         </Link>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function SplineBackground() {
+export default function SplineBackground({ active = true }: { active?: boolean }) {
   const layerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -39,7 +39,14 @@ export default function SplineBackground() {
   }, [mounted]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0">
+    // Kept mounted across route changes so the 3D scene stays warm in memory
+    // and reappears instantly when coming back to the home page.
+    <div
+      className="pointer-events-none fixed inset-0 z-0"
+      style={active ? undefined : { visibility: "hidden", opacity: 0 }}
+      aria-hidden={!active}
+    >
+
       <div
         ref={layerRef}
         className="pointer-events-auto absolute inset-0 transition-transform duration-500 ease-out will-change-transform"
