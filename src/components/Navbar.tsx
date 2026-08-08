@@ -179,6 +179,9 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
           ) : l.label === "Home" && isHome ? (
             <span
               key={l.href}
+              aria-disabled="true"
+              tabIndex={-1}
+              onKeyDown={blockKeyNav}
               className="cursor-default text-2xl font-light text-foreground/50"
             >
               {l.label}
