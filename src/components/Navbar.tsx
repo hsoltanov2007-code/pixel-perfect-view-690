@@ -180,10 +180,10 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
         style={{ background: "oklch(0.09 0 0 / 98%)", backdropFilter: "blur(28px)" }}
       >
         {links.map((l) =>
-          l.href === "/contact" ? (
+          l.href === "/contact" || l.href === "/catalog" ? (
             <Link
               key={l.href}
-              to="/contact"
+              to={l.href}
               onClick={() => setOpen(false)}
               className="text-2xl font-light text-foreground"
             >
@@ -199,6 +199,15 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
             >
               {l.label}
             </span>
+          ) : l.label === "Home" ? (
+            <Link
+              key={l.href}
+              to="/"
+              onClick={() => setOpen(false)}
+              className="text-2xl font-light text-foreground"
+            >
+              {l.label}
+            </Link>
           ) : (
             <a
               key={l.href}
@@ -210,6 +219,7 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
             </a>
           )
         )}
+
         <Link to="/catalog" onClick={() => setOpen(false)} className="btn-neon mt-4">
           Shop now
         </Link>
