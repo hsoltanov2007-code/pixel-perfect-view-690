@@ -8,7 +8,7 @@ export default function SplineBackground() {
   }, []);
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10">
+    <div className="pointer-events-none fixed inset-0 z-0">
       <div className="pointer-events-auto absolute inset-0">
         {mounted && (
           <iframe
