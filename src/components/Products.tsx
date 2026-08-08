@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "@tanstack/react-router";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Check, Lightning, ArrowRight } from "@phosphor-icons/react";
