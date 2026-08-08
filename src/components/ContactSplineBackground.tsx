@@ -56,10 +56,8 @@ export default function ContactSplineBackground() {
 
       {/* Masks the 3D viewer watermark badge */}
       <div className="pointer-events-none absolute right-0 bottom-0 h-36 w-96 bg-[radial-gradient(ellipse_at_bottom_right,var(--background)_58%,transparent_88%)]" />
-      {/* Soft vignette to keep the form readable */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_55%,var(--background)_95%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-background/20" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/40" />
+      {/* Subtle top/bottom fade to keep the form readable without hard side edges */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-background/30" />
     </div>
   );
 }
