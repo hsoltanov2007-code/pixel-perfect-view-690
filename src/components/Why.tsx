@@ -11,6 +11,7 @@ const features = [
 
 export default function Why() {
   const root = useRef<HTMLElement>(null);
+  const orbRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -57,16 +58,55 @@ export default function Why() {
     return () => ctx.revert();
   }, []);
 
+  // Mouse-reactive parallax on the orb: keeps the Spline "looking at" the cursor
+  // without allowing native zoom/pan interactions.
+  useEffect(() => {
+    const orb = orbRef.current;
+    if (!orb) return;
+    let frame = 0;
+    let rx = 0;
+    let ry = 0;
+    const inner = orb.querySelector(".why-orb-inner") as HTMLElement | null;
+    const apply = () => {
+      frame = 0;
+      if (inner) {
+        inner.style.transform = `perspective(600px) rotateX(${ry}deg) rotateY(${rx}deg) translate3d(0,0,0)`;
+      }
+    };
+    const onMove = (e: MouseEvent) => {
+      const rect = orb.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      rx = ((e.clientX - cx) / (window.innerWidth / 2)) * 8;
+      ry = ((e.clientY - cy) / (window.innerHeight / 2)) * -8;
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
     <section id="why" ref={root} className="relative py-24">
       <div className="mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        <div className="why-visual relative h-64 w-64 overflow-hidden rounded-full border border-foreground/10 bg-foreground/[0.03] shadow-[0_0_80px_-30px_hsl(0_0%_100%_/0.15)]">
-          <iframe
-            src="https://my.spline.design/voiceinteractionanimation-1gYdkk8IoM6Ts9W1i4oTC43k/"
-            frameBorder={0}
-            title="2G interaction"
-            className="pointer-events-auto absolute left-1/2 top-1/2 h-[190%] w-[190%] -translate-x-1/2 -translate-y-[46%] border-0"
-          />
+        <div
+          ref={orbRef}
+          className="why-visual relative h-64 w-64 overflow-hidden rounded-full border border-foreground/10 bg-foreground/[0.03] shadow-[0_0_80px_-30px_hsl(0_0%_100%_/0.15)]"
+        >
+          <div className="why-orb-inner absolute inset-0 transition-transform duration-200 ease-out will-change-transform">
+            <iframe
+              src="https://my.spline.design/voiceinteractionanimation-1gYdkk8IoM6Ts9W1i4oTC43k/"
+              frameBorder={0}
+              title="2G interaction"
+              tabIndex={-1}
+              scrolling="no"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[190%] w-[190%] -translate-x-1/2 -translate-y-[46%] border-0"
+            />
+          </div>
+          {/* Masks the Spline watermark badge */}
+          <div className="pointer-events-none absolute right-0 bottom-0 h-16 w-28 bg-[radial-gradient(ellipse_at_bottom_right,var(--background)_55%,transparent_85%)]" />
         </div>
 
 
