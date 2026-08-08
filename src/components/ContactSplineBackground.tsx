@@ -49,8 +49,8 @@ export default function ContactSplineBackground() {
             frameBorder="0"
             tabIndex={-1}
             scrolling="no"
-            className={`pointer-events-none h-[140%] w-[140%] grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
-            style={{ marginLeft: "-20%", marginTop: "-20%" }}
+            className={`pointer-events-none h-[160%] w-[160%] grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+            style={{ marginLeft: "-30%", marginTop: "-30%" }}
             onLoad={() => setLoaded(true)}
           />
         )}
