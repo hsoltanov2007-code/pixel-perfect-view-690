@@ -62,6 +62,17 @@ function ContactIndex() {
           scrollTrigger: { trigger: ".contact-grid", start: "top 80%" },
         }
       );
+      gsap.fromTo(
+        ".contact-social",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".contact-social", start: "top 85%" },
+        }
+      );
     }, root);
     return () => ctx.revert();
   }, []);
