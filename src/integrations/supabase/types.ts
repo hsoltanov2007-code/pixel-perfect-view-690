@@ -99,6 +99,24 @@ export type Database = {
           },
         ]
       }
+      operator_status: {
+        Row: {
+          id: string
+          online: boolean
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          online?: boolean
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          online?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
