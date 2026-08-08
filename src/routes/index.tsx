@@ -5,7 +5,6 @@ import SplineBackground from "@/components/SplineBackground";
 import Hero from "@/components/Hero";
 import Products from "@/components/Products";
 import Why from "@/components/Why";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export const Route = createFileRoute("/")({
@@ -75,7 +74,6 @@ function Index() {
 
           <div className="pointer-events-none absolute inset-x-0 -top-40 h-40 bg-gradient-to-b from-transparent to-background" />
           <Why />
-          <Contact />
           <Footer />
         </div>
       </div>
