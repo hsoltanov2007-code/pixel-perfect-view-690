@@ -10,6 +10,8 @@ const links = [
 ];
 
 export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(alwaysVisible);
 
