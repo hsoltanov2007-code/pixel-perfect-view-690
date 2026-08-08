@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import Navbar from "@/components/Navbar";
-import SplineBackground from "@/components/SplineBackground";
 import Hero from "@/components/Hero";
 import Products from "@/components/Products";
 import Why from "@/components/Why";
 import Footer from "@/components/Footer";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
