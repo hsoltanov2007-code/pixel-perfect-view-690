@@ -36,7 +36,7 @@ export default function CatalogSplineBackground() {
   }, [mounted]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-background">
       <div
         ref={layerRef}
         className="pointer-events-none absolute inset-0 transition-transform duration-500 ease-out will-change-transform"
