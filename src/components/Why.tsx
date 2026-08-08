@@ -69,7 +69,17 @@ export default function Why() {
             title="2G interaction"
             className="pointer-events-auto"
           />
+          {/* hide Spline watermark without altering the scene */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute right-0 bottom-0 h-16 w-40"
+            style={{
+              background:
+                "radial-gradient(120% 120% at 100% 100%, hsl(var(--background)) 55%, transparent 100%)",
+            }}
+          />
         </div>
+
 
         <div className="why-copy mt-10">
           <span className="text-[11px] tracking-[0.25em] text-accent uppercase">Why 2G SHOP</span>
