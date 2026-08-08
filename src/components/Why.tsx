@@ -66,9 +66,12 @@ export default function Why() {
     let frame = 0;
     let rx = 0;
     let ry = 0;
+    const inner = orb.querySelector(".why-orb-inner") as HTMLElement | null;
     const apply = () => {
       frame = 0;
-      orb.style.transform = `perspective(600px) rotateX(${ry}deg) rotateY(${rx}deg) translate3d(0,0,0)`;
+      if (inner) {
+        inner.style.transform = `perspective(600px) rotateX(${ry}deg) rotateY(${rx}deg) translate3d(0,0,0)`;
+      }
     };
     const onMove = (e: MouseEvent) => {
       const rect = orb.getBoundingClientRect();
