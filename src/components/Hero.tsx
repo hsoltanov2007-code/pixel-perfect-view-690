@@ -1,29 +1,57 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ArrowDown } from "@phosphor-icons/react";
 
+const clamp = (v: number) => Math.min(1, Math.max(0, v));
+
 export default function Hero({ ready }: { ready: boolean }) {
   const root = useRef<HTMLElement>(null);
-  const [progress, setProgress] = useState(0);
+  const hintRef = useRef<HTMLDivElement>(null);
+  const scrimRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
+  // Scroll-driven styles are written imperatively via rAF so scrolling never
+  // triggers React re-renders (that was the source of the jank on reload).
   useEffect(() => {
-    const onScroll = () => {
+    let frame = 0;
+    const apply = () => {
+      frame = 0;
       const vh = window.innerHeight;
-      setProgress(window.scrollY / vh);
+      const progress = window.scrollY / vh;
+      const fadeIn = clamp((progress - 0.1) / 0.45);
+      const fadeOut = 1 - clamp((progress - 0.95) / 0.5);
+      const textOpacity = Math.min(fadeIn, fadeOut);
+      const hintOpacity = 1 - clamp(progress * 3);
+
+      if (hintRef.current) hintRef.current.style.opacity = String(hintOpacity);
+      if (scrimRef.current) scrimRef.current.style.opacity = String(textOpacity);
+      if (contentRef.current) {
+        const s = contentRef.current.style;
+        s.opacity = String(textOpacity);
+        s.transform = `translate3d(0, ${(1 - textOpacity) * 16}px, 0)`;
+        s.filter = textOpacity > 0.985 ? "none" : `blur(${(1 - textOpacity) * 3}px)`;
+      }
+      if (ctaRef.current) {
+        ctaRef.current.style.pointerEvents = textOpacity > 0.6 ? "auto" : "none";
+      }
     };
-    onScroll();
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    apply();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
     if (!ready) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".scroll-hint",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "power3.out" },
-      );
       gsap.to(".scroll-dot", {
         y: 10,
         duration: 1.2,
@@ -35,12 +63,6 @@ export default function Hero({ ready }: { ready: boolean }) {
     return () => ctx.revert();
   }, [ready]);
 
-  const clamp = (v: number) => Math.min(1, Math.max(0, v));
-  // fade in between 0.1vh and 0.55vh, hold, then fade back out by 1.45vh
-  const fadeIn = clamp((progress - 0.1) / 0.45);
-  const fadeOut = 1 - clamp((progress - 0.95) / 0.5);
-  const textOpacity = Math.min(fadeIn, fadeOut);
-  const hintOpacity = 1 - clamp(progress * 3);
 
 
 
