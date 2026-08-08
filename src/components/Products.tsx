@@ -105,7 +105,7 @@ export default function Products() {
           duration: 0.42,
           stagger: 0.04,
           ease: "power3.out",
-          scrollTrigger: { trigger: root.current, start: "top 28%" },
+          scrollTrigger: { trigger: root.current, start: "top 85%" },
         },
       );
 
@@ -118,7 +118,7 @@ export default function Products() {
           duration: 0.35,
           delay: 0.1,
           ease: "power3.out",
-          scrollTrigger: { trigger: root.current, start: "top 60%" },
+          scrollTrigger: { trigger: root.current, start: "top 70%" },
         },
       );
     }, root);
