@@ -131,6 +131,14 @@ export default function Products() {
       ref={root}
       className="pointer-events-none relative z-10 -mt-[52rem] pt-0 pb-16"
     >
+      {/* Deep space wash behind cards so the fixed robot fades out */}
+      <div
+        className="pointer-events-none absolute inset-0 -top-32"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent 0%, oklch(0.03 0.01 270 / 0.65) 18%, oklch(0.03 0.01 270 / 0.92) 45%, oklch(0.03 0.01 270 / 0.98) 100%)",
+        }}
+      />
       <div className="pointer-events-none absolute top-1/4 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-foreground/10 blur-[130px]" />
       <div className="product-grid relative mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
         {items.map((p) => (
