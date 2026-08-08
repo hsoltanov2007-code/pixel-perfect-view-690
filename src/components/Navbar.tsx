@@ -9,11 +9,15 @@ const links = [
   { label: "Contact", href: "/contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
   const [open, setOpen] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(alwaysVisible);
 
   useEffect(() => {
+    if (alwaysVisible) {
+      setVisible(true);
+      return;
+    }
     let frame = 0;
     const apply = () => {
       frame = 0;
@@ -29,7 +33,8 @@ export default function Navbar() {
       if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [alwaysVisible]);
+
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
