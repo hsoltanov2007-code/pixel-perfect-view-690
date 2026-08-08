@@ -87,7 +87,7 @@ export default function Navbar() {
 
 
       <div
-        className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-background/95 backdrop-blur-xl transition-transform duration-500 md:hidden ${
+        className={`pointer-events-auto fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-background/95 backdrop-blur-xl transition-transform duration-500 md:hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
