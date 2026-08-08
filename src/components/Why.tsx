@@ -69,7 +69,7 @@ export default function Why() {
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-px -right-px h-14 w-44 bg-foreground"
+            className="pointer-events-none absolute -bottom-px -right-px h-14 w-44 rounded-tl-full bg-foreground"
           />
         </div>
 
