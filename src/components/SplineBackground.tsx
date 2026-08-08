@@ -2,8 +2,16 @@ import { useEffect, useRef, useState } from "react";
 
 export default function SplineBackground() {
   const layerRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(true);
+  const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
+
+  // Mount only on the client: an SSR-rendered iframe can finish loading before
+  // React hydrates, so its onLoad never fires and it stays invisible forever.
+  useEffect(() => {
+    setMounted(true);
+    const t = setTimeout(() => setLoaded(true), 2500);
+    return () => clearTimeout(t);
+  }, []);
 
   // Subtle parallax so the scene still reacts to the cursor, while the iframe
   // stays non-interactive (it used to swallow wheel events, making it
