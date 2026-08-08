@@ -161,6 +161,13 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
             >
               {l.label}
             </Link>
+          ) : l.label === "Home" && isHome ? (
+            <span
+              key={l.href}
+              className="cursor-default text-2xl font-light text-foreground/50"
+            >
+              {l.label}
+            </span>
           ) : (
             <a
               key={l.href}
