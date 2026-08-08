@@ -68,19 +68,6 @@ export default function Plans() {
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        ".plan-head > *",
-        { opacity: 0, y: 40, filter: "blur(10px)" },
-        {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          duration: 0.9,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: root.current, start: "top 80%" },
-        },
-      );
-      gsap.fromTo(
         ".plan-card",
         { opacity: 0, y: 60, scale: 0.94 },
         {
@@ -101,19 +88,7 @@ export default function Plans() {
     <section id="plans" ref={root} className="pointer-events-auto relative pt-[45vh] pb-28">
       <div className="pointer-events-none absolute inset-x-0 top-[25vh] bottom-0 bg-gradient-to-b from-transparent via-background/70 to-background/85" />
       <div className="pointer-events-none absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-neon-violet/15 blur-[130px]" />
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="plan-head max-w-xl">
-          <span className="text-xs tracking-[0.3em] text-accent uppercase">Store</span>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Subscriptions that <span className="text-gradient">deliver instantly</span>
-          </h2>
-          <p className="mt-4 text-muted-foreground">
-            Official digital subscriptions and licence keys — activated in minutes, 24/7 support.
-          </p>
-        </div>
-      </div>
-
-      <div className="plan-track mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-6 [scrollbar-width:none] lg:mx-auto lg:max-w-6xl">
+      <div className="plan-track flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-6 [scrollbar-width:none] lg:mx-auto lg:max-w-6xl">
         {plans.map((p) => (
           <article
             key={p.title}
