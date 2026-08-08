@@ -116,7 +116,7 @@ export const Route = createFileRoute("/api/chat")({
           });
           console.log("[chat] returning streaming response");
 
-          return withLovableAiGatewayRunIdHeader(response, gateway);
+          return response;
         } catch (error) {
           console.error("[chat] handler error", error);
           return new Response(
