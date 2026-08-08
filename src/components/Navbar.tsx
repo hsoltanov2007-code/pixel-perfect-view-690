@@ -100,15 +100,15 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <a
-            href="#plans"
+          <Link
+            to="/catalog"
             className={`hidden btn-neon !px-5 !py-2 !text-sm transition-all duration-500 md:inline-flex ${
               visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
             }`}
             style={{ transitionDelay: visible ? "620ms" : "0ms" }}
           >
             Shop now
-          </a>
+          </Link>
           <button
             aria-label="Toggle menu"
             onClick={() => setOpen((v) => !v)}
