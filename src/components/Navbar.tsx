@@ -105,9 +105,9 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
           <ul className="hidden items-center gap-8 md:flex">
             {links.map((l, i) => (
               <li key={l.href}>
-                {l.href === "/contact" ? (
+                {l.href === "/contact" || l.href === "/catalog" ? (
                   <Link
-                    to="/contact"
+                    to={l.href}
                     className={`text-sm text-muted-foreground transition-all duration-500 hover:text-foreground ${
                       visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
                     }`}
@@ -116,6 +116,7 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                     {l.label}
                   </Link>
                 ) : l.label === "Home" && isHome ? (
+
                   <span
                     aria-disabled="true"
                     tabIndex={-1}
