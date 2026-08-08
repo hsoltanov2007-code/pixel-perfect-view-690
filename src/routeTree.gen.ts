@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ContactIndexRouteImport } from './routes/contact.index'
@@ -18,6 +19,11 @@ import { Route as ContactThreadIdRouteImport } from './routes/contact.$threadId'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CatalogRoute = CatalogRouteImport.update({
+  id: '/catalog',
+  path: '/catalog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -43,6 +49,7 @@ const ContactThreadIdRoute = ContactThreadIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/catalog': typeof CatalogRoute
   '/contact': typeof ContactRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/catalog': typeof CatalogRoute
   '/api/chat': typeof ApiChatRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
   '/contact': typeof ContactIndexRoute
@@ -57,6 +65,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/catalog': typeof CatalogRoute
   '/contact': typeof ContactRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
@@ -64,12 +73,19 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contact' | '/api/chat' | '/contact/$threadId' | '/contact/'
+  fullPaths:
+    | '/'
+    | '/catalog'
+    | '/contact'
+    | '/api/chat'
+    | '/contact/$threadId'
+    | '/contact/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/chat' | '/contact/$threadId' | '/contact'
+  to: '/' | '/catalog' | '/api/chat' | '/contact/$threadId' | '/contact'
   id:
     | '__root__'
     | '/'
+    | '/catalog'
     | '/contact'
     | '/api/chat'
     | '/contact/$threadId'
@@ -78,6 +94,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CatalogRoute: typeof CatalogRoute
   ContactRoute: typeof ContactRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
 }
@@ -89,6 +106,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/catalog': {
+      id: '/catalog'
+      path: '/catalog'
+      fullPath: '/catalog'
+      preLoaderRoute: typeof CatalogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -137,9 +161,20 @@ const ContactRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CatalogRoute: CatalogRoute,
   ContactRoute: ContactRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
