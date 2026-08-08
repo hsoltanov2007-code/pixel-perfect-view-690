@@ -147,9 +147,9 @@ export default function Navbar() {
             </a>
           )
         )}
-        <a href="#plans" onClick={() => setOpen(false)} className="btn-neon mt-4">
+        <Link to="/catalog" onClick={() => setOpen(false)} className="btn-neon mt-4">
           Shop now
-        </a>
+        </Link>
       </div>
     </header>
   );
