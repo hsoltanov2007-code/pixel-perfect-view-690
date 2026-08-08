@@ -41,8 +41,20 @@ function Index() {
     // the home page (logo / Home / back from catalog), open straight at the
     // point where the page unlocks instead of replaying the intro.
     let introPassed = sessionStorage.getItem(INTRO_SEEN_KEY) === "1";
-    if (introPassed) window.scrollTo(0, floorOf());
-    else window.scrollTo(0, 0);
+    let restore = 0;
+    if (introPassed) {
+      // The router may reset the offset right after mount, so re-apply the
+      // landing position for a few frames until it sticks.
+      let tries = 0;
+      const settle = () => {
+        window.scrollTo(0, floorOf());
+        if (++tries < 20) restore = requestAnimationFrame(settle);
+      };
+      settle();
+    } else {
+      window.scrollTo(0, 0);
+    }
+
 
     let frame = 0;
     const onScroll = () => {
