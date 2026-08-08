@@ -42,7 +42,7 @@ export default function SplineBackground() {
     <div className="pointer-events-none fixed inset-0 z-0">
       <div
         ref={layerRef}
-        className="pointer-events-auto absolute inset-0 transition-transform duration-500 ease-out will-change-transform"
+        className="pointer-events-none absolute inset-0 transition-transform duration-500 ease-out will-change-transform"
         style={{ transform: "translate3d(0,0,0) scale(1.04)" }}
       >
         {mounted && (
