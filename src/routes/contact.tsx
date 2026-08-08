@@ -26,8 +26,9 @@ export const Route = createFileRoute("/contact")({
 
 function ContactLayout() {
   return (
-    <div className="min-h-screen bg-background">
-      <main className="mx-auto min-h-screen max-w-7xl">
+    <div className="relative min-h-screen overflow-hidden bg-background">
+      <ContactSplineBackground />
+      <main className="relative z-10 mx-auto min-h-screen max-w-7xl">
         <Outlet />
       </main>
       <Footer />
