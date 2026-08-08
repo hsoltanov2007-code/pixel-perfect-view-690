@@ -78,7 +78,12 @@ export default function Contact() {
             placeholder="Which subscription are you interested in?"
             className="contact-field field-glass resize-none focus:border-primary focus:glow-ring"
           />
-          <button type="submit" disabled={sending} className="contact-submit btn-neon w-full">
+          <button
+            type="submit"
+            disabled={sending}
+            className="contact-submit group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-foreground/20 bg-foreground/5 px-6 py-3.5 text-sm font-medium text-foreground backdrop-blur-md transition-all duration-500 hover:border-foreground/40 hover:bg-foreground/10 hover:shadow-[0_0_40px_-10px_oklch(1_0_0_/_0.25)] disabled:opacity-60"
+          >
+            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-foreground/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             {sending ? "Sending..." : "Send message"}
             <PaperPlaneTilt size={17} weight="light" />
           </button>
