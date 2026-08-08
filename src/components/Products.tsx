@@ -2,11 +2,40 @@ import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Check, Lightning, ArrowRight } from "@phosphor-icons/react";
+import { Check, ArrowRight } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import p1 from "@/assets/project-1.jpg";
 import p2 from "@/assets/project-2.jpg";
 import p3 from "@/assets/project-3.jpg";
+
+function StarField({ count = 10 }: { count?: number }) {
+  const stars = Array.from({ length: count }, (_, i) => ({
+    top: `${Math.random() * 100}%`,
+    left: `${Math.random() * 100}%`,
+    size: Math.random() * 1.5 + 0.5,
+    delay: Math.random() * 4,
+    duration: Math.random() * 2 + 2,
+  }));
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[1.75rem]">
+      {stars.map((s, i) => (
+        <span
+          key={i}
+          className="absolute rounded-full bg-cosmos-star animate-star-twinkle"
+          style={{
+            top: s.top,
+            left: s.left,
+            width: s.size,
+            height: s.size,
+            animationDelay: `${s.delay}s`,
+            animationDuration: `${s.duration}s`,
+            boxShadow: `0 0 ${s.size * 3}px currentColor`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 const items = [
   {
@@ -16,6 +45,7 @@ const items = [
     period: "/ month",
     desc: "4K streaming subscription, instant delivery to your inbox.",
     perks: ["4K + HDR", "Works worldwide", "Instant activation"],
+    badge: "Popular",
   },
   {
     img: p2,
@@ -24,6 +54,7 @@ const items = [
     period: "/ month",
     desc: "Ad-free music on every device with offline downloads.",
     perks: ["Ad-free", "Offline mode", "Up to 6 devices"],
+    badge: "Best value",
   },
   {
     img: p3,
@@ -32,6 +63,7 @@ const items = [
     period: "/ month",
     desc: "Premium AI access with priority speed and higher limits.",
     perks: ["Priority speed", "Higher limits", "Early features"],
+    badge: "Enterprise",
   },
 ];
 
@@ -51,7 +83,6 @@ export default function Products() {
           opacity: 0,
           scale: 0.12,
           filter: "blur(16px)",
-          // all cards start stacked on the exact same point (grid center)
           x: (i: number, el: HTMLElement) => {
             if (!grid) return 0;
             const g = grid.getBoundingClientRect();
@@ -105,39 +136,93 @@ export default function Products() {
         {items.map((p) => (
           <article
             key={p.title}
-            className="product-card pointer-events-auto group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-[0_30px_80px_-20px_hsl(0_0%_0%/0.9)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:glow-ring"
+            className="product-card pointer-events-auto group relative"
           >
-            <img
-              src={p.img}
-              alt={`${p.title} subscription`}
-              width={1024}
-              height={768}
-              loading="lazy"
-              className="h-44 w-full object-cover transition-all duration-500 group-hover:scale-105"
-            />
-            <div className="flex flex-1 flex-col p-6">
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="text-lg font-medium">{p.title}</h3>
-                <span className="text-lg font-semibold text-gradient">
-                  {p.price}
-                  <span className="text-xs text-muted-foreground">{p.period}</span>
-                </span>
+            {/* Soft nebula halo */}
+            <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-[radial-gradient(ellipse_at_50%_0%,var(--cosmos-nebula),transparent_65%)] opacity-10 blur-2xl transition-opacity duration-700 group-hover:opacity-20" />
+
+            {/* Card body */}
+            <div className="cosmos-card-surface relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/6 backdrop-blur-2xl transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-white/10">
+              {/* Starfield */}
+              <div className="cosmos-starfield pointer-events-none absolute inset-0 opacity-40 transition-opacity duration-700 group-hover:opacity-70" />
+              <StarField count={10} />
+              {/* Distant nebula wash */}
+              <div className="cosmos-drift pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-cosmos-nebula/15 blur-3xl" />
+
+              {/* Image */}
+              <div className="relative h-44 w-full overflow-hidden p-3">
+                <div className="absolute top-5 left-5 z-20">
+                  <span className="rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-medium tracking-[0.18em] text-cosmos-star uppercase backdrop-blur-md">
+                    {p.badge}
+                  </span>
+                </div>
+                <div className="relative h-full w-full overflow-hidden rounded-2xl">
+                  <img
+                    src={p.img}
+                    alt={`${p.title} subscription`}
+                    width={1024}
+                    height={768}
+                    loading="lazy"
+                    className="h-full w-full object-cover opacity-70 saturate-50 transition-all duration-1000 ease-out group-hover:scale-105 group-hover:opacity-90"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,oklch(0.05_0.02_270/0.98),transparent_60%)]" />
+                  <div className="absolute inset-0 bg-black/25" />
+                </div>
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-foreground/70">{p.desc}</p>
-              <ul className="mt-4 space-y-2">
-                {p.perks.map((t) => (
-                  <li key={t} className="flex items-center gap-2 text-[13px] text-foreground/80">
-                    <Check size={15} weight="light" className="text-accent" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-              <button
-                onClick={() => toast.success(`${p.title} added — we'll contact you to finish checkout.`)}
-                className="btn-neon mt-6 w-full !py-2.5 !text-sm hover:-translate-y-0.5"
-              >
-                Buy now <Lightning size={16} weight="light" />
-              </button>
+
+              {/* Content */}
+              <div className="relative flex flex-1 flex-col px-6 pb-6">
+                <div className="mb-3 flex items-end justify-between gap-3">
+                  <div>
+                    <h3 className="font-display text-xl font-semibold tracking-tight text-foreground">
+                      {p.title}
+                    </h3>
+                    <p className="text-[10px] tracking-[0.16em] text-cosmos-dust uppercase">
+                      2G SHOP
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <span className="font-display text-xl font-semibold tracking-tight text-foreground">
+                      {p.price}
+                    </span>
+                    <span className="block text-[10px] text-muted-foreground">/month</span>
+                  </div>
+                </div>
+
+                <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                  {p.desc}
+                </p>
+
+                <ul className="mb-6 space-y-2">
+                  {p.perks.map((t) => (
+                    <li
+                      key={t}
+                      className="flex items-center gap-3 text-[13px] text-foreground/75"
+                    >
+                      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5">
+                        <Check size={11} weight="bold" className="text-cosmos-star" />
+                      </div>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <button
+                  onClick={() => toast.success(`${p.title} added — we'll contact you to finish checkout.`)}
+                  className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-3 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98]"
+                >
+                  Buy now
+                  <ArrowRight
+                    size={16}
+                    weight="bold"
+                    className="transition-transform duration-300 group-hover/btn:translate-x-1"
+                  />
+                </button>
+              </div>
+
+              {/* Horizon hairline */}
+              <div className="cosmos-hairline pointer-events-none absolute inset-x-0 bottom-0 h-px opacity-60" />
             </div>
           </article>
         ))}
