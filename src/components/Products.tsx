@@ -100,7 +100,7 @@ export default function Products() {
       className="pointer-events-none relative z-10 py-28"
     >
       <div className="pointer-events-none absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-foreground/10 blur-[130px]" />
-      <div className="relative mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
+      <div className="product-grid relative mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
         {items.map((p) => (
           <article
             key={p.title}
