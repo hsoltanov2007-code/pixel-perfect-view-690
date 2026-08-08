@@ -39,7 +39,7 @@ export default function ContactSplineBackground() {
     <div className="pointer-events-none fixed inset-0 z-0">
       <div
         ref={layerRef}
-        className="pointer-events-auto absolute inset-0 transition-transform duration-500 ease-out will-change-transform"
+        className="pointer-events-none absolute inset-0 transition-transform duration-500 ease-out will-change-transform"
         style={{ transform: "translate3d(0,0,0) scale(1.06)" }}
       >
         {mounted && (
@@ -47,8 +47,10 @@ export default function ContactSplineBackground() {
             title="Contact 3D background"
             src="https://my.spline.design/astarlikeourown-ot7R5c9QGBeDqKoS8pBSw9B1/"
             frameBorder="0"
-            className={`pointer-events-auto h-[112%] w-[112%] grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
-            style={{ marginLeft: "-6%", marginTop: "-6%" }}
+            tabIndex={-1}
+            scrolling="no"
+            className={`pointer-events-none h-[140%] w-[140%] grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+            style={{ marginLeft: "-20%", marginTop: "-20%" }}
             onLoad={() => setLoaded(true)}
           />
         )}

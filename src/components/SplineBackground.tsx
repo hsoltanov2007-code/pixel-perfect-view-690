@@ -42,7 +42,7 @@ export default function SplineBackground() {
     <div className="pointer-events-none fixed inset-0 z-0">
       <div
         ref={layerRef}
-        className="pointer-events-auto absolute inset-0 transition-transform duration-500 ease-out will-change-transform"
+        className="pointer-events-none absolute inset-0 transition-transform duration-500 ease-out will-change-transform"
         style={{ transform: "translate3d(0,0,0) scale(1.04)" }}
       >
         {mounted && (
@@ -50,7 +50,9 @@ export default function SplineBackground() {
             title="3D robot"
             src="https://my.spline.design/nexbotbyaximoriscopycopy-yfZ7bdWYajBxb40GbmUnVyOq/"
             frameBorder="0"
-            className={`pointer-events-auto h-full w-full grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+            tabIndex={-1}
+            scrolling="no"
+            className={`pointer-events-none h-full w-full grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
             onLoad={() => setLoaded(true)}
           />
         )}
