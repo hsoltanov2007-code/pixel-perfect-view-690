@@ -78,7 +78,12 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
           }}
         >
           {isHome ? (
-            <span className="cursor-default text-lg font-semibold tracking-tight text-gradient">
+            <span
+              aria-disabled="true"
+              tabIndex={-1}
+              onKeyDown={blockKeyNav}
+              className="cursor-default text-lg font-semibold tracking-tight text-gradient"
+            >
               2G SHOP
             </span>
           ) : (
