@@ -77,12 +77,18 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
             boxShadow: "0 0 0 1px oklch(1 0 0 / 8%), 0 18px 50px -12px oklch(0 0 0 / 0.5)",
           }}
         >
-          <a
-            href={alwaysVisible ? "/" : "#home"}
-            className="text-lg font-semibold tracking-tight text-gradient"
-          >
-            2G SHOP
-          </a>
+          {isHome ? (
+            <span className="cursor-default text-lg font-semibold tracking-tight text-gradient">
+              2G SHOP
+            </span>
+          ) : (
+            <a
+              href={alwaysVisible ? "/" : "#home"}
+              className="text-lg font-semibold tracking-tight text-gradient"
+            >
+              2G SHOP
+            </a>
+          )}
           <ul className="hidden items-center gap-8 md:flex">
             {links.map((l, i) => (
               <li key={l.href}>
