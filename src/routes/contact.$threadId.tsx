@@ -71,7 +71,7 @@ function ChatThread({ threadId }: { threadId: string }) {
     id: threadId,
     messages: initialMessages,
     transport,
-    onError: (error) => toast.error(error.message),
+    onError: (error: Error) => toast.error(error.message),
   });
 
   const onCopy = async (id: string, text: string) => {
