@@ -49,12 +49,15 @@ export default function CatalogSplineBackground() {
             frameBorder="0"
             tabIndex={-1}
             scrolling="no"
-            className={`pointer-events-none h-[160%] w-[160%] grayscale transition-opacity duration-150 ${loaded ? "opacity-100" : "opacity-0"}`}
+            className={`pointer-events-none h-[160%] w-[160%] [filter:grayscale(1)_invert(1)_contrast(1.05)] transition-opacity duration-150 ${loaded ? "opacity-100" : "opacity-0"}`}
             style={{ marginLeft: "-30%", marginTop: "-30%" }}
             onLoad={() => setLoaded(true)}
           />
         )}
       </div>
+
+      {/* Dark wash so the scene sits on the black theme */}
+      <div className="pointer-events-none absolute inset-0 bg-background/55" />
 
       {/* Soft top/bottom fade so header and footer stay readable */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background via-background/60 to-transparent" />
