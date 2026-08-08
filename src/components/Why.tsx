@@ -11,6 +11,7 @@ const features = [
 
 export default function Why() {
   const root = useRef<HTMLElement>(null);
+  const orbRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -55,6 +56,33 @@ export default function Why() {
       );
     }, root);
     return () => ctx.revert();
+  }, []);
+
+  // Mouse-reactive parallax on the orb: keeps the Spline "looking at" the cursor
+  // without allowing native zoom/pan interactions.
+  useEffect(() => {
+    const orb = orbRef.current;
+    if (!orb) return;
+    let frame = 0;
+    let rx = 0;
+    let ry = 0;
+    const apply = () => {
+      frame = 0;
+      orb.style.transform = `perspective(600px) rotateX(${ry}deg) rotateY(${rx}deg) translate3d(0,0,0)`;
+    };
+    const onMove = (e: MouseEvent) => {
+      const rect = orb.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      rx = ((e.clientX - cx) / (window.innerWidth / 2)) * 8;
+      ry = ((e.clientY - cy) / (window.innerHeight / 2)) * -8;
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
