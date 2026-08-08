@@ -1,10 +1,18 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { PaperPlaneTilt } from "@phosphor-icons/react";
-import { MessageCircle } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  PaperPlaneTilt,
+  ChatTeardropText,
+  Headset,
+  Envelope,
+  User,
+} from "@phosphor-icons/react";
 import { toast } from "sonner";
-import { createThread } from "@/lib/chat.functions";
+import { createThread, getOperatorStatus } from "@/lib/chat.functions";
 
 export const Route = createFileRoute("/contact/")({
   component: ContactIndex,
@@ -14,12 +22,52 @@ function ContactIndex() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const createThreadFn = useServerFn(createThread);
+  const getStatusFn = useServerFn(getOperatorStatus);
+  const root = useRef<HTMLDivElement>(null);
+  const [mode, setMode] = useState<"form" | "chat">("form");
+
+  const { data: statusData } = useQuery({
+    queryKey: ["operator_status"],
+    queryFn: () => getStatusFn(),
+    refetchInterval: 30000,
+  });
+  const isOperatorOnline = statusData?.online ?? false;
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".contact-hero",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: { trigger: root.current, start: "top 80%" },
+        }
+      );
+      gsap.fromTo(
+        ".contact-card",
+        { opacity: 0, y: 60, scale: 0.96 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".contact-grid", start: "top 80%" },
+        }
+      );
+    }, root);
+    return () => ctx.revert();
+  }, []);
 
   const startChat = async () => {
-    console.log("startChat clicked");
+    if (!isOperatorOnline) return;
     try {
       const id = await createThreadFn({ data: { title: "Live chat" } });
-      console.log("thread created", id);
       queryClient.invalidateQueries({ queryKey: ["chat_threads"] });
       navigate({ to: "/contact/$threadId", params: { threadId: id } });
     } catch (error) {
@@ -35,58 +83,180 @@ function ContactIndex() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center px-6 py-20">
-      <div className="mx-auto w-full max-w-2xl text-center">
-        <span className="text-xs tracking-[0.3em] text-accent uppercase">
-          Contact
+    <div
+      ref={root}
+      className="relative min-h-[calc(100vh-4rem)] overflow-hidden px-6 py-16 md:py-24"
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,oklch(1_0_0/0.08),transparent_50%)]" />
+      <div className="pointer-events-none absolute bottom-0 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-foreground/5 blur-[140px]" />
+
+      <div className="contact-hero relative mx-auto max-w-3xl text-center">
+        <span className="inline-flex items-center gap-2 rounded-full border border-border bg-glass px-4 py-1.5 text-xs tracking-[0.2em] text-accent uppercase">
+          <Headset size={14} weight="light" />
+          Support center
         </span>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-          Need help with an{" "}
-          <span className="text-gradient">order?</span>
+        <h1 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
+          How can we <span className="text-gradient">help?</span>
         </h1>
-        <p className="mt-4 text-muted-foreground">
-          Send us a message or start a live chat with our AI assistant. We
-          reply instantly.
+        <p className="mt-4 text-base text-muted-foreground md:text-lg">
+          Choose the fastest way to reach us. Send a message for non-urgent
+          requests or start a live chat when an operator is online.
         </p>
-
-        <form onSubmit={onSubmit} className="mt-10 space-y-4 text-left">
-          <input
-            required
-            name="name"
-            placeholder="Your name"
-            className="field-glass"
-          />
-          <input
-            required
-            type="email"
-            name="email"
-            placeholder="Email address"
-            className="field-glass"
-          />
-          <textarea
-            required
-            name="message"
-            rows={5}
-            placeholder="Which subscription are you interested in?"
-            className="field-glass resize-none"
-          />
-          <button type="submit" className="btn-neon w-full">
-            Send message
-            <PaperPlaneTilt size={17} weight="light" />
-          </button>
-        </form>
-
-        <div className="mt-8">
-          <button
-            type="button"
-            onClick={startChat}
-            className="btn-ghost-neon inline-flex items-center gap-2"
-          >
-            <MessageCircle size={18} />
-            Start live chat
-          </button>
-        </div>
       </div>
+
+      <div className="contact-grid relative mx-auto mt-14 grid max-w-5xl gap-5 md:grid-cols-2">
+        {/* Message card */}
+        <button
+          type="button"
+          onClick={() => setMode("form")}
+          className={`contact-card group relative flex flex-col rounded-3xl border p-7 text-left transition-all duration-500 md:p-8 ${
+            mode === "form"
+              ? "border-foreground/25 bg-card shadow-[0_24px_80px_-30px_oklch(0_0_0/0.9)]"
+              : "border-border bg-card/40 hover:border-foreground/20 hover:bg-card/60"
+          }`}
+        >
+          <div
+            className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors ${
+              mode === "form" ? "bg-foreground text-background" : "bg-secondary"
+            }`}
+          >
+            <Envelope size={22} weight="light" />
+          </div>
+          <h2 className="mt-5 text-xl font-medium">Send a message</h2>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Describe your question and we'll reply by email as soon as
+            possible.
+          </p>
+
+          <form
+            onSubmit={onSubmit}
+            onClick={(e) => e.stopPropagation()}
+            className={`mt-6 space-y-3 transition-all duration-500 ${
+              mode === "form" ? "opacity-100" : "pointer-events-none h-0 opacity-0"
+            }`}
+          >
+            <div className="relative">
+              <User
+                size={16}
+                weight="light"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
+              />
+              <input
+                required
+                name="name"
+                placeholder="Your name"
+                className="field-glass !pl-11"
+              />
+            </div>
+            <div className="relative">
+              <Envelope
+                size={16}
+                weight="light"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
+              />
+              <input
+                required
+                type="email"
+                name="email"
+                placeholder="Email address"
+                className="field-glass !pl-11"
+              />
+            </div>
+            <textarea
+              required
+              name="message"
+              rows={4}
+              placeholder="Which subscription are you interested in?"
+              className="field-glass resize-none"
+            />
+            <button type="submit" className="btn-neon w-full !py-3">
+              Send message
+              <PaperPlaneTilt size={17} weight="light" />
+            </button>
+          </form>
+        </button>
+
+        {/* Live chat card */}
+        <button
+          type="button"
+          onClick={() => setMode("chat")}
+          className={`contact-card group relative flex flex-col rounded-3xl border p-7 text-left transition-all duration-500 md:p-8 ${
+            mode === "chat"
+              ? "border-foreground/25 bg-card shadow-[0_24px_80px_-30px_oklch(0_0_0/0.9)]"
+              : "border-border bg-card/40 hover:border-foreground/20 hover:bg-card/60"
+          }`}
+        >
+          <div
+            className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors ${
+              mode === "chat" ? "bg-foreground text-background" : "bg-secondary"
+            }`}
+          >
+            <ChatTeardropText size={22} weight="light" />
+          </div>
+          <h2 className="mt-5 text-xl font-medium">Live chat</h2>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Talk with our AI assistant or request a human operator in real time.
+          </p>
+
+          <div
+            className={`mt-6 flex flex-1 flex-col justify-end transition-all duration-500 ${
+              mode === "chat" ? "opacity-100" : "pointer-events-none h-0 opacity-0"
+            }`}
+          >
+            <div className="flex items-center gap-3 rounded-2xl border border-border bg-background/50 p-4">
+              <span
+                className={`relative flex h-3 w-3 rounded-full ${
+                  isOperatorOnline ? "bg-emerald-400" : "bg-red-400"
+                }`}
+              >
+                {isOperatorOnline && (
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                )}
+              </span>
+              <div className="flex-1">
+                <p className="text-sm font-medium">
+                  {isOperatorOnline ? "Operator online" : "Operator offline"}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {isOperatorOnline
+                    ? "Average response time under 2 minutes"
+                    : "Live chat is closed. Leave a message and we'll reply soon."}
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              disabled={!isOperatorOnline}
+              onClick={(e) => {
+                e.stopPropagation();
+                startChat();
+              }}
+              className={`btn-neon mt-4 w-full !py-3 transition-all duration-300 ${
+                !isOperatorOnline
+                  ? "cursor-not-allowed opacity-40 grayscale"
+                  : ""
+              }`}
+            >
+              {isOperatorOnline ? (
+                <>
+                  Start live chat
+                  <ChatTeardropText size={17} weight="light" />
+                </>
+              ) : (
+                <>
+                  Live chat unavailable
+                  <ChatTeardropText size={17} weight="light" />
+                </>
+              )}
+            </button>
+          </div>
+        </button>
+      </div>
+
+      <p className="relative mt-12 text-center text-xs text-muted-foreground">
+        Typical email reply time: within 24 hours.
+      </p>
     </div>
   );
 }
