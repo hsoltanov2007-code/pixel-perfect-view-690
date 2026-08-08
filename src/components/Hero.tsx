@@ -77,8 +77,9 @@ export default function Hero({ ready }: { ready: boolean }) {
       <div className="sticky top-0 flex h-screen min-h-[640px] w-full items-center overflow-hidden">
         {/* Scroll hint — visible only at the very top */}
         <div
-          className="scroll-hint pointer-events-none absolute inset-x-0 bottom-10 z-30 flex flex-col items-center gap-3"
-          style={{ opacity: hintOpacity }}
+          ref={hintRef}
+          className="scroll-hint pointer-events-none absolute inset-x-0 bottom-10 z-30 flex flex-col items-center gap-3 will-change-[opacity]"
+          style={{ opacity: 1 }}
         >
           <span className="text-[10px] tracking-[0.35em] text-muted-foreground uppercase">
             Scroll down
@@ -91,9 +92,10 @@ export default function Hero({ ready }: { ready: boolean }) {
 
         {/* Readability scrim — darker behind the copy, transparent around the robot */}
         <div
-          className="pointer-events-none absolute inset-0 z-20"
+          ref={scrimRef}
+          className="pointer-events-none absolute inset-0 z-20 will-change-[opacity]"
           style={{
-            opacity: textOpacity,
+            opacity: 0,
             background:
               "radial-gradient(ellipse 42% 30% at 50% 52%, color-mix(in oklab, var(--background) 88%, transparent) 0%, color-mix(in oklab, var(--background) 60%, transparent) 50%, transparent 100%)",
           }}
@@ -101,12 +103,9 @@ export default function Hero({ ready }: { ready: boolean }) {
 
         {/* Content reveals on scroll */}
         <div
-          className="pointer-events-none relative z-30 mx-auto w-full max-w-3xl px-6 pt-20 pb-8 text-center"
-          style={{
-            opacity: textOpacity,
-            transform: `translateY(${(1 - textOpacity) * 16}px)`,
-            filter: `blur(${(1 - textOpacity) * 3}px)`,
-          }}
+          ref={contentRef}
+          className="pointer-events-none relative z-30 mx-auto w-full max-w-3xl px-6 pt-20 pb-8 text-center will-change-[opacity,transform]"
+          style={{ opacity: 0, transform: "translate3d(0,16px,0)" }}
         >
           <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[9px] tracking-[0.3em] text-foreground/90 uppercase glass">
             Instant digital delivery
@@ -119,23 +118,22 @@ export default function Hero({ ready }: { ready: boolean }) {
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-foreground/85 [text-shadow:0_1px_20px_color-mix(in_oklab,var(--background)_95%,transparent)] sm:text-base">
             Best-price streaming, music, gaming, AI and VPN subscriptions — delivered in minutes with warranty and 24/7 support.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div ref={ctaRef} className="mt-6 flex flex-wrap justify-center gap-3" style={{ pointerEvents: "none" }}>
             <a
               href="#plans"
               className="btn-neon glow-strong px-5 py-2.5 text-sm hover:-translate-y-0.5 hover:scale-[1.04]"
-              style={{ pointerEvents: textOpacity > 0.6 ? "auto" : "none" }}
             >
               Shop now
             </a>
             <a
               href="#why"
               className="btn-ghost-neon px-5 py-2.5 text-sm hover:-translate-y-0.5"
-              style={{ pointerEvents: textOpacity > 0.6 ? "auto" : "none" }}
             >
               Why us <ArrowDown size={14} weight="light" />
             </a>
           </div>
         </div>
+
 
       </div>
     </section>
