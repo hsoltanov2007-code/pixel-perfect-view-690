@@ -12,6 +12,35 @@ import p1 from "@/assets/project-1.jpg";
 import p2 from "@/assets/project-2.jpg";
 import p3 from "@/assets/project-3.jpg";
 
+function StarField({ count = 12 }: { count?: number }) {
+  const stars = Array.from({ length: count }, (_, i) => ({
+    top: `${Math.random() * 100}%`,
+    left: `${Math.random() * 100}%`,
+    size: Math.random() * 1.5 + 0.5,
+    delay: Math.random() * 4,
+    duration: Math.random() * 2 + 2,
+  }));
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[1.75rem]">
+      {stars.map((s, i) => (
+        <span
+          key={i}
+          className="absolute rounded-full bg-cosmos-star animate-star-twinkle"
+          style={{
+            top: s.top,
+            left: s.left,
+            width: s.size,
+            height: s.size,
+            animationDelay: `${s.delay}s`,
+            animationDuration: `${s.duration}s`,
+            boxShadow: `0 0 ${s.size * 3}px currentColor`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 const catalogItems = [
   {
     img: p1,
@@ -164,6 +193,7 @@ function CatalogPage() {
               <div className="cosmos-surface relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/8 backdrop-blur-2xl transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-white/15">
                 {/* Starfield */}
                 <div className="cosmos-starfield pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-700 group-hover:opacity-90" />
+                <StarField count={10} />
                 {/* Distant nebula wash */}
                 <div className="cosmos-drift pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-cosmos-nebula/25 blur-3xl" />
 
