@@ -40,20 +40,43 @@ export default function Products() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>(".product-card");
+      const grid = root.current?.querySelector(".product-grid") as HTMLElement | null;
+
+      gsap.set(cards, { transformOrigin: "50% 50%" });
       gsap.fromTo(
-        ".product-card",
-        { opacity: 0, y: 120, scale: 0.4, filter: "blur(14px)" },
+        cards,
+        {
+          opacity: 0,
+          scale: 0.12,
+          filter: "blur(16px)",
+          // all cards start stacked on the exact same point (grid center)
+          x: (i: number, el: HTMLElement) => {
+            if (!grid) return 0;
+            const g = grid.getBoundingClientRect();
+            const r = el.getBoundingClientRect();
+            return g.left + g.width / 2 - (r.left + r.width / 2);
+          },
+          y: (i: number, el: HTMLElement) => {
+            if (!grid) return 0;
+            const g = grid.getBoundingClientRect();
+            const r = el.getBoundingClientRect();
+            return g.top + g.height / 2 - (r.top + r.height / 2);
+          },
+        },
         {
           opacity: 1,
+          x: 0,
           y: 0,
           scale: 1,
           filter: "blur(0px)",
-          duration: 1,
-          stagger: 0.14,
+          duration: 1.2,
+          stagger: 0.12,
           ease: "power3.out",
           scrollTrigger: { trigger: root.current, start: "top 78%" },
         },
       );
+
       gsap.fromTo(
         ".product-cta",
         { opacity: 0, y: 30 },
@@ -77,7 +100,7 @@ export default function Products() {
       className="pointer-events-none relative z-10 py-28"
     >
       <div className="pointer-events-none absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-foreground/10 blur-[130px]" />
-      <div className="relative mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
+      <div className="product-grid relative mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
         {items.map((p) => (
           <article
             key={p.title}
