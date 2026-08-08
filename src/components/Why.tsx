@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lightning, ShieldCheck, Headset } from "@phosphor-icons/react";
-
-const SPLINE_URL = "https://my.spline.design/voiceinteractionanimation-1gYdkk8IoM6Ts9W1i4oTC43k/";
+import orbAsset from "@/assets/orb-clean.png.asset.json";
 
 const benefits = [
   { icon: Lightning, label: "Instant delivery" },
@@ -13,11 +12,6 @@ const benefits = [
 
 export default function Why() {
   const root = useRef<HTMLElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -59,18 +53,19 @@ export default function Why() {
       className="pointer-events-auto relative z-10 flex min-h-screen items-center justify-center overflow-hidden bg-background py-24 sm:py-32"
     >
       <div className="relative mx-auto flex w-full max-w-3xl flex-col items-center px-6 text-center">
-        {/* Orb — scaled to push the Spline watermark outside the mask */}
+        {/* Orb — cleaned image, no white ring */}
         <div className="why-fade relative mb-8 h-[220px] w-[220px] sm:h-[300px] sm:w-[300px]">
-          <div className="absolute -inset-[15%] overflow-hidden rounded-full">
-            {mounted && (
-              <iframe
-                src={SPLINE_URL}
-                title="Why 2G SHOP"
-                className="pointer-events-none absolute -inset-[15%] h-[130%] w-[130%] border-0"
-                style={{ border: 0 }}
-              />
-            )}
+          <div className="absolute inset-0 overflow-hidden rounded-full">
+            <img
+              src={orbAsset.url}
+              alt="Why 2G SHOP"
+              className="h-full w-full object-contain"
+            />
           </div>
+          <div
+            aria-hidden
+            className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/10 via-transparent to-accent/10 blur-2xl"
+          />
         </div>
 
         <span className="why-fade inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] tracking-[0.35em] text-muted-foreground uppercase">
