@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lightning, ShieldCheck, Headset } from "@phosphor-icons/react";
-
-const SPLINE_URL = "https://my.spline.design/voiceinteractionanimation-1gYdkk8IoM6Ts9W1i4oTC43k/";
+import orbAsset from "@/assets/orb-clean.png.asset.json";
 
 const benefits = [
   { icon: Lightning, label: "Instant delivery" },
@@ -13,11 +12,6 @@ const benefits = [
 
 export default function Why() {
   const root = useRef<HTMLElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
