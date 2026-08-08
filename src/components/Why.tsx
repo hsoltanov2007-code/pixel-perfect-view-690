@@ -60,11 +60,15 @@ export default function Why() {
   return (
     <section id="why" ref={root} className="relative py-24">
       <div className="mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        <div className="why-visual relative">
-          <div className="absolute -inset-8 rounded-full bg-primary/15 blur-[70px]" />
-          <div className="relative grid h-44 w-44 place-items-center rounded-full border border-foreground/10 bg-foreground/[0.04] backdrop-blur-md shadow-[0_0_60px_-20px_hsl(0_0%_100%_/0.12)]">
-            <span className="text-4xl font-semibold tracking-tight text-3d">2G</span>
-          </div>
+        <div className="why-visual relative h-64 w-64 overflow-hidden rounded-full border border-foreground/10 bg-foreground/[0.03] shadow-[0_0_80px_-30px_hsl(0_0%_100%_/0.15)]">
+          <iframe
+            src="https://my.spline.design/voiceinteractionanimation-1gYdkk8IoM6Ts9W1i4oTC43k/"
+            frameBorder={0}
+            width="100%"
+            height="100%"
+            title="2G interaction"
+            className="pointer-events-auto"
+          />
         </div>
 
         <div className="why-copy mt-10">
