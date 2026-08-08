@@ -88,13 +88,20 @@ export default function Why() {
   return (
     <section id="why" ref={root} className="relative py-24">
       <div className="mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        <div className="why-visual relative h-64 w-64 overflow-hidden rounded-full border border-foreground/10 bg-foreground/[0.03] shadow-[0_0_80px_-30px_hsl(0_0%_100%_/0.15)]">
+        <div
+          ref={orbRef}
+          className="why-visual relative h-64 w-64 overflow-hidden rounded-full border border-foreground/10 bg-foreground/[0.03] shadow-[0_0_80px_-30px_hsl(0_0%_100%_/0.15)] transition-transform duration-200 ease-out will-change-transform"
+        >
           <iframe
             src="https://my.spline.design/voiceinteractionanimation-1gYdkk8IoM6Ts9W1i4oTC43k/"
             frameBorder={0}
             title="2G interaction"
-            className="pointer-events-auto absolute left-1/2 top-1/2 h-[190%] w-[190%] -translate-x-1/2 -translate-y-[46%] border-0"
+            tabIndex={-1}
+            scrolling="no"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[190%] w-[190%] -translate-x-1/2 -translate-y-[46%] border-0"
           />
+          {/* Masks the Spline watermark badge */}
+          <div className="pointer-events-none absolute right-0 bottom-0 h-16 w-28 bg-[radial-gradient(ellipse_at_bottom_right,var(--background)_55%,transparent_85%)]" />
         </div>
 
 
