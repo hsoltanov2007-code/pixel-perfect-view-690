@@ -104,7 +104,7 @@ export default function Products() {
         {items.map((p) => (
           <article
             key={p.title}
-            className="product-card pointer-events-auto group relative flex flex-col overflow-hidden rounded-3xl glass transition-all duration-500 hover:-translate-y-2 hover:glow-ring"
+            className="product-card pointer-events-auto group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-[0_30px_80px_-20px_hsl(0_0%_0%/0.9)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:glow-ring"
           >
             <img
               src={p.img}
@@ -112,7 +112,7 @@ export default function Products() {
               width={1024}
               height={768}
               loading="lazy"
-              className="h-44 w-full object-cover opacity-85 transition-all duration-500 group-hover:scale-105 group-hover:opacity-100"
+              className="h-44 w-full object-cover transition-all duration-500 group-hover:scale-105"
             />
             <div className="flex flex-1 flex-col p-6">
               <div className="flex items-baseline justify-between gap-3">
@@ -122,10 +122,10 @@ export default function Products() {
                   <span className="text-xs text-muted-foreground">{p.period}</span>
                 </span>
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/70">{p.desc}</p>
               <ul className="mt-4 space-y-2">
                 {p.perks.map((t) => (
-                  <li key={t} className="flex items-center gap-2 text-[13px] text-muted-foreground">
+                  <li key={t} className="flex items-center gap-2 text-[13px] text-foreground/80">
                     <Check size={15} weight="light" className="text-accent" />
                     {t}
                   </li>
