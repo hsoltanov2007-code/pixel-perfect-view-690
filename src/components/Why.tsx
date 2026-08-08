@@ -102,7 +102,7 @@ export default function Why() {
               title="2G interaction"
               tabIndex={-1}
               scrolling="no"
-              className="pointer-events-none absolute left-1/2 top-1/2 h-[190%] w-[190%] -translate-x-1/2 -translate-y-[46%] border-0"
+              className="pointer-events-auto absolute left-1/2 top-1/2 h-[190%] w-[190%] -translate-x-1/2 -translate-y-[46%] border-0"
             />
           </div>
           {/* Masks the Spline watermark badge */}
