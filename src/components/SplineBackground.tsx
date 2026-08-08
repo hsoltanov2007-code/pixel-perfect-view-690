@@ -50,7 +50,9 @@ export default function SplineBackground() {
             title="3D robot"
             src="https://my.spline.design/nexbotbyaximoriscopycopy-yfZ7bdWYajBxb40GbmUnVyOq/"
             frameBorder="0"
-            className={`pointer-events-auto h-full w-full grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+            tabIndex={-1}
+            scrolling="no"
+            className={`pointer-events-none h-full w-full grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
             onLoad={() => setLoaded(true)}
           />
         )}
