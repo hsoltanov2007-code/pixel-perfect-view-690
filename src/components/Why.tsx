@@ -52,38 +52,6 @@ export default function Why() {
     return () => ctx.revert();
   }, []);
 
-  // Cursor-driven 3D tilt for the orb — no native zoom/pan.
-  useEffect(() => {
-    const wrap = orbWrap.current;
-    if (!wrap) return;
-    let raf = 0;
-    let tx = 0;
-    let ty = 0;
-    let mx = 0;
-    let my = 0;
-
-    const onMove = (e: MouseEvent) => {
-      const rect = wrap.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      mx = (e.clientX - cx) / (rect.width / 2);
-      my = (e.clientY - cy) / (rect.height / 2);
-      if (!raf) raf = requestAnimationFrame(apply);
-    };
-
-    const apply = () => {
-      raf = 0;
-      tx += (mx * 6 - tx) * 0.08;
-      ty += (my * -6 - ty) * 0.08;
-      wrap.style.transform = `perspective(900px) rotateY(${tx}deg) rotateX(${ty}deg)`;
-    };
-
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [mounted]);
 
   return (
     <section
