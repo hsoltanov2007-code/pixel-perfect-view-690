@@ -116,6 +116,9 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                   </Link>
                 ) : l.label === "Home" && isHome ? (
                   <span
+                    aria-disabled="true"
+                    tabIndex={-1}
+                    onKeyDown={blockKeyNav}
                     className={`cursor-default text-sm text-foreground transition-all duration-500 ${
                       visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
                     }`}
