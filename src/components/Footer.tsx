@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "@tanstack/react-router";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TelegramLogo, InstagramLogo } from "@phosphor-icons/react";
@@ -49,7 +50,7 @@ export default function Footer() {
           <a href="#home" className="transition-colors hover:text-foreground">Home</a>
           <a href="#plans" className="transition-colors hover:text-foreground">Plans</a>
           <a href="#why" className="transition-colors hover:text-foreground">Why us</a>
-          <a href="#contact" className="transition-colors hover:text-foreground">Contact</a>
+          <Link to="/contact" className="transition-colors hover:text-foreground">Contact</Link>
         </nav>
         <div className="flex gap-3">
           <a href="https://t.me" target="_blank" rel="noreferrer" aria-label="Telegram" className="rounded-full p-2 glass transition-colors hover:text-accent">

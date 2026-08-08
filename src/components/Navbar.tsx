@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { List, X } from "@phosphor-icons/react";
 
 const links = [
   { label: "Home", href: "#home" },
   { label: "Plans", href: "#plans" },
   { label: "Why us", href: "#why" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -75,15 +76,27 @@ export default function Navbar() {
           <ul className="hidden items-center gap-8 md:flex">
             {links.map((l, i) => (
               <li key={l.href}>
-                <a
-                  href={l.href}
-                  className={`text-sm text-muted-foreground transition-all duration-500 hover:text-foreground ${
-                    visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
-                  }`}
-                  style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
-                >
-                  {l.label}
-                </a>
+                {l.href === "/contact" ? (
+                  <Link
+                    to="/contact"
+                    className={`text-sm text-muted-foreground transition-all duration-500 hover:text-foreground ${
+                      visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
+                    }`}
+                    style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
+                  >
+                    {l.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={l.href}
+                    className={`text-sm text-muted-foreground transition-all duration-500 hover:text-foreground ${
+                      visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
+                    }`}
+                    style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
+                  >
+                    {l.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -113,16 +126,27 @@ export default function Navbar() {
         }`}
         style={{ background: "oklch(0.09 0 0 / 98%)", backdropFilter: "blur(28px)" }}
       >
-        {links.map((l) => (
-          <a
-            key={l.href}
-            href={l.href}
-            onClick={() => setOpen(false)}
-            className="text-2xl font-light text-foreground"
-          >
-            {l.label}
-          </a>
-        ))}
+        {links.map((l) =>
+          l.href === "/contact" ? (
+            <Link
+              key={l.href}
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="text-2xl font-light text-foreground"
+            >
+              {l.label}
+            </Link>
+          ) : (
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="text-2xl font-light text-foreground"
+            >
+              {l.label}
+            </a>
+          )
+        )}
         <a href="#plans" onClick={() => setOpen(false)} className="btn-neon mt-4">
           Shop now
         </a>
