@@ -245,6 +245,21 @@
   }
 }
 
+@keyframes star-twinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.3);
+  }
+}
+
+.animate-star-twinkle {
+  animation: star-twinkle var(--duration, 3s) ease-in-out infinite;
+}
+
 @utility orbit-ring {
   position: absolute;
   inset: -8px;
