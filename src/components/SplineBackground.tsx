@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function SplineBackground() {
+export default function SplineBackground({ active = true }: { active?: boolean }) {
   const layerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
