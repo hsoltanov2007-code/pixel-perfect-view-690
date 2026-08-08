@@ -81,6 +81,9 @@
   --gradient-cosmos: radial-gradient(ellipse at 15% 0%, oklch(0.42 0.09 300 / 0.28), transparent 60%),
     radial-gradient(ellipse at 100% 100%, oklch(0.5 0.07 240 / 0.22), transparent 62%),
     linear-gradient(165deg, oklch(0.16 0.045 275 / 0.85), oklch(0.1 0.02 270 / 0.9));
+  --gradient-cosmos-card: radial-gradient(ellipse at 20% 0%, oklch(0.42 0.09 300 / 0.18), transparent 55%),
+    radial-gradient(ellipse at 100% 100%, oklch(0.5 0.07 240 / 0.12), transparent 60%),
+    linear-gradient(165deg, oklch(0.09 0.03 275 / 0.96), oklch(0.05 0.02 270 / 0.98));
   --gradient-nebula-edge: linear-gradient(120deg, oklch(0.42 0.09 300 / 0.5), oklch(0.5 0.07 240 / 0.35), transparent 70%);
   --shadow-glow: 0 0 0 1px oklch(1 0 0 / 0.18), 0 12px 60px -18px oklch(1 0 0 / 0.25);
   --shadow-glow-strong: 0 0 40px oklch(1 0 0 / 0.16), 0 0 120px oklch(1 0 0 / 0.08);
