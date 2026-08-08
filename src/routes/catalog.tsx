@@ -152,20 +152,25 @@ function CatalogPage() {
         </div>
 
         <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {catalogItems.map((p, idx) => (
+          {catalogItems.map((p) => (
             <article
               key={p.title}
               className="catalog-card pointer-events-auto group relative"
             >
-              {/* Ambient neon glow */}
-              <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-neon-violet to-neon-cyan opacity-20 blur transition-opacity duration-1000 group-hover:opacity-40 group-hover:duration-200" />
+              {/* Soft nebula halo */}
+              <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-[radial-gradient(ellipse_at_50%_0%,var(--cosmos-nebula),transparent_65%)] opacity-15 blur-2xl transition-opacity duration-700 group-hover:opacity-30" />
 
               {/* Card body */}
-              <div className="relative flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-white/10 bg-background/60 shadow-2xl backdrop-blur-2xl transition-transform duration-500 group-hover:-translate-y-1.5">
+              <div className="cosmos-surface relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/8 backdrop-blur-2xl transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-white/15">
+                {/* Starfield */}
+                <div className="cosmos-starfield pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-700 group-hover:opacity-90" />
+                {/* Distant nebula wash */}
+                <div className="cosmos-drift pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-cosmos-nebula/25 blur-3xl" />
+
                 {/* Image */}
                 <div className="relative h-48 w-full overflow-hidden p-3">
                   <div className="absolute top-5 left-5 z-20">
-                    <span className="rounded-full border border-neon-cyan/30 bg-neon-cyan/10 px-3 py-1 text-[10px] font-bold tracking-widest text-neon-cyan uppercase backdrop-blur-md">
+                    <span className="rounded-full border border-white/12 bg-cosmos-deep/60 px-3 py-1 text-[10px] font-medium tracking-[0.18em] text-cosmos-star uppercase backdrop-blur-md">
                       {p.badge}
                     </span>
                   </div>
@@ -176,23 +181,26 @@ function CatalogPage() {
                       width={1024}
                       height={768}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                      className="h-full w-full object-cover opacity-80 saturate-50 transition-all duration-1000 ease-out group-hover:scale-105 group-hover:opacity-100"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--cosmos-deep),transparent_65%)]" />
+                    <div className="absolute inset-0 bg-cosmos-nebula/10 mix-blend-overlay" />
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-1 flex-col px-6 pb-8">
+                <div className="relative flex flex-1 flex-col px-6 pb-8">
                   <div className="mb-4 flex items-end justify-between gap-3">
                     <div>
-                      <h3 className="font-display text-2xl font-bold tracking-tight text-foreground">
+                      <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
                         {p.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground">2G SHOP Exclusive</p>
+                      <p className="text-xs tracking-[0.16em] text-cosmos-dust uppercase">
+                        2G SHOP
+                      </p>
                     </div>
                     <div className="text-right">
-                      <span className="font-display text-2xl font-bold tracking-tighter text-foreground">
+                      <span className="font-display text-2xl font-semibold tracking-tight text-foreground">
                         {p.price}
                       </span>
                       <span className="block text-xs text-muted-foreground">/month</span>
@@ -204,33 +212,23 @@ function CatalogPage() {
                   </p>
 
                   <ul className="mb-8 space-y-3">
-                    {p.perks.map((t, i) => {
-                      const cyan = (i + idx) % 2 === 1;
-                      return (
-                        <li key={t} className="flex items-center gap-3 text-sm text-foreground/80">
-                          <div
-                            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
-                              cyan
-                                ? "border-neon-cyan/30 bg-neon-cyan/10"
-                                : "border-neon-violet/30 bg-neon-violet/10"
-                            }`}
-                          >
-                            <Check
-                              size={12}
-                              weight="bold"
-                              className={cyan ? "text-neon-cyan" : "text-neon-violet"}
-                            />
-                          </div>
-                          {t}
-                        </li>
-                      );
-                    })}
+                    {p.perks.map((t) => (
+                      <li
+                        key={t}
+                        className="flex items-center gap-3 text-sm text-foreground/75"
+                      >
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5">
+                          <Check size={11} weight="bold" className="text-cosmos-star" />
+                        </div>
+                        {t}
+                      </li>
+                    ))}
                   </ul>
 
                   {/* CTA */}
                   <button
                     onClick={() => toast.success(`${p.title} added — we'll contact you to finish checkout.`)}
-                    className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-white py-4 text-sm font-bold text-black transition-colors duration-300 hover:bg-neutral-200 active:scale-[0.98]"
+                    className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/8 py-4 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:bg-white/14 active:scale-[0.98]"
                   >
                     Buy now
                     <ArrowRight
@@ -241,8 +239,8 @@ function CatalogPage() {
                   </button>
                 </div>
 
-                {/* Bottom inner glow */}
-                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-neon-violet/50 to-transparent" />
+                {/* Horizon hairline */}
+                <div className="cosmos-hairline pointer-events-none absolute inset-x-0 bottom-0 h-px opacity-60" />
               </div>
             </article>
           ))}
