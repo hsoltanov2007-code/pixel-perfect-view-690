@@ -68,13 +68,24 @@
   --neon-cyan: oklch(0.72 0.16 220);
   --glass: oklch(1 0 0 / 5%);
 
+  /* Cosmos palette — deep, desaturated space tones */
+  --cosmos-deep: oklch(0.16 0.045 275);
+  --cosmos-nebula: oklch(0.42 0.09 300);
+  --cosmos-dust: oklch(0.55 0.05 250);
+  --cosmos-star: oklch(0.9 0.02 250);
+
   --gradient-hero: radial-gradient(circle at 20% 20%, oklch(1 0 0 / 0.1), transparent 55%),
     radial-gradient(circle at 80% 70%, oklch(1 0 0 / 0.07), transparent 55%);
   --gradient-text: linear-gradient(100deg, oklch(1 0 0), oklch(0.72 0 0), oklch(0.98 0 0));
   --gradient-line: linear-gradient(90deg, transparent, oklch(1 0 0 / 0.5), transparent);
+  --gradient-cosmos: radial-gradient(ellipse at 15% 0%, oklch(0.42 0.09 300 / 0.28), transparent 60%),
+    radial-gradient(ellipse at 100% 100%, oklch(0.5 0.07 240 / 0.22), transparent 62%),
+    linear-gradient(165deg, oklch(0.16 0.045 275 / 0.85), oklch(0.1 0.02 270 / 0.9));
+  --gradient-nebula-edge: linear-gradient(120deg, oklch(0.42 0.09 300 / 0.5), oklch(0.5 0.07 240 / 0.35), transparent 70%);
   --shadow-glow: 0 0 0 1px oklch(1 0 0 / 0.18), 0 12px 60px -18px oklch(1 0 0 / 0.25);
   --shadow-glow-strong: 0 0 40px oklch(1 0 0 / 0.16), 0 0 120px oklch(1 0 0 / 0.08);
   --shadow-card: 0 24px 70px -30px oklch(0 0 0 / 0.9);
+  --shadow-cosmos: 0 30px 90px -40px oklch(0.2 0.08 285 / 0.8), 0 0 0 1px oklch(1 0 0 / 0.06);
   --transition-smooth: 400ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
