@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "@tanstack/react-router";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Check, Lightning, ArrowRight } from "@phosphor-icons/react";
@@ -143,14 +144,14 @@ export default function Products() {
       </div>
 
       <div className="product-cta relative mt-10 flex justify-center px-6">
-        <button
-          onClick={() => toast("Full catalog is coming soon.")}
+        <Link
+          to="/catalog"
           className="pointer-events-auto group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-foreground px-8 py-4 text-sm font-semibold text-background shadow-[0_0_0_1px_oklch(1_0_0/0.25),0_12px_40px_-10px_oklch(1_0_0/0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_oklch(1_0_0/0.35),0_20px_60px_-16px_oklch(1_0_0/0.45)]"
         >
           <span className="relative z-10">Посмотреть каталог</span>
           <ArrowRight size={18} weight="bold" className="relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
           <span className="absolute inset-0 -z-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:animate-[shimmer_1s_ease-in-out]" />
-        </button>
+        </Link>
       </div>
     </section>
   );

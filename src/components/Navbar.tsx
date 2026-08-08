@@ -4,7 +4,7 @@ import { List, X } from "@phosphor-icons/react";
 
 const links = [
   { label: "Home", href: "#home" },
-  { label: "Plans", href: "#plans" },
+  { label: "Catalog", href: "/catalog" },
   { label: "Why us", href: "#why" },
   { label: "Contact", href: "/contact" },
 ];
@@ -100,15 +100,15 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <a
-            href="#plans"
+          <Link
+            to="/catalog"
             className={`hidden btn-neon !px-5 !py-2 !text-sm transition-all duration-500 md:inline-flex ${
               visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
             }`}
             style={{ transitionDelay: visible ? "620ms" : "0ms" }}
           >
             Shop now
-          </a>
+          </Link>
           <button
             aria-label="Toggle menu"
             onClick={() => setOpen((v) => !v)}
@@ -147,9 +147,9 @@ export default function Navbar() {
             </a>
           )
         )}
-        <a href="#plans" onClick={() => setOpen(false)} className="btn-neon mt-4">
+        <Link to="/catalog" onClick={() => setOpen(false)} className="btn-neon mt-4">
           Shop now
-        </a>
+        </Link>
       </div>
     </header>
   );
