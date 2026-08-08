@@ -183,7 +183,13 @@
   color: var(--foreground);
   outline: none;
   transition: all var(--transition-smooth);
-}
-@utility field-glass::placeholder {
-  color: oklch(1 0 0 / 45%);
+
+  &::placeholder {
+    color: oklch(1 0 0 / 45%);
+  }
+
+  &:focus {
+    background: oklch(1 0 0 / 12%);
+    border-color: oklch(0.99 0 0 / 35%);
+  }
 }
