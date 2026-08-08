@@ -9,11 +9,15 @@ const links = [
   { label: "Contact", href: "/contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
   const [open, setOpen] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(alwaysVisible);
 
   useEffect(() => {
+    if (alwaysVisible) {
+      setVisible(true);
+      return;
+    }
     let frame = 0;
     const apply = () => {
       frame = 0;
@@ -29,7 +33,8 @@ export default function Navbar() {
       if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [alwaysVisible]);
+
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
@@ -70,7 +75,10 @@ export default function Navbar() {
             boxShadow: "0 0 0 1px oklch(1 0 0 / 8%), 0 18px 50px -12px oklch(0 0 0 / 0.5)",
           }}
         >
-          <a href="#home" className="text-lg font-semibold tracking-tight text-gradient">
+          <a
+            href={alwaysVisible ? "/" : "#home"}
+            className="text-lg font-semibold tracking-tight text-gradient"
+          >
             2G SHOP
           </a>
           <ul className="hidden items-center gap-8 md:flex">
@@ -88,7 +96,7 @@ export default function Navbar() {
                   </Link>
                 ) : (
                   <a
-                    href={l.href}
+                    href={alwaysVisible && l.href.startsWith("#") ? `/${l.href}` : l.href}
                     className={`text-sm text-muted-foreground transition-all duration-500 hover:text-foreground ${
                       visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
                     }`}
@@ -139,7 +147,7 @@ export default function Navbar() {
           ) : (
             <a
               key={l.href}
-              href={l.href}
+              href={alwaysVisible && l.href.startsWith("#") ? `/${l.href}` : l.href}
               onClick={() => setOpen(false)}
               className="text-2xl font-light text-foreground"
             >

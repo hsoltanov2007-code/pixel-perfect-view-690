@@ -126,7 +126,7 @@ function CatalogPage() {
   return (
     <div ref={root} className="pointer-events-none relative min-h-screen">
       <CatalogSplineBackground />
-      <Navbar />
+      <Navbar alwaysVisible />
 
       <main className="relative z-10 px-6 pb-24 pt-32">
         <div className="catalog-hero mx-auto max-w-3xl text-center">
