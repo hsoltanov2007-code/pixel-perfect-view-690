@@ -64,19 +64,8 @@ export default function Why() {
           <iframe
             src="https://my.spline.design/voiceinteractionanimation-1gYdkk8IoM6Ts9W1i4oTC43k/"
             frameBorder={0}
-            width="100%"
-            height="100%"
             title="2G interaction"
-            className="pointer-events-auto"
-          />
-          {/* hide Spline watermark without altering the scene */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute right-0 bottom-0 h-16 w-40"
-            style={{
-              background:
-                "radial-gradient(120% 120% at 100% 100%, hsl(var(--background)) 55%, transparent 100%)",
-            }}
+            className="pointer-events-auto absolute -left-[12%] -top-[12%] h-[124%] w-[124%] border-0"
           />
         </div>
 
