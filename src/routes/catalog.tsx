@@ -20,6 +20,7 @@ const catalogItems = [
     period: "/ month",
     desc: "4K streaming subscription, instant delivery to your inbox.",
     perks: ["4K + HDR", "Works worldwide", "Instant activation"],
+    badge: "Popular",
   },
   {
     img: p2,
@@ -28,6 +29,7 @@ const catalogItems = [
     period: "/ month",
     desc: "Ad-free music on every device with offline downloads.",
     perks: ["Ad-free", "Offline mode", "Up to 6 devices"],
+    badge: "Best value",
   },
   {
     img: p3,
@@ -36,6 +38,7 @@ const catalogItems = [
     period: "/ month",
     desc: "Premium AI access with priority speed and higher limits.",
     perks: ["Priority speed", "Higher limits", "Early features"],
+    badge: "Enterprise",
   },
   {
     img: p1,
@@ -44,6 +47,7 @@ const catalogItems = [
     period: "/ month",
     desc: "Access a growing library of premium games and online multiplayer.",
     perks: ["100+ titles", "Online multiplayer", "New releases"],
+    badge: "Gaming",
   },
   {
     img: p2,
@@ -52,6 +56,7 @@ const catalogItems = [
     period: "/ month",
     desc: "Fast, secure VPN with no logs and global server coverage.",
     perks: ["No logs", "50+ locations", "Unlimited bandwidth"],
+    badge: "Secure",
   },
   {
     img: p3,
@@ -60,6 +65,7 @@ const catalogItems = [
     period: "/ month",
     desc: "Full suite of design, video and photo editing tools.",
     perks: ["20+ apps", "100GB cloud", "Premium fonts"],
+    badge: "Creative",
   },
 ];
 
@@ -137,7 +143,7 @@ function CatalogPage() {
             <ArrowLeft size={16} weight="light" />
             Back to home
           </Link>
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
+          <h1 className="mt-6 font-display text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
             Full <span className="text-gradient">catalog</span>
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground md:text-lg">
@@ -145,43 +151,92 @@ function CatalogPage() {
           </p>
         </div>
 
-        <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
           {catalogItems.map((p) => (
             <article
               key={p.title}
-              className="catalog-card pointer-events-auto group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card/80 shadow-[0_30px_80px_-20px_hsl(0_0%_0%/0.9)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:glow-ring"
+              className="catalog-card pointer-events-auto group relative"
             >
-              <img
-                src={p.img}
-                alt={`${p.title} subscription`}
-                width={1024}
-                height={768}
-                loading="lazy"
-                className="h-44 w-full object-cover transition-all duration-500 group-hover:scale-105"
-              />
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="text-lg font-medium">{p.title}</h3>
-                  <span className="text-lg font-semibold text-gradient">
-                    {p.price}
-                    <span className="text-xs text-muted-foreground">{p.period}</span>
-                  </span>
+              {/* Ambient glow */}
+              <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-r from-neon-violet/20 via-neon-cyan/20 to-neon-violet/20 opacity-50 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+
+              {/* Card body */}
+              <div className="relative flex h-full flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-card/80 shadow-2xl ring-1 ring-white/10 backdrop-blur-xl transition-all duration-500 group-hover:-translate-y-2">
+                {/* Image container */}
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={p.img}
+                    alt={`${p.title} subscription`}
+                    width={1024}
+                    height={768}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                  <div
+                    className="absolute inset-0 opacity-30"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
+                      backgroundSize: "20px 20px",
+                      maskImage: "radial-gradient(ellipse at center, black, transparent)",
+                    }}
+                  />
+
+                  {/* Badge */}
+                  <div className="absolute top-5 left-5 flex items-center gap-2 rounded-full border border-white/10 bg-black/60 px-3 py-1.5 backdrop-blur-xl">
+                    <span className="h-1.5 w-1.5 rounded-full bg-neon-violet shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
+                    <span className="text-[10px] font-bold tracking-widest text-foreground uppercase">
+                      {p.badge}
+                    </span>
+                  </div>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/70">{p.desc}</p>
-                <ul className="mt-4 space-y-2">
-                  {p.perks.map((t) => (
-                    <li key={t} className="flex items-center gap-2 text-[13px] text-foreground/80">
-                      <Check size={15} weight="light" className="text-accent" />
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  onClick={() => toast.success(`${p.title} added — we'll contact you to finish checkout.`)}
-                  className="btn-neon mt-6 w-full !py-2.5 !text-sm hover:-translate-y-0.5"
-                >
-                  Buy now <Lightning size={16} weight="light" />
-                </button>
+
+                {/* Content */}
+                <div className="flex flex-1 flex-col p-8 pt-4">
+                  {/* Title & price */}
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="font-display text-2xl font-semibold tracking-tight leading-tight">
+                      {p.title}
+                    </h3>
+                    <div className="text-right">
+                      <div className="font-display text-2xl font-semibold flex items-baseline gap-0.5">
+                        {p.price}
+                        <span className="text-muted-foreground font-normal">/</span>
+                      </div>
+                      <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
+                        month
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                    {p.desc}
+                  </p>
+
+                  {/* Perks */}
+                  <ul className="mt-6 space-y-3">
+                    {p.perks.map((t) => (
+                      <li key={t} className="flex items-center gap-3 text-sm text-foreground/85">
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-neon-violet/20 bg-neon-violet/10">
+                          <Check size={12} weight="bold" className="text-neon-violet" />
+                        </div>
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  <button
+                    onClick={() => toast.success(`${p.title} added — we'll contact you to finish checkout.`)}
+                    className="group/btn relative mt-auto w-full overflow-hidden rounded-2xl bg-white py-4 text-sm font-bold tracking-tight text-black transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.4)] active:scale-[0.98]"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-neon-violet to-neon-cyan opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100" />
+                    <span className="relative z-10 flex items-center justify-center gap-2 transition-colors duration-300 group-hover/btn:text-white">
+                      Buy now <Lightning size={16} weight="fill" />
+                    </span>
+                  </button>
+                </div>
               </div>
             </article>
           ))}
