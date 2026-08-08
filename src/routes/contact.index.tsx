@@ -10,6 +10,9 @@ import {
   Headset,
   Envelope,
   User,
+  WhatsappLogo,
+  TelegramLogo,
+  InstagramLogo,
 } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { createThread, getOperatorStatus } from "@/lib/chat.functions";
