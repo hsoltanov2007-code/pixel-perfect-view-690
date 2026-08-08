@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ArrowDown } from "@phosphor-icons/react";
+
 
 const clamp = (v: number) => Math.min(1, Math.max(0, v));
 
@@ -124,12 +124,6 @@ export default function Hero({ ready }: { ready: boolean }) {
               className="btn-neon glow-strong px-5 py-2.5 text-sm hover:-translate-y-0.5 hover:scale-[1.04]"
             >
               Shop now
-            </a>
-            <a
-              href="#why"
-              className="btn-ghost-neon px-5 py-2.5 text-sm hover:-translate-y-0.5"
-            >
-              Why us <ArrowDown size={14} weight="light" />
             </a>
           </div>
         </div>
