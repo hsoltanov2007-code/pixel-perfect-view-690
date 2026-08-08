@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
+const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+
 export default function SplineBackground({ active = true }: { active?: boolean }) {
   const layerRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
