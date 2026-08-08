@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import Footer from "@/components/Footer";
+import ContactSplineBackground from "@/components/ContactSplineBackground";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
