@@ -35,7 +35,31 @@ function Index() {
   useEffect(() => {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
+
+    // One-way scrolling: the page never travels back above the furthest point
+    // reached, so the intro robot view stays behind once passed.
+    let max = 0;
+    let frame = 0;
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > max) {
+        max = y;
+        return;
+      }
+      if (y < max - 1 && !frame) {
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          window.scrollTo(0, max);
+        });
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
+
 
   return (
     <main className="pointer-events-none relative animate-fade-in">
