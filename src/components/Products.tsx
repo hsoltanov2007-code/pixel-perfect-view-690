@@ -70,10 +70,10 @@ export default function Products() {
           y: 0,
           scale: 1,
           filter: "blur(0px)",
-          duration: 1.2,
-          stagger: 0.12,
+          duration: 0.85,
+          stagger: 0.08,
           ease: "power3.out",
-          scrollTrigger: { trigger: root.current, start: "top 78%" },
+          scrollTrigger: { trigger: root.current, start: "top 85%" },
         },
       );
 
