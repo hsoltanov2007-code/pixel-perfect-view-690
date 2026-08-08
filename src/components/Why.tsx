@@ -65,13 +65,10 @@ export default function Why() {
             src="https://my.spline.design/voiceinteractionanimation-1gYdkk8IoM6Ts9W1i4oTC43k/"
             frameBorder={0}
             title="2G interaction"
-            className="pointer-events-auto absolute inset-0 h-full w-full border-0"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-px -right-px h-14 w-44 rounded-tl-full bg-foreground"
+            className="pointer-events-auto absolute left-1/2 top-1/2 h-[190%] w-[190%] -translate-x-1/2 -translate-y-[46%] border-0"
           />
         </div>
+
 
 
         <div className="why-copy mt-10">
