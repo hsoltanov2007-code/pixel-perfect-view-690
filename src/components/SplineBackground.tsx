@@ -51,7 +51,7 @@ export default function SplineBackground({ active = true }: { active?: boolean }
       frame = 0;
       const vh = window.innerHeight;
       const progress = window.scrollY / vh;
-      const opacity = clamp(1 - (progress - 0.85) / 0.55, 0.25, 1);
+      const opacity = clamp(1 - (progress - 0.85) / 0.55, 0.08, 1);
       wrap.style.opacity = String(opacity);
     };
     const onScroll = () => {
