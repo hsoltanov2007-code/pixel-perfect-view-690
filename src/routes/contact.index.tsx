@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -24,7 +24,6 @@ function ContactIndex() {
   const createThreadFn = useServerFn(createThread);
   const getStatusFn = useServerFn(getOperatorStatus);
   const root = useRef<HTMLDivElement>(null);
-  const [mode, setMode] = useState<"form" | "chat">("form");
 
   const { data: statusData } = useQuery({
     queryKey: ["operator_status"],
@@ -106,20 +105,8 @@ function ContactIndex() {
 
       <div className="contact-grid relative mx-auto mt-14 grid max-w-5xl gap-5 md:grid-cols-2">
         {/* Message card */}
-        <button
-          type="button"
-          onClick={() => setMode("form")}
-          className={`contact-card group relative flex flex-col rounded-3xl border p-7 text-left transition-all duration-500 md:p-8 ${
-            mode === "form"
-              ? "border-foreground/25 bg-card shadow-[0_24px_80px_-30px_oklch(0_0_0/0.9)]"
-              : "border-border bg-card/40 hover:border-foreground/20 hover:bg-card/60"
-          }`}
-        >
-          <div
-            className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors ${
-              mode === "form" ? "bg-foreground text-background" : "bg-secondary"
-            }`}
-          >
+        <div className="contact-card group relative flex flex-col rounded-3xl border border-border bg-card/40 p-7 transition-all duration-500 hover:border-foreground/20 hover:bg-card/60 md:p-8">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary transition-colors group-hover:bg-foreground group-hover:text-background">
             <Envelope size={22} weight="light" />
           </div>
           <h2 className="mt-5 text-xl font-medium">Send a message</h2>
@@ -128,13 +115,7 @@ function ContactIndex() {
             possible.
           </p>
 
-          <form
-            onSubmit={onSubmit}
-            onClick={(e) => e.stopPropagation()}
-            className={`mt-6 space-y-3 transition-all duration-500 ${
-              mode === "form" ? "opacity-100" : "pointer-events-none h-0 opacity-0"
-            }`}
-          >
+          <form onSubmit={onSubmit} className="mt-6 space-y-3">
             <div className="relative">
               <User
                 size={16}
@@ -174,23 +155,11 @@ function ContactIndex() {
               <PaperPlaneTilt size={17} weight="light" />
             </button>
           </form>
-        </button>
+        </div>
 
         {/* Live chat card */}
-        <button
-          type="button"
-          onClick={() => setMode("chat")}
-          className={`contact-card group relative flex flex-col rounded-3xl border p-7 text-left transition-all duration-500 md:p-8 ${
-            mode === "chat"
-              ? "border-foreground/25 bg-card shadow-[0_24px_80px_-30px_oklch(0_0_0/0.9)]"
-              : "border-border bg-card/40 hover:border-foreground/20 hover:bg-card/60"
-          }`}
-        >
-          <div
-            className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors ${
-              mode === "chat" ? "bg-foreground text-background" : "bg-secondary"
-            }`}
-          >
+        <div className="contact-card group relative flex flex-col rounded-3xl border border-border bg-card/40 p-7 transition-all duration-500 hover:border-foreground/20 hover:bg-card/60 md:p-8">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary transition-colors group-hover:bg-foreground group-hover:text-background">
             <ChatTeardropText size={22} weight="light" />
           </div>
           <h2 className="mt-5 text-xl font-medium">Live chat</h2>
@@ -198,11 +167,7 @@ function ContactIndex() {
             Talk with our AI assistant or request a human operator in real time.
           </p>
 
-          <div
-            className={`mt-6 flex flex-1 flex-col justify-end transition-all duration-500 ${
-              mode === "chat" ? "opacity-100" : "pointer-events-none h-0 opacity-0"
-            }`}
-          >
+          <div className="mt-6 flex flex-1 flex-col justify-end">
             <div className="flex items-center gap-3 rounded-2xl border border-border bg-background/50 p-4">
               <span
                 className={`relative flex h-3 w-3 rounded-full ${
@@ -228,10 +193,7 @@ function ContactIndex() {
             <button
               type="button"
               disabled={!isOperatorOnline}
-              onClick={(e) => {
-                e.stopPropagation();
-                startChat();
-              }}
+              onClick={startChat}
               className={`btn-neon mt-4 w-full !py-3 transition-all duration-300 ${
                 !isOperatorOnline
                   ? "cursor-not-allowed opacity-40 grayscale"
@@ -251,7 +213,7 @@ function ContactIndex() {
               )}
             </button>
           </div>
-        </button>
+        </div>
       </div>
 
       <p className="relative mt-12 text-center text-xs text-muted-foreground">
