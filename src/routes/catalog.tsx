@@ -193,6 +193,7 @@ function CatalogPage() {
               <div className="cosmos-surface relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/8 backdrop-blur-2xl transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-white/15">
                 {/* Starfield */}
                 <div className="cosmos-starfield pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-700 group-hover:opacity-90" />
+                <StarField count={10} />
                 {/* Distant nebula wash */}
                 <div className="cosmos-drift pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-cosmos-nebula/25 blur-3xl" />
 
