@@ -40,10 +40,11 @@ export default function SplineBackground() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0">
+      {/* Only the central robot area is interactive so scrolling still works on the edges. */}
       <div
         ref={layerRef}
-        className="pointer-events-none absolute inset-0 transition-transform duration-500 ease-out will-change-transform"
-        style={{ transform: "translate3d(0,0,0) scale(1.04)" }}
+        className="pointer-events-auto absolute left-1/2 top-1/2 h-[80vh] w-[70vw] -translate-x-1/2 -translate-y-1/2 overflow-hidden transition-transform duration-500 ease-out will-change-transform"
+        style={{ transform: "translate3d(-50%,-50%,0) scale(1.04)" }}
       >
         {mounted && (
           <iframe
@@ -52,7 +53,7 @@ export default function SplineBackground() {
             frameBorder="0"
             tabIndex={-1}
             scrolling="no"
-            className={`pointer-events-none h-full w-full grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+            className={`pointer-events-auto h-full w-full grayscale transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
             onLoad={() => setLoaded(true)}
           />
         )}
