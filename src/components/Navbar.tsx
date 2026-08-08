@@ -91,7 +91,7 @@ export default function Navbar() {
           <button
             aria-label="Toggle menu"
             onClick={() => setOpen((v) => !v)}
-            className="rounded-full p-2 text-foreground md:hidden"
+            className="rounded-full bg-foreground/10 p-2 text-foreground ring-1 ring-foreground/20 backdrop-blur-md md:hidden"
           >
             {open ? <X size={22} weight="light" /> : <List size={22} weight="light" />}
           </button>
@@ -100,9 +100,10 @@ export default function Navbar() {
 
 
       <div
-        className={`pointer-events-auto fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-background/95 backdrop-blur-xl transition-transform duration-500 md:hidden ${
+        className={`pointer-events-auto fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-background transition-transform duration-500 md:hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
+        style={{ background: "oklch(0.09 0 0 / 98%)", backdropFilter: "blur(28px)" }}
       >
         {links.map((l) => (
           <a
