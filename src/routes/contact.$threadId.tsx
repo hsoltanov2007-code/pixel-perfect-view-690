@@ -71,7 +71,7 @@ function ChatThread({ threadId }: { threadId: string }) {
     id: threadId,
     messages: initialMessages,
     transport,
-    onError: (error) => toast.error(error.message),
+    onError: (error: Error) => toast.error(error.message),
   });
 
   const onCopy = async (id: string, text: string) => {
@@ -112,10 +112,10 @@ function ChatThread({ threadId }: { threadId: string }) {
               description="Ask about orders, subscriptions, delivery or warranty."
             />
           )}
-          {messages.map((message) => {
+          {messages.map((message: UIMessage) => {
             const text = message.parts
-              .filter((part) => part.type === "text")
-              .map((part) => part.text)
+              .filter((part: { type: string; text?: string }) => part.type === "text")
+              .map((part: { type: string; text?: string }) => part.text)
               .join("");
             return (
               <Message key={message.id} from={message.role}>
