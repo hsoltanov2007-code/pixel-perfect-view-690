@@ -253,48 +253,6 @@ function ContactIndex() {
         </div>
       </div>
 
-      <div className="contact-social relative mx-auto mt-10 max-w-5xl">
-        <div className="flex flex-col items-center gap-4">
-          <p className="text-sm text-muted-foreground">Or reach us instantly</p>
-          <div className="flex items-center gap-4">
-            {[
-              {
-                Icon: WhatsappLogo,
-                label: "WhatsApp",
-                href: "https://wa.me/",
-                className: "hover:bg-[#25D366]/20 hover:border-[#25D366]/50 hover:text-[#25D366]",
-              },
-              {
-                Icon: TelegramLogo,
-                label: "Telegram",
-                href: "https://t.me/",
-                className: "hover:bg-[#2AABEE]/20 hover:border-[#2AABEE]/50 hover:text-[#2AABEE]",
-              },
-              {
-                Icon: InstagramLogo,
-                label: "Instagram",
-                href: "https://instagram.com/",
-                className: "hover:bg-[#E1306C]/20 hover:border-[#E1306C]/50 hover:text-[#E1306C]",
-              },
-            ].map(({ Icon, label, href, className }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                className={`group flex h-12 w-12 items-center justify-center rounded-full border border-border bg-background/50 text-foreground backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-card/80 ${className}`}
-              >
-                <Icon size={22} weight="fill" className="transition-transform duration-300 group-hover:scale-110" />
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <p className="relative mt-8 text-center text-xs text-muted-foreground">
-        Typical email reply time: within 24 hours.
-      </p>
     </div>
   );
 }
