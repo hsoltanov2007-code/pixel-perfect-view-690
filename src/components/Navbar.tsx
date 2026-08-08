@@ -27,10 +27,11 @@ export default function Navbar() {
       {/* light beam rising out of the bot */}
       <div
         aria-hidden
-        className={`absolute left-1/2 top-0 h-40 w-px -translate-x-1/2 bg-gradient-to-b from-foreground/50 to-transparent transition-all duration-700 ease-out ${
-          visible ? "opacity-0 scale-y-0" : "opacity-0"
+        className={`absolute left-1/2 top-0 h-32 w-px origin-bottom -translate-x-1/2 bg-gradient-to-b from-transparent via-foreground/40 to-transparent transition-all duration-700 ease-out ${
+          visible ? "scale-y-100 opacity-40" : "scale-y-0 opacity-0"
         }`}
       />
+
       <div
         className={`px-4 transition-[transform,opacity] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
           visible ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0"
