@@ -36,7 +36,7 @@ export default function CatalogSplineBackground() {
   }, [mounted]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0">
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
       <div
         ref={layerRef}
         className="pointer-events-none absolute inset-0 transition-transform duration-500 ease-out will-change-transform"
@@ -49,18 +49,16 @@ export default function CatalogSplineBackground() {
             frameBorder="0"
             tabIndex={-1}
             scrolling="no"
-            className={`pointer-events-none h-[115%] w-[115%] grayscale transition-opacity duration-150 ${loaded ? "opacity-100" : "opacity-0"}`}
-            style={{ marginLeft: "-7.5%", marginTop: "-7.5%" }}
+            className={`pointer-events-none h-[160%] w-[160%] grayscale transition-opacity duration-150 ${loaded ? "opacity-100" : "opacity-0"}`}
+            style={{ marginLeft: "-30%", marginTop: "-30%" }}
             onLoad={() => setLoaded(true)}
           />
         )}
       </div>
 
-      {/* Masks the 3D viewer watermark badge */}
-      <div className="pointer-events-none absolute right-0 bottom-0 h-28 w-72 bg-[radial-gradient(ellipse_at_bottom_right,var(--background)_55%,transparent_82%)]" />
-      {/* Soft vignette to keep the robot centered and readable */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,transparent_45%,var(--background)_92%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
+      {/* Soft top/bottom fade so header and footer stay readable */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background via-background/60 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-background via-background/70 to-transparent" />
     </div>
   );
 }
