@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { List, X } from "@phosphor-icons/react";
 
 const links = [
@@ -10,6 +10,8 @@ const links = [
 ];
 
 export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(alwaysVisible);
 
@@ -75,12 +77,18 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
             boxShadow: "0 0 0 1px oklch(1 0 0 / 8%), 0 18px 50px -12px oklch(0 0 0 / 0.5)",
           }}
         >
-          <a
-            href={alwaysVisible ? "/" : "#home"}
-            className="text-lg font-semibold tracking-tight text-gradient"
-          >
-            2G SHOP
-          </a>
+          {isHome ? (
+            <span className="cursor-default text-lg font-semibold tracking-tight text-gradient">
+              2G SHOP
+            </span>
+          ) : (
+            <a
+              href={alwaysVisible ? "/" : "#home"}
+              className="text-lg font-semibold tracking-tight text-gradient"
+            >
+              2G SHOP
+            </a>
+          )}
           <ul className="hidden items-center gap-8 md:flex">
             {links.map((l, i) => (
               <li key={l.href}>
@@ -94,6 +102,15 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                   >
                     {l.label}
                   </Link>
+                ) : l.label === "Home" && isHome ? (
+                  <span
+                    className={`cursor-default text-sm text-foreground transition-all duration-500 ${
+                      visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
+                    }`}
+                    style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
+                  >
+                    {l.label}
+                  </span>
                 ) : (
                   <a
                     href={alwaysVisible && l.href.startsWith("#") ? `/${l.href}` : l.href}
@@ -144,6 +161,13 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
             >
               {l.label}
             </Link>
+          ) : l.label === "Home" && isHome ? (
+            <span
+              key={l.href}
+              className="cursor-default text-2xl font-light text-foreground/50"
+            >
+              {l.label}
+            </span>
           ) : (
             <a
               key={l.href}
