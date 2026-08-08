@@ -100,7 +100,7 @@ export default function Contact() {
               target="_blank"
               rel="noreferrer"
               aria-label={label}
-              className="rounded-full p-3 glass transition-all duration-300 hover:-translate-y-1 hover:text-accent hover:glow-ring"
+              className="rounded-full border border-foreground/15 bg-foreground/5 p-3 text-foreground/80 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30 hover:bg-foreground/10 hover:text-foreground hover:shadow-[0_0_30px_-8px_oklch(1_0_0_/_0.2)]"
             >
               <Icon size={20} weight="light" />
             </a>
