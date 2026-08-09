@@ -77,6 +77,7 @@ function CatalogPage() {
   const products = data ?? [];
 
   useEffect(() => {
+    if (products.length === 0) return;
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
       gsap.fromTo(
