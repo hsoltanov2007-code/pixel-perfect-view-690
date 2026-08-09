@@ -37,11 +37,14 @@ function Index() {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
     const floorOf = () => window.innerHeight * 0.68;
+    const isMobile = () => window.innerWidth < 768;
 
     // The clean robot intro plays only once per session. When coming back to
     // the home page (logo / Home / back from catalog), open straight at the
     // point where the page unlocks instead of replaying the intro.
-    let introPassed = sessionStorage.getItem(INTRO_SEEN_KEY) === "1";
+    // On mobile we always skip the intro and land directly at the floor,
+    // because the phone viewport starts from the interactive section.
+    let introPassed = sessionStorage.getItem(INTRO_SEEN_KEY) === "1" || isMobile();
     let restore = 0;
     if (introPassed) {
       // The router may reset the offset right after mount, so re-apply the
