@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/lib/cart";
 import { getPublicProducts } from "@/lib/shop.functions";
 import { formatPrice, productImage } from "@/lib/product-image";
+import { useI18n } from "@/lib/i18n";
 
 function StarField({ count = 12 }: { count?: number }) {
   const stars = Array.from({ length: count }, (_, i) => ({
@@ -66,6 +67,7 @@ export const Route = createFileRoute("/catalog")({
 });
 
 function CatalogPage() {
+  const { t: tr } = useI18n();
   const root = useRef<HTMLDivElement>(null);
   const { add } = useCart();
   const { data } = useQuery({
@@ -121,13 +123,13 @@ function CatalogPage() {
             className="pointer-events-auto inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft size={16} weight="light" />
-            Back to home
+            {tr("catalog.back")}
           </Link>
           <h1 className="mt-6 font-display text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
-            Full <span className="text-gradient">catalog</span>
+            {tr("catalog.title")} <span className="text-gradient">{tr("catalog.titleAccent")}</span>
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground md:text-lg">
-            Best-price subscriptions and digital keys, delivered in minutes with warranty and 24/7 support.
+            {tr("catalog.subtitle")}
           </p>
         </div>
 
@@ -219,11 +221,11 @@ function CatalogPage() {
                         currency: p.currency,
                         period: p.period,
                       });
-                      toast.success(`${p.title} добавлен в корзину`);
+                      toast.success(tr("products.added", { title: p.title }));
                     }}
                     className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-4 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98]"
                   >
-                    В корзину
+                    {tr("products.add")}
                     <ArrowRight
                       size={16}
                       weight="bold"

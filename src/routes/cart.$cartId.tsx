@@ -3,6 +3,7 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft } from "@phosphor-icons/react";
 import Navbar from "@/components/Navbar";
+import { useI18n } from "@/lib/i18n";
 import Footer from "@/components/Footer";
 import { getCartById } from "@/lib/shop.functions";
 import { formatPrice } from "@/lib/product-image";
@@ -43,8 +44,8 @@ export const Route = createFileRoute("/cart/$cartId")({
   loader: ({ context, params }) =>
     context.queryClient.ensureQueryData(cartQuery(params.cartId)),
   component: SharedCartPage,
-  errorComponent: () => <CartFallback message="Не удалось загрузить корзину" />,
-  notFoundComponent: () => <CartFallback message="Корзина не найдена" />,
+  errorComponent: () => <CartFallback messageKey="shared.loadError" />,
+  notFoundComponent: () => <CartFallback messageKey="shared.notFound" />,
 });
 
 function CartFallback({ message }: { message: string }) {
@@ -53,7 +54,7 @@ function CartFallback({ message }: { message: string }) {
       <div>
         <h1 className="font-display text-2xl font-semibold">{message}</h1>
         <Link to="/" className="mt-4 inline-block text-sm text-muted-foreground hover:text-foreground">
-          На главную
+          {t("shared.home")}
         </Link>
       </div>
     </div>
@@ -61,10 +62,11 @@ function CartFallback({ message }: { message: string }) {
 }
 
 function SharedCartPage() {
+  const { t } = useI18n();
   const { cartId } = Route.useParams();
   const { data } = useSuspenseQuery(cartQuery(cartId));
 
-  if (!data) return <CartFallback message="Корзина не найдена" />;
+  if (!data) return <CartFallback messageKey="shared.notFound" />;
 
   const items = (data.items as unknown as CartItem[]) ?? [];
 
@@ -76,13 +78,13 @@ function SharedCartPage() {
           to="/"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
-          <ArrowLeft size={16} weight="light" /> На главную
+          <ArrowLeft size={16} weight="light" /> {t("shared.home")}
         </Link>
         <h1 className="mt-6 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-          Корзина покупателя
+          {t("shared.title")}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Создана {new Date(data.created_at as string).toLocaleString()}
+          {t("shared.created")} {new Date(data.created_at as string).toLocaleString()}
           {data.channel ? ` · ${data.channel}` : ""}
         </p>
 
@@ -106,7 +108,7 @@ function SharedCartPage() {
         </ul>
 
         <div className="mt-6 flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-4">
-          <span className="text-sm text-muted-foreground">Итого</span>
+          <span className="text-sm text-muted-foreground">{t("cart.total")}</span>
           <span className="font-display text-xl font-semibold">
             {formatPrice(Number(data.total))}
           </span>
