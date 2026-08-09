@@ -321,7 +321,26 @@ function ProductForm({
   onCancel: () => void;
 }) {
   const [form, setForm] = useState<ProductRow>(value);
-  useEffect(() => setForm(value), [value]);
+  const [desc, setDesc] = useState<LangBlocks>(() => splitDescription(value.description));
+  const [perksBlocks, setPerksBlocks] = useState<LangBlocks>(() => splitPerks(value.perks ?? []));
+  useEffect(() => {
+    setForm(value);
+    setDesc(splitDescription(value.description));
+    setPerksBlocks(splitPerks(value.perks ?? []));
+  }, [value]);
+
+  function updateDesc(k: keyof LangBlocks, v: string) {
+    const next = { ...desc, [k]: v };
+    setDesc(next);
+    setForm((prev) => ({ ...prev, description: joinDescription(next) }));
+  }
+
+  function updatePerks(k: keyof LangBlocks, v: string) {
+    const next = { ...perksBlocks, [k]: v };
+    setPerksBlocks(next);
+    setForm((prev) => ({ ...prev, perks: joinPerks(next) }));
+  }
+
 
   const uploadImage = useServerFn(adminUploadProductImage);
   const resolveImage = useServerFn(adminResolveImageUrl);
