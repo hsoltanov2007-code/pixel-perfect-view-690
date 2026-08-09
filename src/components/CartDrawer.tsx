@@ -371,13 +371,7 @@ export default function CartDrawer() {
           ) : (
             <div className="mt-5 space-y-3">
               <p className="text-xs text-muted-foreground">{t("cart.choose")}</p>
-              <div className="grid grid-cols-3 gap-2">
-                <ChannelButton
-                  disabled={busy || !contacts?.whatsapp}
-                  onClick={() => checkout("whatsapp")}
-                  icon={<WhatsappLogo size={22} weight="light" />}
-                  label="WhatsApp"
-                />
+              <div className="grid grid-cols-2 gap-2">
                 <ChannelButton
                   disabled={busy || !contacts?.telegram}
                   onClick={() => checkout("telegram")}
