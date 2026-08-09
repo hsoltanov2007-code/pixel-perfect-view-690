@@ -80,7 +80,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         onClick={() => setOpen((v) => !v)}
         className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/10 text-lg text-foreground ring-1 ring-foreground/20 backdrop-blur-md transition-colors hover:bg-foreground/15"
       >
-        <span aria-hidden="true">{LANG_FLAGS[lang]}</span>
+        <span aria-hidden="true">{lang.toUpperCase()}</span>
       </button>
 
       {open &&
