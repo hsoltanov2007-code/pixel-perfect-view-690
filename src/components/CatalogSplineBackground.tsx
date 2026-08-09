@@ -12,6 +12,9 @@ export default function CatalogSplineBackground() {
     let width = window.innerWidth;
     let height = window.innerHeight;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const isMobile = width < 768;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const resize = () => {
       width = window.innerWidth;
@@ -25,8 +28,9 @@ export default function CatalogSplineBackground() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Elegant floating particles and connection lines
-    const particleCount = Math.min(60, Math.floor((width * height) / 25000));
+    // Lightweight on mobile: fewer particles and no connection lines.
+    const maxParticles = isMobile ? 18 : 35;
+    const particleCount = Math.min(maxParticles, Math.floor((width * height) / 35000));
     const particles: {
       x: number;
       y: number;
@@ -42,20 +46,41 @@ export default function CatalogSplineBackground() {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 1.5 + 0.5,
-        alpha: Math.random() * 0.4 + 0.2,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        radius: Math.random() * 1.2 + 0.4,
+        alpha: Math.random() * 0.35 + 0.15,
         pulse: Math.random() * Math.PI * 2,
-        pulseSpeed: Math.random() * 0.02 + 0.01,
+        pulseSpeed: Math.random() * 0.015 + 0.008,
       });
     }
 
     let frame = 0;
     let running = true;
+    let lastTime = performance.now();
+    // Cap mobile animation at 30 fps to save battery/GPU.
+    const frameInterval = isMobile ? 33 : 16;
 
     const draw = () => {
       if (!running) return;
+      if (reduceMotion) {
+        // Static frame only — no animation loop
+        renderFrame();
+        return;
+      }
+      const now = performance.now();
+      const elapsed = now - lastTime;
+      if (elapsed < frameInterval) {
+        frame = requestAnimationFrame(draw);
+        return;
+      }
+      lastTime = now - (elapsed % frameInterval);
+      renderFrame();
+      frame = requestAnimationFrame(draw);
+    };
+
+    const renderFrame = () => {
+
       ctx.clearRect(0, 0, width, height);
 
       // Deep black base
@@ -83,9 +108,9 @@ export default function CatalogSplineBackground() {
       ctx.fillStyle = g2;
       ctx.fillRect(0, 0, width, height);
 
-      // Fine dot grid
+      // Fine dot grid — sparser on mobile
       ctx.fillStyle = "rgba(255, 255, 255, 0.03)";
-      const gridSize = 60;
+      const gridSize = isMobile ? 90 : 60;
       const offsetX = (time * 5) % gridSize;
       const offsetY = (time * 3) % gridSize;
       for (let x = -gridSize; x < width + gridSize; x += gridSize) {
@@ -120,26 +145,28 @@ export default function CatalogSplineBackground() {
         ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha * glow})`;
         ctx.fill();
 
-        // Connection lines between nearby particles
-        for (let j = i + 1; j < particles.length; j++) {
-          const q = particles[j];
-          if (!q) continue;
-          const dx = p.x - q.x;
-          const dy = p.y - q.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 140) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(q.x, q.y);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.04 * (1 - dist / 140)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
+        // Connection lines between nearby particles — disabled on mobile
+        if (!isMobile) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const q = particles[j];
+            if (!q) continue;
+            const dx = p.x - q.x;
+            const dy = p.y - q.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 140) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = `rgba(255, 255, 255, ${0.04 * (1 - dist / 140)})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
           }
         }
       }
 
-      // Occasional shooting star streaks
-      if (Math.random() < 0.01) {
+      // Occasional shooting star streaks — less frequent on mobile
+      if (!isMobile && Math.random() < 0.01) {
         const sx = Math.random() * width;
         const sy = Math.random() * height * 0.5;
         const len = 80 + Math.random() * 120;
@@ -154,8 +181,6 @@ export default function CatalogSplineBackground() {
         ctx.lineWidth = 1;
         ctx.stroke();
       }
-
-      frame = requestAnimationFrame(draw);
     };
 
     draw();
@@ -169,7 +194,7 @@ export default function CatalogSplineBackground() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-black">
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full will-change-transform" />
       {/* Soft top/bottom fade for header/footer readability */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/80 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black/80 to-transparent" />
