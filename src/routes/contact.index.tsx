@@ -37,6 +37,7 @@ function ContactIndex() {
     queryFn: () => getStatusFn(),
     refetchInterval: 30000,
   });
+  const isOperatorOnline = statusData?.online ?? false;
   const { data: contacts } = useQuery({
     queryKey: ["public-contacts"],
     queryFn: () => getPublicContacts(),
