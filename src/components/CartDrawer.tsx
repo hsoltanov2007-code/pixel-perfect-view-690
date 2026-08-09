@@ -151,7 +151,18 @@ export default function CartDrawer() {
         return;
       }
 
+      window.open(url, "_blank", "noopener,noreferrer");
+      clear();
+      setChoosing(false);
+      setOpen(false);
+      toast.success(t("cart.sent"));
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : t("cart.failed"));
+    } finally {
+      setBusy(false);
+    }
   }
+
 
   if (!open) return null;
 
