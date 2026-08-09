@@ -136,7 +136,7 @@ function CatalogPage() {
           </p>
         </div>
 
-        <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {products.map((p) => (
             <article
               key={p.id}
@@ -146,7 +146,7 @@ function CatalogPage() {
               <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-[radial-gradient(ellipse_at_50%_0%,var(--cosmos-nebula),transparent_65%)] opacity-10 blur-2xl transition-opacity duration-700 group-hover:opacity-20" />
 
               {/* Card body */}
-              <div className="cosmos-card-surface relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/6 backdrop-blur-2xl transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-white/10">
+              <div className="cosmos-card-surface relative flex h-full flex-col overflow-hidden rounded-[1.25rem] border border-white/6 backdrop-blur-2xl transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-white/10 sm:rounded-[1.75rem]">
                 {/* Starfield */}
                 <div className="cosmos-starfield pointer-events-none absolute inset-0 opacity-40 transition-opacity duration-700 group-hover:opacity-70" />
                 <StarField count={isMobile ? 4 : 7} />
@@ -154,9 +154,9 @@ function CatalogPage() {
                 <div className="cosmos-drift pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-cosmos-nebula/15 blur-3xl" />
 
                 {/* Image */}
-                <div className="relative h-48 w-full overflow-hidden p-3">
-                  <div className="absolute top-5 left-5 z-20">
-                    <span className="rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-medium tracking-[0.18em] text-cosmos-star uppercase backdrop-blur-md">
+                <div className="relative h-28 w-full overflow-hidden p-2 sm:h-48 sm:p-3">
+                  <div className="absolute top-3 left-3 z-20 sm:top-5 sm:left-5">
+                    <span className="rounded-full border border-white/10 bg-black/45 px-2 py-0.5 text-[8px] font-medium tracking-[0.14em] text-cosmos-star uppercase backdrop-blur-md sm:px-3 sm:py-1 sm:text-[10px] sm:tracking-[0.18em]">
                       {p.badge}
                     </span>
                   </div>
@@ -175,32 +175,32 @@ function CatalogPage() {
                 </div>
 
                 {/* Content */}
-                <div className="relative flex flex-1 flex-col px-6 pb-8">
-                  <div className="mb-4 flex items-end justify-between gap-3">
-                    <div>
-                      <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+                <div className="relative flex flex-1 flex-col px-3 pb-4 sm:px-6 sm:pb-8">
+                  <div className="mb-2 flex items-end justify-between gap-2 sm:mb-4 sm:gap-3">
+                    <div className="min-w-0">
+                      <h3 className="truncate font-display text-base font-semibold tracking-tight text-foreground sm:text-2xl">
                         {p.title}
                       </h3>
-                      <p className="text-xs tracking-[0.16em] text-cosmos-dust uppercase">
+                      <p className="text-[10px] tracking-[0.12em] text-cosmos-dust uppercase sm:text-xs sm:tracking-[0.16em]">
                         2G SHOP
                       </p>
                     </div>
-                    <div className="text-right">
-                      <span className="font-display text-2xl font-semibold tracking-tight text-foreground">
+                    <div className="shrink-0 text-right">
+                      <span className="font-display text-base font-semibold tracking-tight text-foreground sm:text-2xl">
                         {formatPrice(Number(p.price), p.currency)}
                       </span>
-                      <span className="block text-xs text-muted-foreground">
+                      <span className="block text-[10px] text-muted-foreground sm:text-xs">
                         {p.period}
                       </span>
                     </div>
                   </div>
 
-                  <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:mb-6 sm:text-sm">
                     {p.description}
                   </p>
 
 
-                  <ul className="mb-8 space-y-3">
+                  <ul className="mb-4 hidden space-y-3 sm:mb-8 sm:block">
                     {p.perks.map((t) => (
                       <li
                         key={t}
@@ -226,7 +226,7 @@ function CatalogPage() {
                       });
                       toast.success(tr("products.added", { title: p.title }));
                     }}
-                    className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-4 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98]"
+                    className="group/btn mt-auto flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/8 bg-white/5 py-2.5 text-xs font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98] sm:gap-2 sm:rounded-xl sm:py-4 sm:text-sm"
                   >
                     {tr("products.add")}
                     <ArrowRight
