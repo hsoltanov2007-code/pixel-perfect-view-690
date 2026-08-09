@@ -137,12 +137,13 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
 
   const { queryClient } = Route.useRouteContext();
+  const { initialLang } = Route.useLoaderData() as { initialLang: Lang | null };
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isHome = pathname === "/";
 
   return (
     <QueryClientProvider client={queryClient}>
-      <I18nProvider>
+      <I18nProvider initialLang={initialLang}>
       <CartProvider>
         {/* Persistent 3D scene: stays mounted between routes so returning home is instant */}
         <SplineBackground active={isHome} />
