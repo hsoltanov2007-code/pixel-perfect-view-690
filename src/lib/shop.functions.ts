@@ -67,7 +67,6 @@ export const getPublicContacts = createServerFn({ method: "GET" }).handler(
     const map: Record<string, string> = {};
     for (const row of data ?? []) map[row.key] = row.value;
     return {
-      whatsapp: map["whatsapp"] ?? "",
       telegram: map["telegram"] ?? "",
       instagram: map["instagram"] ?? "",
       footer_telegram: map["footer_telegram"] ?? "",
