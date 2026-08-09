@@ -257,10 +257,19 @@ function CatalogPage() {
 
                   {/* CTA */}
                   <button
-                    onClick={() => toast.success(`${p.title} added — we'll contact you to finish checkout.`)}
+                    onClick={() => {
+                      add({
+                        id: p.id,
+                        title: p.title,
+                        price: Number(p.price),
+                        currency: p.currency,
+                        period: p.period,
+                      });
+                      toast.success(`${p.title} добавлен в корзину`);
+                    }}
                     className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-4 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98]"
                   >
-                    Buy now
+                    В корзину
                     <ArrowRight
                       size={16}
                       weight="bold"
