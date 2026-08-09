@@ -39,10 +39,11 @@ export function localizeDescription(
   const blocks: Record<string, string> = {};
   for (let i = 0; i < matches.length; i++) {
     const match = matches[i];
+    if (!match || match.index === undefined) continue;
     const code = match[1].toLowerCase();
-    const start = (match.index ?? 0) + match[0].length;
+    const start = match.index + match[0].length;
     const end =
-      i < matches.length - 1 ? matches[i + 1].index : description.length;
+      i < matches.length - 1 ? matches[i + 1]?.index ?? description.length : description.length;
     blocks[code] = description.slice(start, end).trim();
   }
 
