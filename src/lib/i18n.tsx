@@ -271,6 +271,11 @@ const en: Dict = {
   "cart.failed": "Could not place the order",
   "cart.copyLink": "Copy link",
   "cart.linkCopied": "Link copied",
+  "cart.vaultTitle": "Your vault",
+  "cart.subtotal": "Subtotal",
+  "cart.fee": "Service fee",
+  "cart.secure": "Secure connection active",
+  "cart.checkout": "Initialize checkout",
 
   "shared.title": "Customer cart",
   "shared.created": "Created",
