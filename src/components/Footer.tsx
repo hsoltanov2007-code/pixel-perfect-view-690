@@ -12,6 +12,11 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 export default function Footer() {
   const { t, lang } = useI18n();
   const root = useRef<HTMLElement>(null);
+  const { data: contacts } = useQuery({
+    queryKey: ["public-contacts"],
+    queryFn: () => getPublicContacts(),
+    staleTime: 5 * 60 * 1000,
+  });
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
