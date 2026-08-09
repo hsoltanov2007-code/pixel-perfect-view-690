@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      carts: {
+        Row: {
+          channel: string | null
+          created_at: string
+          id: string
+          items: Json
+          status: string
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          channel?: string | null
+          created_at?: string
+          id?: string
+          items?: Json
+          status?: string
+          total?: number
+          updated_at?: string
+        }
+        Update: {
+          channel?: string | null
+          created_at?: string
+          id?: string
+          items?: Json
+          status?: string
+          total?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       chat_messages: {
         Row: {
           content: string
@@ -114,6 +144,72 @@ export type Database = {
           id?: string
           online?: boolean
           updated_at?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          active: boolean
+          badge: string | null
+          created_at: string
+          currency: string
+          description: string
+          id: string
+          image_key: string | null
+          period: string
+          perks: string[]
+          price: number
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          badge?: string | null
+          created_at?: string
+          currency?: string
+          description?: string
+          id?: string
+          image_key?: string | null
+          period?: string
+          perks?: string[]
+          price?: number
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          badge?: string | null
+          created_at?: string
+          currency?: string
+          description?: string
+          id?: string
+          image_key?: string | null
+          period?: string
+          perks?: string[]
+          price?: number
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: string
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: string
         }
         Relationships: []
       }
