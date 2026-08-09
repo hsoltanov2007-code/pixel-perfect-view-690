@@ -143,7 +143,7 @@ export default function Products() {
       <div className="product-grid relative mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
         {items.map((p) => (
           <article
-            key={p.title}
+            key={p.id}
             className="product-card pointer-events-auto group relative"
           >
             {/* Soft nebula halo */}
