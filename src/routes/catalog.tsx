@@ -195,12 +195,12 @@ function CatalogPage() {
                     </div>
                   </div>
 
-                  <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:mb-6 sm:text-sm">
                     {p.description}
                   </p>
 
 
-                  <ul className="mb-8 space-y-3">
+                  <ul className="mb-4 hidden space-y-3 sm:mb-8 sm:block">
                     {p.perks.map((t) => (
                       <li
                         key={t}
