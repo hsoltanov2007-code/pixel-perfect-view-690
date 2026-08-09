@@ -8,7 +8,7 @@ import { legalLabels } from "@/lib/legal";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Footer() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
