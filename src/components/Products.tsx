@@ -138,7 +138,7 @@ export default function Products() {
               <div className="cosmos-drift pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-cosmos-nebula/15 blur-3xl" />
 
               {/* Image */}
-              <div className="relative h-44 w-full overflow-hidden p-3">
+              <div className="relative h-36 w-full overflow-hidden p-2 md:h-44 md:p-3">
                 <div className="absolute top-5 left-5 z-20">
                   <span className="rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-medium tracking-[0.18em] text-cosmos-star uppercase backdrop-blur-md">
                     {p.badge}
@@ -159,10 +159,10 @@ export default function Products() {
               </div>
 
               {/* Content */}
-              <div className="relative flex flex-1 flex-col px-6 pb-6">
+              <div className="relative flex flex-1 flex-col px-4 pb-4 md:px-6 md:pb-6">
                 <div className="mb-3 flex items-end justify-between gap-3">
                   <div>
-                    <h3 className="font-display text-xl font-semibold tracking-tight text-foreground">
+                    <h3 className="font-display text-lg font-semibold tracking-tight text-foreground md:text-xl">
                       {p.title}
                     </h3>
                     <p className="text-[10px] tracking-[0.16em] text-cosmos-dust uppercase">
@@ -170,7 +170,7 @@ export default function Products() {
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="font-display text-xl font-semibold tracking-tight text-foreground">
+                    <span className="font-display text-lg font-semibold tracking-tight text-foreground md:text-xl">
                       {formatPrice(Number(p.price), p.currency)}
                     </span>
                     <span className="block text-[10px] text-muted-foreground">
@@ -179,7 +179,7 @@ export default function Products() {
                   </div>
                 </div>
 
-                <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                <p className="mb-3 text-xs leading-relaxed text-muted-foreground md:mb-4 md:text-sm">
                   {p.description}
                 </p>
 
@@ -187,7 +187,7 @@ export default function Products() {
                   {p.perks.map((t) => (
                     <li
                       key={t}
-                      className="flex items-center gap-3 text-[13px] text-foreground/75"
+                      className="flex items-center gap-2 text-[11px] text-foreground/75 md:gap-3 md:text-[13px]"
                     >
                       <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5">
                         <Check size={11} weight="bold" className="text-cosmos-star" />
@@ -209,7 +209,7 @@ export default function Products() {
                     });
                     toast.success(tr("products.added", { title: p.title }));
                   }}
-                  className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-3 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98]"
+                  className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-2.5 text-xs font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98] md:py-3 md:text-sm"
                 >
                   {tr("products.add")}
                   <ArrowRight
