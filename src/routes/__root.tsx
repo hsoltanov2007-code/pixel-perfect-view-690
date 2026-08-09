@@ -150,7 +150,26 @@ function RootComponent() {
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
         <CartDrawer />
-        <Toaster position="bottom-right" theme="dark" />
+        <Toaster
+          position="top-center"
+          theme="dark"
+          duration={2200}
+          gap={8}
+          visibleToasts={2}
+          offset={16}
+          toastOptions={{
+            unstyled: true,
+            classNames: {
+              toast:
+                "mx-auto flex w-fit max-w-[92vw] items-center gap-2.5 rounded-full border border-white/10 bg-[oklch(0.12_0.02_285/0.85)] px-4 py-2.5 text-foreground shadow-[0_8px_30px_-8px_oklch(0.2_0.08_285/0.9)] backdrop-blur-xl",
+              title: "text-[12px] font-medium tracking-tight leading-none",
+              description: "text-[11px] text-muted-foreground leading-snug",
+              icon: "shrink-0 [&>svg]:h-3.5 [&>svg]:w-3.5",
+              success: "border-emerald-500/25 [&_[data-icon]>svg]:text-emerald-400",
+              error: "border-rose-500/25 [&_[data-icon]>svg]:text-rose-400",
+            },
+          }}
+        />
       </CartProvider>
       </I18nProvider>
     </QueryClientProvider>
