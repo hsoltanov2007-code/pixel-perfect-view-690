@@ -21,7 +21,14 @@ import {
   adminUploadProductImage,
   getAdminStatus,
 } from "@/lib/admin.functions";
-import { formatPrice } from "@/lib/product-image";
+import {
+  formatPrice,
+  splitDescription,
+  joinDescription,
+  splitPerks,
+  joinPerks,
+  type LangBlocks,
+} from "@/lib/product-image";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
