@@ -93,6 +93,27 @@ export default function CartDrawer() {
     return () => ctx.revert();
   }, [open]);
 
+  async function copyText(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        return ok;
+      } catch {
+        return false;
+      }
+    }
+  }
+
   async function checkout(channel: Channel) {
     if (!items.length || busy) return;
     setBusy(true);
@@ -121,25 +142,15 @@ export default function CartDrawer() {
       } else {
         const handle = (contacts?.instagram ?? "").replace(/^@/, "").trim();
         if (!handle) throw new Error(t("cart.notConfigured", { channel: "Instagram" }));
-        try {
-          await navigator.clipboard.writeText(text);
-          toast.success(t("cart.copied"));
-        } catch {
-          /* ignore */
-        }
-        url = `https://ig.me/m/${encodeURIComponent(handle)}`;
+        // Instagram can't prefill DM text — show the message so it can be copied.
+        const copied = await copyText(text);
+        if (copied) toast.success(t("cart.copied"));
+        setIgText(text);
+        setIgUrl(`https://ig.me/m/${encodeURIComponent(handle)}`);
+        setBusy(false);
+        return;
       }
 
-      window.open(url, "_blank", "noopener,noreferrer");
-      clear();
-      setChoosing(false);
-      setOpen(false);
-      toast.success(t("cart.sent"));
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : t("cart.failed"));
-    } finally {
-      setBusy(false);
-    }
   }
 
   if (!open) return null;
