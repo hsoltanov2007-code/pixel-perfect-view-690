@@ -424,13 +424,24 @@ function ProductForm({
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
           />
-          <textarea
-            className={field}
-            rows={3}
-            placeholder="Описание"
-            value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
-          />
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">Описание</p>
+            {(["ru", "az", "en"] as const).map((k) => (
+              <div key={k} className="flex items-start gap-2">
+                <span className="mt-2.5 w-7 shrink-0 text-xs font-semibold text-muted-foreground">
+                  {k.toUpperCase()}
+                </span>
+                <textarea
+                  className={field}
+                  rows={2}
+                  placeholder={`Описание (${k.toUpperCase()})`}
+                  value={desc[k]}
+                  onChange={(e) => updateDesc(k, e.target.value)}
+                />
+              </div>
+            ))}
+          </div>
+
           <div className="grid grid-cols-3 gap-3">
             <input
               className={field}
