@@ -120,7 +120,7 @@ export default function Products() {
         }}
       />
       <div className="pointer-events-none absolute top-1/4 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-foreground/10 blur-[130px]" />
-      <div className="product-grid relative mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
+      <div className="product-grid pointer-events-auto relative mx-auto flex max-w-6xl snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0">
         {items.map((p) => (
           <article
             key={p.id}
