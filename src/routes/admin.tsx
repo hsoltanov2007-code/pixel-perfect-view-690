@@ -534,17 +534,25 @@ function ProductForm({
             value={form.badge ?? ""}
             onChange={(e) => setForm({ ...form, badge: e.target.value })}
           />
-          <textarea
-            className={`${field} min-h-24`}
-            placeholder={"Преимущества — по одному в строке\nНапример:\nБезлимитный доступ\nМоментальная выдача"}
-            value={form.perks.join("\n")}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                perks: e.target.value.split("\n"),
-              })
-            }
-          />
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">
+              Преимущества — по одному в строке
+            </p>
+            {(["ru", "az", "en"] as const).map((k) => (
+              <div key={k} className="flex items-start gap-2">
+                <span className="mt-2.5 w-7 shrink-0 text-xs font-semibold text-muted-foreground">
+                  {k.toUpperCase()}
+                </span>
+                <textarea
+                  className={`${field} min-h-20`}
+                  placeholder={`Преимущества (${k.toUpperCase()})`}
+                  value={perksBlocks[k]}
+                  onChange={(e) => updatePerks(k, e.target.value)}
+                />
+              </div>
+            ))}
+          </div>
+
 
           <label className="flex items-center gap-2 text-sm text-muted-foreground">
             <input
