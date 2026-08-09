@@ -54,7 +54,7 @@ export default function Why() {
     >
       <div className="relative mx-auto flex w-full max-w-3xl flex-col items-center px-6 text-center">
         {/* Orb — cleaned image, no white ring */}
-        <div className="why-fade relative mt-4 mb-6 h-[260px] w-[260px] translate-y-4 sm:mt-6 sm:h-[340px] sm:w-[340px] sm:translate-y-6">
+        <div className="why-fade relative mt-8 mb-6 h-[260px] w-[260px] translate-y-10 sm:mt-12 sm:h-[340px] sm:w-[340px] sm:translate-y-14">
           <div className="absolute inset-0 overflow-hidden rounded-full">
             <img
               src={orbAsset.url}
