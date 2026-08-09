@@ -10,7 +10,6 @@ import {
   Headset,
   Envelope,
   User,
-  WhatsappLogo,
   TelegramLogo,
   InstagramLogo,
 } from "@phosphor-icons/react";
