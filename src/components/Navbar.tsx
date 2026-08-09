@@ -66,7 +66,7 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
         }`}
       >
         <nav
-          className={`pointer-events-auto mx-auto mt-4 flex max-w-6xl origin-top items-center justify-between overflow-hidden rounded-full px-5 py-3 transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-7 ${
+          className={`pointer-events-auto mx-auto mt-4 flex max-w-6xl origin-top items-center justify-between overflow-hidden rounded-full border border-border/80 bg-background/95 px-5 py-3 shadow-glow backdrop-blur-2xl transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-7 ${
             visible
               ? "scale-x-100 opacity-100 blur-0"
               : "scale-x-[0.12] opacity-0 blur-[2px]"
@@ -74,11 +74,6 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
           style={{
             clipPath: visible ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)",
             transitionDelay: visible ? "120ms" : "0ms",
-            background: "oklch(0.09 0 0 / 72%)",
-            backdropFilter: "blur(22px)",
-            WebkitBackdropFilter: "blur(22px)",
-            border: "1px solid oklch(1 0 0 / 18%)",
-            boxShadow: "0 0 0 1px oklch(1 0 0 / 8%), 0 18px 50px -12px oklch(0 0 0 / 0.5)",
           }}
         >
           {isHome ? (
