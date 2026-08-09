@@ -77,6 +77,10 @@ const ru: Dict = {
   "cart.back": "Назад",
   "cart.notConfigured": "{channel} не настроен",
   "cart.copied": "Текст заказа скопирован — вставьте его в директ",
+  "cart.igHint":
+    "Instagram не поддерживает автотекст. Скопируйте сообщение и вставьте его в директ.",
+  "cart.igCopy": "Скопировать сообщение",
+  "cart.igOpen": "Открыть Instagram",
   "cart.sent": "Корзина отправлена и очищена",
   "cart.failed": "Не удалось оформить заказ",
   "cart.copyLink": "Скопировать ссылку",
@@ -173,6 +177,10 @@ const az: Dict = {
   "cart.back": "Geri",
   "cart.notConfigured": "{channel} konfiqurasiya olunmayıb",
   "cart.copied": "Sifariş mətni kopyalandı — direct-ə yapışdırın",
+  "cart.igHint":
+    "Instagram mətni avtomatik doldurmur. Mesajı kopyalayıb direct-ə yapışdırın.",
+  "cart.igCopy": "Mesajı kopyala",
+  "cart.igOpen": "Instagram-ı aç",
   "cart.sent": "Səbət göndərildi və təmizləndi",
   "cart.failed": "Sifariş rəsmiləşdirilmədi",
   "cart.copyLink": "Linki kopyala",
@@ -269,6 +277,10 @@ const en: Dict = {
   "cart.back": "Back",
   "cart.notConfigured": "{channel} is not configured",
   "cart.copied": "Order text copied — paste it into the DM",
+  "cart.igHint":
+    "Instagram can't prefill text. Copy the message and paste it into the DM.",
+  "cart.igCopy": "Copy message",
+  "cart.igOpen": "Open Instagram",
   "cart.sent": "Cart sent and cleared",
   "cart.failed": "Could not place the order",
   "cart.copyLink": "Copy link",

@@ -43,6 +43,8 @@ export default function CartDrawer() {
   const { t, lang } = useI18n();
   const [choosing, setChoosing] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [igText, setIgText] = useState<string | null>(null);
+  const [igUrl, setIgUrl] = useState<string | null>(null);
   const createLink = useServerFn(createCartLink);
 
   const drawerRef = useRef<HTMLElement>(null);
@@ -93,6 +95,27 @@ export default function CartDrawer() {
     return () => ctx.revert();
   }, [open]);
 
+  async function copyText(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        return ok;
+      } catch {
+        return false;
+      }
+    }
+  }
+
   async function checkout(channel: Channel) {
     if (!items.length || busy) return;
     setBusy(true);
@@ -121,13 +144,13 @@ export default function CartDrawer() {
       } else {
         const handle = (contacts?.instagram ?? "").replace(/^@/, "").trim();
         if (!handle) throw new Error(t("cart.notConfigured", { channel: "Instagram" }));
-        try {
-          await navigator.clipboard.writeText(text);
-          toast.success(t("cart.copied"));
-        } catch {
-          /* ignore */
-        }
-        url = `https://ig.me/m/${encodeURIComponent(handle)}`;
+        // Instagram can't prefill DM text — show the message so it can be copied.
+        const copied = await copyText(text);
+        if (copied) toast.success(t("cart.copied"));
+        setIgText(text);
+        setIgUrl(`https://ig.me/m/${encodeURIComponent(handle)}`);
+        setBusy(false);
+        return;
       }
 
       window.open(url, "_blank", "noopener,noreferrer");
@@ -141,6 +164,7 @@ export default function CartDrawer() {
       setBusy(false);
     }
   }
+
 
   if (!open) return null;
 
@@ -286,7 +310,51 @@ export default function CartDrawer() {
             </div>
           </div>
 
-          {!choosing ? (
+          {igText ? (
+            <div className="mt-5 space-y-3">
+              <p className="text-xs text-muted-foreground">{t("cart.igHint")}</p>
+              <textarea
+                readOnly
+                value={igText}
+                onFocus={(e) => e.currentTarget.select()}
+                className="h-28 w-full resize-none rounded-xl border border-white/10 bg-white/[0.04] p-3 text-[11px] leading-relaxed text-foreground/90 outline-none focus:border-indigo-500/40"
+              />
+              <button
+                onClick={async () => {
+                  const ok = await copyText(igText);
+                  if (ok) toast.success(t("cart.copied"));
+                }}
+                className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.05] py-3 text-xs uppercase tracking-widest text-foreground transition-colors hover:bg-white/[0.09]"
+              >
+                <Copy size={14} weight="bold" />
+                {t("cart.igCopy")}
+              </button>
+              <button
+                onClick={() => {
+                  if (igUrl) window.open(igUrl, "_blank", "noopener,noreferrer");
+                  clear();
+                  setIgText(null);
+                  setIgUrl(null);
+                  setChoosing(false);
+                  setOpen(false);
+                  toast.success(t("cart.sent"));
+                }}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 py-3.5 font-['Rajdhani'] text-sm font-bold uppercase tracking-[0.2em] text-white"
+              >
+                <InstagramLogo size={18} weight="light" />
+                {t("cart.igOpen")}
+              </button>
+              <button
+                onClick={() => {
+                  setIgText(null);
+                  setIgUrl(null);
+                }}
+                className="w-full pt-1 text-xs text-muted-foreground hover:text-foreground"
+              >
+                {t("cart.back")}
+              </button>
+            </div>
+          ) : !choosing ? (
             <button
               disabled={!items.length}
               onClick={() => setChoosing(true)}
