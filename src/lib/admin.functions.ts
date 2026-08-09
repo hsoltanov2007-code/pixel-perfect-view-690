@@ -188,7 +188,6 @@ export const adminSaveSettings = createServerFn({ method: "POST" })
   .inputValidator((input) =>
     z
       .object({
-        whatsapp: z.string().trim().max(200).default(""),
         telegram: z.string().trim().max(200).default(""),
         instagram: z.string().trim().max(200).default(""),
         footer_telegram: z.string().trim().max(200).default(""),
