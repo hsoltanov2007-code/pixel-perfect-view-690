@@ -7,11 +7,13 @@ import { useCart } from "@/lib/cart";
 import { formatPrice } from "@/lib/product-image";
 import { createCartLink, getPublicContacts } from "@/lib/shop.functions";
 import { buildCheckoutMessage } from "@/lib/checkout-message";
+import { useI18n } from "@/lib/i18n";
 
 type Channel = "whatsapp" | "telegram" | "instagram";
 
 export default function CartDrawer() {
   const { items, count, total, open, setOpen, remove, setQty, clear } = useCart();
+  const { t, lang } = useI18n();
   const [choosing, setChoosing] = useState(false);
   const [busy, setBusy] = useState(false);
   const createLink = useServerFn(createCartLink);
@@ -35,23 +37,24 @@ export default function CartDrawer() {
         lines,
         total: formatPrice(total),
         link,
+        locale: lang,
       });
 
       let url = "";
       if (channel === "whatsapp") {
         const phone = (contacts?.whatsapp ?? "").replace(/[^\d]/g, "");
-        if (!phone) throw new Error("WhatsApp не настроен");
+        if (!phone) throw new Error(t("cart.notConfigured", { channel: "WhatsApp" }));
         url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
       } else if (channel === "telegram") {
         const handle = (contacts?.telegram ?? "").replace(/^@/, "").trim();
-        if (!handle) throw new Error("Telegram не настроен");
+        if (!handle) throw new Error(t("cart.notConfigured", { channel: "Telegram" }));
         url = `https://t.me/${encodeURIComponent(handle)}?text=${encodeURIComponent(text)}`;
       } else {
         const handle = (contacts?.instagram ?? "").replace(/^@/, "").trim();
-        if (!handle) throw new Error("Instagram не настроен");
+        if (!handle) throw new Error(t("cart.notConfigured", { channel: "Instagram" }));
         try {
           await navigator.clipboard.writeText(text);
-          toast.success("Текст заказа скопирован — вставьте его в директ");
+          toast.success(t("cart.copied"));
         } catch {
           /* ignore */
         }
@@ -62,9 +65,9 @@ export default function CartDrawer() {
       clear();
       setChoosing(false);
       setOpen(false);
-      toast.success("Корзина отправлена и очищена");
+      toast.success(t("cart.sent"));
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Не удалось оформить заказ");
+      toast.error(e instanceof Error ? e.message : t("cart.failed"));
     } finally {
       setBusy(false);
     }
@@ -75,7 +78,7 @@ export default function CartDrawer() {
   return (
     <div className="fixed inset-0 z-[100] flex justify-end">
       <button
-        aria-label="Close cart"
+        aria-label={t("cart.close")}
         onClick={() => setOpen(false)}
         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
       />
@@ -83,10 +86,10 @@ export default function CartDrawer() {
         <header className="flex items-center justify-between border-b border-white/10 px-6 py-5">
           <div className="flex items-center gap-2">
             <ShoppingBag size={20} weight="light" />
-            <h2 className="font-display text-lg font-semibold">Корзина</h2>
+            <h2 className="font-display text-lg font-semibold">{t("cart.title")}</h2>
             <span className="text-sm text-muted-foreground">({count})</span>
           </div>
-          <button onClick={() => setOpen(false)} aria-label="Close">
+          <button onClick={() => setOpen(false)} aria-label={t("cart.close")}>
             <X size={20} weight="light" />
           </button>
         </header>
@@ -94,7 +97,7 @@ export default function CartDrawer() {
         <div className="flex-1 overflow-y-auto px-6 py-5">
           {items.length === 0 ? (
             <p className="mt-16 text-center text-sm text-muted-foreground">
-              Корзина пуста
+              {t("cart.empty")}
             </p>
           ) : (
             <ul className="space-y-4">
@@ -112,7 +115,7 @@ export default function CartDrawer() {
                     </div>
                     <button
                       onClick={() => remove(i.id)}
-                      aria-label={`Remove ${i.title}`}
+                      aria-label={t("cart.remove", { title: i.title })}
                       className="text-muted-foreground transition-colors hover:text-foreground"
                     >
                       <X size={16} weight="light" />
@@ -140,7 +143,7 @@ export default function CartDrawer() {
 
         <footer className="border-t border-white/10 px-6 py-5">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">Итого</span>
+            <span className="text-muted-foreground">{t("cart.total")}</span>
             <span className="font-display text-xl font-semibold">
               {formatPrice(total)}
             </span>
@@ -152,12 +155,12 @@ export default function CartDrawer() {
               onClick={() => setChoosing(true)}
               className="mt-4 w-full rounded-full bg-foreground py-3 text-sm font-semibold text-background transition-opacity disabled:opacity-40"
             >
-              Купить
+              {t("cart.buy")}
             </button>
           ) : (
             <div className="mt-4 space-y-2">
               <p className="text-xs text-muted-foreground">
-                Выберите, куда написать — текст заказа подставится автоматически.
+                {t("cart.choose")}
               </p>
               <div className="grid grid-cols-3 gap-2">
                 <ChannelButton
@@ -183,7 +186,7 @@ export default function CartDrawer() {
                 onClick={() => setChoosing(false)}
                 className="w-full pt-1 text-xs text-muted-foreground hover:text-foreground"
               >
-                Назад
+                {t("cart.back")}
               </button>
             </div>
           )}
@@ -217,15 +220,16 @@ function ChannelButton({
 }
 
 export function CopyLinkButton({ url }: { url: string }) {
+  const { t } = useI18n();
   return (
     <button
       onClick={() => {
         navigator.clipboard.writeText(url);
-        toast.success("Ссылка скопирована");
+        toast.success(t("cart.linkCopied"));
       }}
       className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-xs text-muted-foreground hover:text-foreground"
     >
-      <Copy size={14} weight="light" /> Скопировать ссылку
+      <Copy size={14} weight="light" /> {t("cart.copyLink")}
     </button>
   );
 }

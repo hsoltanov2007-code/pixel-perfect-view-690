@@ -5,6 +5,7 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { useI18n } from "@/lib/i18n";
 import { Copy, Check, Headset } from "lucide-react";
 import {
   Conversation,
@@ -49,6 +50,7 @@ function ChatThreadPage() {
 }
 
 function ChatThread({ threadId }: { threadId: string }) {
+  const { t } = useI18n();
   const { data: serverMessages = [] } = useSuspenseQuery(
     messagesQueryOptions(threadId)
   );
@@ -83,7 +85,7 @@ function ChatThread({ threadId }: { threadId: string }) {
 
   const onEscalate = async () => {
     await escalateFn({ data: { threadId } });
-    toast.success("Operator requested — a human will join this chat soon.");
+    toast.success(t("contact.operatorRequested"));
   };
 
   const isLoading = status === "submitted" || status === "streaming";
@@ -92,15 +94,15 @@ function ChatThread({ threadId }: { threadId: string }) {
     <div className="flex h-[calc(100vh-4rem)] flex-col">
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div>
-          <h2 className="font-medium">Live chat</h2>
-          <p className="text-xs text-muted-foreground">AI assistant</p>
+          <h2 className="font-medium">{t("contact.chatTitle")}</h2>
+          <p className="text-xs text-muted-foreground">{t("contact.aiAssistant")}</p>
         </div>
         <button
           onClick={onEscalate}
           className="btn-ghost-neon !px-3 !py-1.5 text-xs"
         >
           <Headset size={14} />
-          Call operator
+          {t("chat.callOperator")}
         </button>
       </div>
 
@@ -108,8 +110,8 @@ function ChatThread({ threadId }: { threadId: string }) {
         <ConversationContent>
           {messages.length === 0 && (
             <ConversationEmptyState
-              title="Start chatting"
-              description="Ask about orders, subscriptions, delivery or warranty."
+              title={t("chat.empty")}
+              description={t("chat.emptyDesc")}
             />
           )}
           {messages.map((message: UIMessage) => {
@@ -151,7 +153,7 @@ function ChatThread({ threadId }: { threadId: string }) {
       >
         <PromptInputTextarea
           name="message"
-          placeholder="Ask about your order..."
+          placeholder={t("contact.askPlaceholder")}
           disabled={isLoading}
         />
         <PromptInputFooter className="justify-end">

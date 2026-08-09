@@ -16,12 +16,14 @@ import {
 } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { createThread, getOperatorStatus } from "@/lib/chat.functions";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/contact/")({
   component: ContactIndex,
 });
 
 function ContactIndex() {
+  const { t } = useI18n();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const createThreadFn = useServerFn(createThread);
@@ -74,13 +76,13 @@ function ContactIndex() {
       navigate({ to: "/contact/$threadId", params: { threadId: id } });
     } catch (error) {
       console.error("Failed to start chat:", error);
-      toast.error("Could not start chat. Please try again.");
+      toast.error(t("contact.chatError"));
     }
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Message sent — we'll get back to you soon.");
+    toast.success(t("contact.sent"));
     (e.target as HTMLFormElement).reset();
   };
 
@@ -95,14 +97,13 @@ function ContactIndex() {
       <div className="contact-hero relative mx-auto max-w-3xl text-center">
         <span className="inline-flex items-center gap-2 rounded-full border border-border bg-glass px-4 py-1.5 text-xs tracking-[0.2em] text-accent uppercase">
           <Headset size={14} weight="light" />
-          Support center
+          {t("contact.eyebrow")}
         </span>
         <h1 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
-          How can we <span className="text-gradient">help?</span>
+          {t("contact.title")} <span className="text-gradient">{t("contact.titleAccent")}</span>
         </h1>
         <p className="mt-4 text-base text-muted-foreground md:text-lg">
-          Choose the fastest way to reach us. Send a message for non-urgent
-          requests or start a live chat when an operator is online.
+          {t("contact.subtitle")}
         </p>
       </div>
 
@@ -112,10 +113,9 @@ function ContactIndex() {
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary transition-colors group-hover:bg-foreground group-hover:text-background">
             <Envelope size={22} weight="light" />
           </div>
-          <h2 className="mt-5 text-xl font-medium">Send a message</h2>
+          <h2 className="mt-5 text-xl font-medium">{t("contact.messageTitle")}</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Describe your question and we'll reply by email as soon as
-            possible.
+            {t("contact.messageDesc")}
           </p>
 
           <form onSubmit={onSubmit} className="mt-6 space-y-3">
@@ -128,7 +128,7 @@ function ContactIndex() {
               <input
                 required
                 name="name"
-                placeholder="Your name"
+                placeholder={t("contact.name")}
                 className="field-glass !pl-11"
               />
             </div>
@@ -142,7 +142,7 @@ function ContactIndex() {
                 required
                 type="email"
                 name="email"
-                placeholder="Email address"
+                placeholder={t("contact.email")}
                 className="field-glass !pl-11"
               />
             </div>
@@ -150,11 +150,11 @@ function ContactIndex() {
               required
               name="message"
               rows={4}
-              placeholder="Which subscription are you interested in?"
+              placeholder={t("contact.message")}
               className="field-glass resize-none"
             />
             <button type="submit" className="btn-neon w-full !py-3">
-              Send message
+              {t("contact.send")}
               <PaperPlaneTilt size={17} weight="light" />
             </button>
           </form>
@@ -165,9 +165,9 @@ function ContactIndex() {
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary transition-colors group-hover:bg-foreground group-hover:text-background">
             <ChatTeardropText size={22} weight="light" />
           </div>
-          <h2 className="mt-5 text-xl font-medium">Live chat</h2>
+          <h2 className="mt-5 text-xl font-medium">{t("contact.chatTitle")}</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Talk with our AI assistant or request a human operator in real time.
+            {t("contact.chatDesc")}
           </p>
 
           <div className="mt-6 flex flex-1 flex-col justify-end">
@@ -183,12 +183,12 @@ function ContactIndex() {
               </span>
               <div className="flex-1">
                 <p className="text-sm font-medium">
-                  {isOperatorOnline ? "Operator online" : "Operator offline"}
+                  {isOperatorOnline ? t("contact.online") : t("contact.offline")}
                 </p>
                 <p className="text-xs text-muted-foreground">
                   {isOperatorOnline
-                    ? "Average response time under 2 minutes"
-                    : "Live chat is closed. Leave a message and we'll reply soon."}
+                    ? t("contact.onlineHint")
+                    : t("contact.offlineHint")}
                 </p>
               </div>
             </div>
@@ -205,12 +205,12 @@ function ContactIndex() {
             >
               {isOperatorOnline ? (
                 <>
-                  Start live chat
+                  {t("contact.start")}
                   <ChatTeardropText size={17} weight="light" />
                 </>
               ) : (
                 <>
-                  Live chat unavailable
+                  {t("contact.unavailable")}
                   <ChatTeardropText size={17} weight="light" />
                 </>
               )}

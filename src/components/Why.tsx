@@ -2,15 +2,17 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lightning, ShieldCheck, Headset } from "@phosphor-icons/react";
+import { useI18n } from "@/lib/i18n";
 import orbAsset from "@/assets/orb-clean.png.asset.json";
 
 const benefits = [
-  { icon: Lightning, label: "Instant delivery" },
-  { icon: ShieldCheck, label: "Warranty" },
-  { icon: Headset, label: "24/7 support" },
+  { icon: Lightning, key: "why.instant" },
+  { icon: ShieldCheck, key: "why.warranty" },
+  { icon: Headset, key: "why.support" },
 ];
 
 export default function Why() {
+  const { t } = useI18n();
   const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -69,25 +71,25 @@ export default function Why() {
         </div>
 
         <span className="why-fade inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] tracking-[0.35em] text-muted-foreground uppercase">
-          WHY 2G SHOP
+          {t("why.eyebrow")}
         </span>
 
         <h2 className="why-fade mt-5 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
-          Digital goods, <span className="text-muted-foreground">zero waiting</span>
+          {t("why.title")} <span className="text-muted-foreground">{t("why.titleAccent")}</span>
         </h2>
 
         <p className="why-fade mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
-          Premium subscriptions and keys, delivered instantly with warranty and real support.
+          {t("why.subtitle")}
         </p>
 
         <div className="why-fade mt-8 flex flex-wrap justify-center gap-3">
           {benefits.map((b) => (
             <div
-              key={b.label}
+              key={b.key}
               className="why-pill inline-flex items-center gap-2 rounded-full border border-border/60 bg-white/[0.03] px-4 py-2 text-sm text-foreground/90 backdrop-blur-sm transition-colors hover:border-border hover:bg-white/[0.06]"
             >
               <b.icon size={18} weight="light" className="text-foreground/70" />
-              <span>{b.label}</span>
+              <span>{t(b.key)}</span>
             </div>
           ))}
         </div>

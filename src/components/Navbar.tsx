@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { List, X, ShoppingBag } from "@phosphor-icons/react";
 import { useCart } from "@/lib/cart";
+import { useI18n } from "@/lib/i18n";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "Catalog", href: "/catalog" },
-  { label: "Contact", href: "/contact" },
+  { key: "nav.home", id: "home", href: "#home" },
+  { key: "nav.catalog", id: "catalog", href: "/catalog" },
+  { key: "nav.contact", id: "contact", href: "/contact" },
 ];
 
 function blockKeyNav(e: React.KeyboardEvent) {
@@ -19,6 +21,7 @@ function blockKeyNav(e: React.KeyboardEvent) {
 export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
   const { pathname } = useLocation();
   const { count, setOpen: setCartOpen } = useCart();
+  const { t } = useI18n();
   const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(alwaysVisible);
@@ -114,9 +117,9 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                     }`}
                     style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
                   >
-                    {l.label}
+                    {t(l.key)}
                   </Link>
-                ) : l.label === "Home" && isHome ? (
+                ) : l.id === "home" && isHome ? (
 
                   <span
                     aria-disabled="true"
@@ -127,9 +130,9 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                     }`}
                     style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
                   >
-                    {l.label}
+                    {t(l.key)}
                   </span>
-                ) : l.label === "Home" ? (
+                ) : l.id === "home" ? (
                   <Link
                     to="/"
                     className={`text-sm text-muted-foreground transition-all duration-500 hover:text-foreground ${
@@ -137,7 +140,7 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                     }`}
                     style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
                   >
-                    {l.label}
+                    {t(l.key)}
                   </Link>
                 ) : (
                   <a
@@ -147,7 +150,7 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
                     }`}
                     style={{ transitionDelay: visible ? `${350 + i * 70}ms` : "0ms" }}
                   >
-                    {l.label}
+                    {t(l.key)}
                   </a>
                 )}
 
@@ -155,8 +158,16 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
             ))}
           </ul>
           <div className="flex items-center gap-2">
+            <div
+              className={`hidden transition-all duration-500 sm:block ${
+                visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
+              }`}
+              style={{ transitionDelay: visible ? "500ms" : "0ms" }}
+            >
+              <LanguageSwitcher />
+            </div>
             <button
-              aria-label="Open cart"
+              aria-label={t("nav.openCart")}
               onClick={() => setCartOpen(true)}
               className={`relative rounded-full bg-foreground/10 p-2 text-foreground ring-1 ring-foreground/20 backdrop-blur-md transition-all duration-500 ${
                 visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
@@ -177,11 +188,11 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
               }`}
               style={{ transitionDelay: visible ? "620ms" : "0ms" }}
             >
-              Shop now
+              {t("nav.shopNow")}
             </Link>
           </div>
           <button
-            aria-label="Toggle menu"
+            aria-label={t("nav.toggleMenu")}
             onClick={() => setOpen((v) => !v)}
             className="rounded-full bg-foreground/10 p-2 text-foreground ring-1 ring-foreground/20 backdrop-blur-md md:hidden"
           >
@@ -205,9 +216,9 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
               onClick={() => setOpen(false)}
               className="text-2xl font-light text-foreground"
             >
-              {l.label}
+              {t(l.key)}
             </Link>
-          ) : l.label === "Home" && isHome ? (
+          ) : l.id === "home" && isHome ? (
             <span
               key={l.href}
               aria-disabled="true"
@@ -215,16 +226,16 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
               onKeyDown={blockKeyNav}
               className="cursor-default text-2xl font-light text-foreground/50"
             >
-              {l.label}
+              {t(l.key)}
             </span>
-          ) : l.label === "Home" ? (
+          ) : l.id === "home" ? (
             <Link
               key={l.href}
               to="/"
               onClick={() => setOpen(false)}
               className="text-2xl font-light text-foreground"
             >
-              {l.label}
+              {t(l.key)}
             </Link>
           ) : (
             <a
@@ -233,14 +244,15 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
               onClick={() => setOpen(false)}
               className="text-2xl font-light text-foreground"
             >
-              {l.label}
+              {t(l.key)}
             </a>
           )
         )}
 
         <Link to="/catalog" onClick={() => setOpen(false)} className="btn-neon mt-4">
-          Shop now
+          {t("nav.shopNow")}
         </Link>
+        <LanguageSwitcher compact />
       </div>
     </header>
   );

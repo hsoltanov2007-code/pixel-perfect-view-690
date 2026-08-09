@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { useCart } from "@/lib/cart";
 import { getPublicProducts } from "@/lib/shop.functions";
 import { formatPrice, productImage } from "@/lib/product-image";
+import { useI18n } from "@/lib/i18n";
 
 function StarField({ count = 10 }: { count?: number }) {
   const stars = Array.from({ length: count }, (_, i) => ({
@@ -39,6 +40,7 @@ function StarField({ count = 10 }: { count?: number }) {
 }
 
 export default function Products() {
+  const { t: tr } = useI18n();
   const root = useRef<HTMLElement>(null);
   const { add } = useCart();
   const { data } = useQuery({
@@ -205,11 +207,11 @@ export default function Products() {
                       currency: p.currency,
                       period: p.period,
                     });
-                    toast.success(`${p.title} добавлен в корзину`);
+                    toast.success(tr("products.added", { title: p.title }));
                   }}
                   className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-3 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98]"
                 >
-                  В корзину
+                  {tr("products.add")}
                   <ArrowRight
                     size={16}
                     weight="bold"
@@ -230,7 +232,7 @@ export default function Products() {
           to="/catalog"
           className="pointer-events-auto group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-foreground px-8 py-4 text-sm font-semibold text-background shadow-[0_0_0_1px_oklch(1_0_0/0.25),0_12px_40px_-10px_oklch(1_0_0/0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_oklch(1_0_0/0.35),0_20px_60px_-16px_oklch(1_0_0/0.45)]"
         >
-          <span className="relative z-10">Посмотреть каталог</span>
+          <span className="relative z-10">{tr("products.viewCatalog")}</span>
           <ArrowRight size={18} weight="bold" className="relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
           <span className="absolute inset-0 -z-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:animate-[shimmer_1s_ease-in-out]" />
         </Link>

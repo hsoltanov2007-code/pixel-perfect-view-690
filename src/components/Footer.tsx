@@ -3,8 +3,11 @@ import { Link } from "@tanstack/react-router";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TelegramLogo, InstagramLogo } from "@phosphor-icons/react";
+import { useI18n } from "@/lib/i18n";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Footer() {
+  const { t } = useI18n();
   const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -47,11 +50,12 @@ export default function Footer() {
       <div className="footer-inner relative mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 sm:flex-row sm:justify-between">
         <span className="text-lg font-semibold text-gradient">2G SHOP</span>
         <nav className="flex gap-6 text-sm text-muted-foreground">
-          <a href="/#home" className="transition-colors hover:text-foreground">Home</a>
-          <Link to="/catalog" className="transition-colors hover:text-foreground">Catalog</Link>
-          <Link to="/contact" className="transition-colors hover:text-foreground">Contact</Link>
+          <a href="/#home" className="transition-colors hover:text-foreground">{t("nav.home")}</a>
+          <Link to="/catalog" className="transition-colors hover:text-foreground">{t("nav.catalog")}</Link>
+          <Link to="/contact" className="transition-colors hover:text-foreground">{t("nav.contact")}</Link>
         </nav>
-        <div className="flex gap-3">
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher compact />
           <a href="https://t.me" target="_blank" rel="noreferrer" aria-label="Telegram" className="rounded-full p-2 glass transition-colors hover:text-accent">
             <TelegramLogo size={18} weight="light" />
           </a>
@@ -61,7 +65,7 @@ export default function Footer() {
         </div>
       </div>
       <p className="relative mt-8 text-center text-xs text-muted-foreground">
-        &copy; {new Date().getFullYear()} 2G SHOP. All rights reserved.
+        &copy; {new Date().getFullYear()} 2G SHOP. {t("footer.rights")}
       </p>
     </footer>
   );

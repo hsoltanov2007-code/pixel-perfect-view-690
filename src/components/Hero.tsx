@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useI18n } from "@/lib/i18n";
 
 
 const clamp = (v: number) => Math.min(1, Math.max(0, v));
 
 export default function Hero({ ready }: { ready: boolean }) {
+  const { t } = useI18n();
   const root = useRef<HTMLElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
   const scrimRef = useRef<HTMLDivElement>(null);
@@ -82,7 +84,7 @@ export default function Hero({ ready }: { ready: boolean }) {
           style={{ opacity: 1 }}
         >
           <span className="text-[10px] tracking-[0.35em] text-muted-foreground uppercase">
-            Scroll down
+            {t("hero.scroll")}
           </span>
           <div className="flex h-9 w-[22px] items-start justify-center rounded-full border border-border pt-2">
             <span className="scroll-dot h-1.5 w-1.5 rounded-full bg-foreground/70" />
@@ -108,22 +110,22 @@ export default function Hero({ ready }: { ready: boolean }) {
           style={{ opacity: 0, transform: "translate3d(0,16px,0)" }}
         >
           <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[9px] tracking-[0.3em] text-foreground/90 uppercase glass">
-            Instant digital delivery
+            {t("hero.badge")}
           </span>
           <h1 className="mx-auto mt-4 max-w-2xl text-3xl leading-[1.05] font-semibold tracking-tight [text-shadow:0_2px_30px_color-mix(in_oklab,var(--background)_95%,transparent)] sm:text-4xl lg:text-5xl">
             <span className="text-gradient">2G SHOP</span>
             <br />
-            Premium subscriptions online
+            {t("hero.title")}
           </h1>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-foreground/85 [text-shadow:0_1px_20px_color-mix(in_oklab,var(--background)_95%,transparent)] sm:text-base">
-            Best-price streaming, music, gaming, AI and VPN subscriptions — delivered in minutes with warranty and 24/7 support.
+            {t("hero.subtitle")}
           </p>
           <div ref={ctaRef} className="mt-6 flex flex-wrap justify-center gap-3" style={{ pointerEvents: "none" }}>
             <a
-              href="#plans"
+              href="/catalog"
               className="btn-neon glow-strong px-5 py-2.5 text-sm hover:-translate-y-0.5 hover:scale-[1.04]"
             >
-              Shop now
+              {t("hero.cta")}
             </a>
           </div>
         </div>
