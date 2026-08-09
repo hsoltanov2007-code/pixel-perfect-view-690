@@ -15,7 +15,7 @@ const ProductInput = z.object({
   currency: z.string().trim().max(4).default("AZN"),
   period: z.string().trim().max(40).default("/ month"),
   image_key: z.string().trim().max(500000).nullable().default(null),
-  perks: z.array(z.string().trim().max(80)).max(8).default([]),
+  perks: z.array(z.string().trim().max(160)).max(12).default([]),
   badge: z.string().trim().max(40).nullable().default(null),
   active: z.boolean().default(true),
   sort_order: z.number().int().min(0).max(9999).default(0),
