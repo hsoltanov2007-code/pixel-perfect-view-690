@@ -72,7 +72,7 @@ export const Route = createFileRoute("/catalog")({
 });
 
 function CatalogPage() {
-  const { t: tr, lang } = useI18n();
+  const { t: tr } = useI18n();
   const root = useRef<HTMLDivElement>(null);
   const { add } = useCart();
   const isMobile = useIsMobile();
