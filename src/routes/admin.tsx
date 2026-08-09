@@ -674,7 +674,13 @@ function SettingsTab() {
     queryKey: ["admin-settings"],
     queryFn: () => adminGetSettings(),
   });
-  const [form, setForm] = useState({ whatsapp: "", telegram: "", instagram: "" });
+  const [form, setForm] = useState({
+    whatsapp: "",
+    telegram: "",
+    instagram: "",
+    footer_telegram: "",
+    footer_instagram: "",
+  });
   useEffect(() => {
     if (data) setForm(data);
   }, [data]);
@@ -683,6 +689,7 @@ function SettingsTab() {
 
   return (
     <div className="max-w-md space-y-3">
+      <p className="text-xs uppercase tracking-widest text-muted-foreground">Заказы (корзина)</p>
       <label className="block text-xs text-muted-foreground">WhatsApp (номер)</label>
       <input
         className={field}
@@ -703,6 +710,21 @@ function SettingsTab() {
         placeholder="@2gshop"
         value={form.instagram}
         onChange={(e) => setForm({ ...form, instagram: e.target.value })}
+      />
+      <p className="pt-4 text-xs uppercase tracking-widest text-muted-foreground">Иконки в футере</p>
+      <label className="block text-xs text-muted-foreground">Telegram — ссылка или username</label>
+      <input
+        className={field}
+        placeholder="https://t.me/2gshop"
+        value={form.footer_telegram}
+        onChange={(e) => setForm({ ...form, footer_telegram: e.target.value })}
+      />
+      <label className="block text-xs text-muted-foreground">Instagram — ссылка или username</label>
+      <input
+        className={field}
+        placeholder="https://instagram.com/2gshop"
+        value={form.footer_instagram}
+        onChange={(e) => setForm({ ...form, footer_instagram: e.target.value })}
       />
       <button
         onClick={async () => {
