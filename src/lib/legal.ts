@@ -83,7 +83,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
           heading: "О сервисе",
           body: [
             "2G SHOP продаёт цифровые товары: подписки, ключи и аккаунты сервисов.",
-            "Заказ оформляется через корзину и подтверждается в мессенджере: WhatsApp, Telegram или Instagram.",
+            "Заказ оформляется через корзину и подтверждается в мессенджере: Telegram или Instagram.",
           ],
         },
         {
