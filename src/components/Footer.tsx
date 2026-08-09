@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TelegramLogo, InstagramLogo } from "@phosphor-icons/react";
 import { useI18n } from "@/lib/i18n";
 import { legalLabels } from "@/lib/legal";
+import { getPublicContacts } from "@/lib/shop.functions";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Footer() {
