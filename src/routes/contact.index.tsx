@@ -221,19 +221,19 @@ function ContactIndex() {
                 {
                   Icon: WhatsappLogo,
                   label: "WhatsApp",
-                  href: "https://wa.me/",
+                  href: socialHref(contacts?.whatsapp, "whatsapp"),
                   className: "hover:bg-[#25D366]/20 hover:border-[#25D366]/50 hover:text-[#25D366]",
                 },
                 {
                   Icon: TelegramLogo,
                   label: "Telegram",
-                  href: "https://t.me/",
+                  href: socialHref(contacts?.telegram, "telegram"),
                   className: "hover:bg-[#2AABEE]/20 hover:border-[#2AABEE]/50 hover:text-[#2AABEE]",
                 },
                 {
                   Icon: InstagramLogo,
                   label: "Instagram",
-                  href: "https://instagram.com/",
+                  href: socialHref(contacts?.instagram, "instagram"),
                   className: "hover:bg-[#E1306C]/20 hover:border-[#E1306C]/50 hover:text-[#E1306C]",
                 },
               ].map(({ Icon, label, href, className }) => (
