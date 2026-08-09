@@ -310,7 +310,51 @@ export default function CartDrawer() {
             </div>
           </div>
 
-          {!choosing ? (
+          {igText ? (
+            <div className="mt-5 space-y-3">
+              <p className="text-xs text-muted-foreground">{t("cart.igHint")}</p>
+              <textarea
+                readOnly
+                value={igText}
+                onFocus={(e) => e.currentTarget.select()}
+                className="h-28 w-full resize-none rounded-xl border border-white/10 bg-white/[0.04] p-3 text-[11px] leading-relaxed text-foreground/90 outline-none focus:border-indigo-500/40"
+              />
+              <button
+                onClick={async () => {
+                  const ok = await copyText(igText);
+                  if (ok) toast.success(t("cart.copied"));
+                }}
+                className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.05] py-3 text-xs uppercase tracking-widest text-foreground transition-colors hover:bg-white/[0.09]"
+              >
+                <Copy size={14} weight="bold" />
+                {t("cart.igCopy")}
+              </button>
+              <button
+                onClick={() => {
+                  if (igUrl) window.open(igUrl, "_blank", "noopener,noreferrer");
+                  clear();
+                  setIgText(null);
+                  setIgUrl(null);
+                  setChoosing(false);
+                  setOpen(false);
+                  toast.success(t("cart.sent"));
+                }}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 py-3.5 font-['Rajdhani'] text-sm font-bold uppercase tracking-[0.2em] text-white"
+              >
+                <InstagramLogo size={18} weight="light" />
+                {t("cart.igOpen")}
+              </button>
+              <button
+                onClick={() => {
+                  setIgText(null);
+                  setIgUrl(null);
+                }}
+                className="w-full pt-1 text-xs text-muted-foreground hover:text-foreground"
+              >
+                {t("cart.back")}
+              </button>
+            </div>
+          ) : !choosing ? (
             <button
               disabled={!items.length}
               onClick={() => setChoosing(true)}
