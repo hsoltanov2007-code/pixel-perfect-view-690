@@ -19,7 +19,7 @@ import {
   adminSetOperatorOnline,
   getAdminStatus,
 } from "@/lib/admin.functions";
-import { formatPrice, imageKeys } from "@/lib/product-image";
+import { formatPrice } from "@/lib/product-image";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -381,34 +381,6 @@ function ProductForm({
                 perks: e.target.value.split(",").map((s) => s.trim()),
               })
             }
-          />
-          <div className="grid grid-cols-2 gap-3">
-            <select
-              className={field}
-              value={form.image_key ?? ""}
-              onChange={(e) => setForm({ ...form, image_key: e.target.value })}
-            >
-              {imageKeys.map((k) => (
-                <option key={k} value={k}>
-                  {k}
-                </option>
-              ))}
-            </select>
-            <input
-              className={field}
-              type="number"
-              placeholder="Порядок"
-              value={form.sort_order}
-              onChange={(e) =>
-                setForm({ ...form, sort_order: Number(e.target.value) })
-              }
-            />
-          </div>
-          <input
-            className={field}
-            placeholder="Или ссылка на картинку (https://…)"
-            value={form.image_key?.startsWith("http") ? form.image_key : ""}
-            onChange={(e) => setForm({ ...form, image_key: e.target.value })}
           />
           <label className="flex items-center gap-2 text-sm text-muted-foreground">
             <input
