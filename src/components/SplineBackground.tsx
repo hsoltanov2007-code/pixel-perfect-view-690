@@ -10,10 +10,25 @@ export default function SplineBackground({ active = true }: { active?: boolean }
 
   // Mount only on the client: an SSR-rendered iframe can finish loading before
   // React hydrates, so its onLoad never fires and it stays invisible forever.
+  // The WebGL scene is the heaviest thing on the page, so we defer it until the
+  // browser is idle — otherwise it competes with hydration and the first paint
+  // and the whole site feels laggy for the first seconds.
   useEffect(() => {
-    setMounted(true);
-    const t = setTimeout(() => setLoaded(true), 2500);
-    return () => clearTimeout(t);
+    let idle = 0;
+    let timer = 0 as unknown as ReturnType<typeof setTimeout>;
+    const start = () => {
+      setMounted(true);
+      timer = setTimeout(() => setLoaded(true), 2500);
+    };
+    const ric = (window as any).requestIdleCallback as
+      | ((cb: () => void, o?: { timeout: number }) => number)
+      | undefined;
+    if (ric) idle = ric(start, { timeout: 1200 });
+    else timer = setTimeout(start, 300);
+    return () => {
+      clearTimeout(timer);
+      if (idle && (window as any).cancelIdleCallback) (window as any).cancelIdleCallback(idle);
+    };
   }, []);
 
   // Subtle parallax so the scene still reacts to the cursor, while the iframe
