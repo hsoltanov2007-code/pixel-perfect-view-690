@@ -231,15 +231,18 @@ function CatalogPage() {
                     </div>
                     <div className="text-right">
                       <span className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                        {p.price}
+                        {formatPrice(Number(p.price), p.currency)}
                       </span>
-                      <span className="block text-xs text-muted-foreground">/month</span>
+                      <span className="block text-xs text-muted-foreground">
+                        {p.period}
+                      </span>
                     </div>
                   </div>
 
                   <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-                    {p.desc}
+                    {p.description}
                   </p>
+
 
                   <ul className="mb-8 space-y-3">
                     {p.perks.map((t) => (
