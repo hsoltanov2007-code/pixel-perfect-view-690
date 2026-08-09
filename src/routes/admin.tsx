@@ -323,6 +323,63 @@ function ProductForm({
   const [form, setForm] = useState<ProductRow>(value);
   useEffect(() => setForm(value), [value]);
 
+  const uploadImage = useServerFn(adminUploadProductImage);
+  const resolveImage = useServerFn(adminResolveImageUrl);
+
+  const [imageMode, setImageMode] = useState<"file" | "link">(
+    form.image_key && !form.image_key.startsWith("storage:") ? "link" : "file"
+  );
+  const [uploading, setUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string>("");
+
+  useEffect(() => {
+    let cancelled = false;
+    const key = form.image_key;
+    if (!key) {
+      setPreviewUrl("");
+      return;
+    }
+    if (key.startsWith("storage:")) {
+      resolveImage({ data: { image_key: key } })
+        .then((res) => {
+          if (!cancelled) setPreviewUrl(res.url);
+        })
+        .catch(() => {
+          if (!cancelled) setPreviewUrl("");
+        });
+    } else {
+      setPreviewUrl(key);
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, [form.image_key, resolveImage]);
+
+  async function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast.error("Выберите изображение");
+      return;
+    }
+    if (file.size > 4 * 1024 * 1024) {
+      toast.error("Файл слишком большой (макс. 4 МБ)");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const base64 = await fileToBase64(file);
+      const res = await uploadImage({ data: { filename: file.name, base64 } });
+      setForm((prev) => ({ ...prev, image_key: res.image_key }));
+      toast.success("Изображение загружено");
+    } catch {
+      toast.error("Не удалось загрузить изображение");
+    } finally {
+      setUploading(false);
+    }
+  }
+
   const field = "w-full rounded-xl border border-white/10 bg-black/40 px-4 py-2.5 text-sm outline-none focus:border-white/30";
 
   return (
@@ -367,6 +424,70 @@ function ProductForm({
               onChange={(e) => setForm({ ...form, period: e.target.value })}
             />
           </div>
+
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+            <p className="text-sm font-medium">Фото товара</p>
+            <div className="mt-3 flex gap-2">
+              <button
+                type="button"
+                onClick={() => setImageMode("file")}
+                className={`flex-1 rounded-full px-3 py-2 text-xs transition-colors ${
+                  imageMode === "file"
+                    ? "bg-foreground text-background"
+                    : "border border-white/10 text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Загрузить файл
+              </button>
+              <button
+                type="button"
+                onClick={() => setImageMode("link")}
+                className={`flex-1 rounded-full px-3 py-2 text-xs transition-colors ${
+                  imageMode === "link"
+                    ? "bg-foreground text-background"
+                    : "border border-white/10 text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Ссылка на фото
+              </button>
+            </div>
+
+            {imageMode === "file" ? (
+              <div className="mt-3">
+                <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-white/20 bg-black/20 px-4 py-6 transition-colors hover:bg-black/30">
+                  <Plus size={24} weight="light" className="text-muted-foreground" />
+                  <span className="mt-2 text-xs text-muted-foreground">
+                    {uploading ? "Загрузка…" : "Нажмите, чтобы выбрать файл"}
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={onFileChange}
+                  />
+                </label>
+              </div>
+            ) : (
+              <input
+                className={`${field} mt-3`}
+                placeholder="https://example.com/image.jpg"
+                value={form.image_key?.startsWith("storage:") ? "" : form.image_key ?? ""}
+                onChange={(e) => setForm({ ...form, image_key: e.target.value })}
+              />
+            )}
+
+            {previewUrl && (
+              <div className="mt-3">
+                <img
+                  src={previewUrl}
+                  alt="Превью"
+                  className="h-32 w-full rounded-xl object-cover"
+                />
+              </div>
+            )}
+          </div>
+
           <input
             className={field}
             placeholder="Бейдж (Popular…)"
@@ -410,6 +531,15 @@ function ProductForm({
       </div>
     </div>
   );
+}
+
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 function SupportTab() {
