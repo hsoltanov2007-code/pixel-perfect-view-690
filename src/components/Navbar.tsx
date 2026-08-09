@@ -159,12 +159,12 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
           </ul>
           <div className="flex items-center gap-2">
             <div
-              className={`hidden transition-all duration-500 sm:block ${
+              className={`transition-all duration-500 ${
                 visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
               }`}
               style={{ transitionDelay: visible ? "500ms" : "0ms" }}
             >
-              <LanguageSwitcher />
+              <LanguageSwitcher compact />
             </div>
             <button
               aria-label={t("nav.openCart")}
