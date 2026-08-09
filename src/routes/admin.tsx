@@ -19,7 +19,7 @@ import {
   adminSetOperatorOnline,
   getAdminStatus,
 } from "@/lib/admin.functions";
-import { formatPrice, imageKeys } from "@/lib/product-image";
+import { formatPrice } from "@/lib/product-image";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
