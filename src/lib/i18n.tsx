@@ -175,6 +175,11 @@ const az: Dict = {
   "cart.failed": "Sifariş rəsmiləşdirilmədi",
   "cart.copyLink": "Linki kopyala",
   "cart.linkCopied": "Link kopyalandı",
+  "cart.vaultTitle": "Sizin seyfiniz",
+  "cart.subtotal": "Aralıq cəm",
+  "cart.fee": "Xidmət haqqı",
+  "cart.secure": "Qorunan bağlantı aktivdir",
+  "cart.checkout": "Sifarişi rəsmiləşdir",
 
   "shared.title": "Müştəri səbəti",
   "shared.created": "Yaradılıb",
