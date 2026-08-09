@@ -44,7 +44,7 @@ function StarField({ count = 10 }: { count?: number }) {
 }
 
 export default function Products() {
-  const { t: tr } = useI18n();
+  const { t: tr, lang } = useI18n();
   const root = useRef<HTMLElement>(null);
   const { add } = useCart();
   const { data } = useQuery({
