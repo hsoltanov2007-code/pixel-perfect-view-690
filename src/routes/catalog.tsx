@@ -183,7 +183,7 @@ function CatalogPage() {
         <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
           {catalogItems.map((p) => (
             <article
-              key={p.title}
+              key={p.id}
               className="catalog-card pointer-events-auto group relative"
             >
               {/* Soft nebula halo */}
