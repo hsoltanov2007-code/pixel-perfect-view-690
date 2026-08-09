@@ -191,14 +191,16 @@ export default function Products() {
                   </div>
                   <div className="text-right">
                     <span className="font-display text-xl font-semibold tracking-tight text-foreground">
-                      {p.price}
+                      {formatPrice(Number(p.price), p.currency)}
                     </span>
-                    <span className="block text-[10px] text-muted-foreground">/month</span>
+                    <span className="block text-[10px] text-muted-foreground">
+                      {p.period}
+                    </span>
                   </div>
                 </div>
 
                 <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-                  {p.desc}
+                  {p.description}
                 </p>
 
                 <ul className="mb-6 space-y-2">
