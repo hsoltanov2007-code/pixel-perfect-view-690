@@ -78,13 +78,9 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 rounded-full bg-foreground/10 px-3 py-2 text-xs font-medium text-foreground ring-1 ring-foreground/20 backdrop-blur-md transition-colors hover:bg-foreground/15"
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/10 text-lg text-foreground ring-1 ring-foreground/20 backdrop-blur-md transition-colors hover:bg-foreground/15"
       >
-        <Globe size={16} weight="light" />
-        <span className="text-sm leading-none" aria-hidden="true">
-          {LANG_FLAGS[lang]}
-        </span>
-        {LANG_LABELS[lang]}
+        <span aria-hidden="true">{LANG_FLAGS[lang]}</span>
       </button>
 
       {open &&
