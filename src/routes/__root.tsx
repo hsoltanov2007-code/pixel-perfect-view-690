@@ -133,11 +133,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Persistent 3D scene: stays mounted between routes so returning home is instant */}
-      <SplineBackground active={isHome} />
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
-      <Toaster position="bottom-right" theme="dark" />
+      <CartProvider>
+        {/* Persistent 3D scene: stays mounted between routes so returning home is instant */}
+        <SplineBackground active={isHome} />
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+        <CartDrawer />
+        <Toaster position="bottom-right" theme="dark" />
+      </CartProvider>
     </QueryClientProvider>
   );
 }
