@@ -233,7 +233,7 @@ function ProductsTab() {
           currency: p.currency || "$",
           period: p.period || "",
           image_key: p.image_key || null,
-          perks: p.perks.filter(Boolean),
+          perks: p.perks.map((s) => s.trim()).filter(Boolean),
           badge: p.badge || null,
           active: p.active,
           sort_order: Number(p.sort_order) || 0,
@@ -504,7 +504,7 @@ function ProductForm({
             onChange={(e) =>
               setForm({
                 ...form,
-                perks: e.target.value.split("\n").map((s) => s.trim()),
+                perks: e.target.value.split("\n"),
               })
             }
           />
