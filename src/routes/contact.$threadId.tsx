@@ -50,6 +50,7 @@ function ChatThreadPage() {
 }
 
 function ChatThread({ threadId }: { threadId: string }) {
+  const { t } = useI18n();
   const { data: serverMessages = [] } = useSuspenseQuery(
     messagesQueryOptions(threadId)
   );
