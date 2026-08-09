@@ -14,6 +14,7 @@ import { getPublicProducts } from "@/lib/shop.functions";
 import {
   formatPrice,
   productImage,
+  localizePerks,
 } from "@/lib/product-image";
 import { LocalizedDescription } from "@/components/LocalizedDescription";
 import { useI18n } from "@/lib/i18n";
@@ -72,7 +73,7 @@ export const Route = createFileRoute("/catalog")({
 });
 
 function CatalogPage() {
-  const { t: tr } = useI18n();
+  const { t: tr, lang } = useI18n();
   const root = useRef<HTMLDivElement>(null);
   const { add } = useCart();
   const isMobile = useIsMobile();
@@ -201,7 +202,7 @@ function CatalogPage() {
 
 
                   <ul className="mb-4 hidden space-y-3 sm:mb-8 sm:block">
-                    {p.perks.map((t) => (
+                    {localizePerks(p.perks, lang).map((t) => (
                       <li
                         key={t}
                         className="flex items-center gap-3 text-sm text-foreground/75"
