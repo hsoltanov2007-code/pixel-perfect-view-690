@@ -107,7 +107,7 @@ function CatalogPage() {
       );
     }, root);
     return () => ctx.revert();
-  }, []);
+  }, [products.length]);
 
   return (
     <div ref={root} className="pointer-events-none relative min-h-screen">
