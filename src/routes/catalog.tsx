@@ -136,7 +136,7 @@ function CatalogPage() {
           </p>
         </div>
 
-        <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {products.map((p) => (
             <article
               key={p.id}
