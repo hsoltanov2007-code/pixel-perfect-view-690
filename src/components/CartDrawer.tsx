@@ -43,6 +43,8 @@ export default function CartDrawer() {
   const { t, lang } = useI18n();
   const [choosing, setChoosing] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [igText, setIgText] = useState<string | null>(null);
+  const [igUrl, setIgUrl] = useState<string | null>(null);
   const createLink = useServerFn(createCartLink);
 
   const drawerRef = useRef<HTMLElement>(null);
