@@ -13,6 +13,7 @@ import { useCart } from "@/lib/cart";
 import { getPublicProducts } from "@/lib/shop.functions";
 import { formatPrice, productImage } from "@/lib/product-image";
 import { useI18n } from "@/lib/i18n";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 function StarField({ count = 12 }: { count?: number }) {
   const stars = Array.from({ length: count }, (_, i) => ({
