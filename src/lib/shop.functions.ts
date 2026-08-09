@@ -28,7 +28,30 @@ export const getPublicProducts = createServerFn({ method: "GET" }).handler(
       .eq("active", true)
       .order("sort_order", { ascending: true });
     if (error) throw error;
-    return data ?? [];
+
+    const products = data ?? [];
+    const storagePaths = products
+      .map((p) => p.image_key)
+      .filter((k): k is string => typeof k === "string" && k.startsWith("storage:"))
+      .map((k) => k.replace("storage:", ""));
+
+    if (storagePaths.length === 0) return products;
+
+    const { data: signed } = await supabaseAdmin.storage
+      .from("product-images")
+      .createSignedUrls(storagePaths, 60 * 60 * 24 * 365);
+
+    const urlMap = new Map(
+      (signed ?? []).map((s) => [s.path, s.signedUrl]).filter((t): t is [string, string] => !!t[1])
+    );
+
+    return products.map((p) => {
+      if (!p.image_key?.startsWith("storage:")) return p;
+      const path = p.image_key.replace("storage:", "");
+      const signedUrl = urlMap.get(path);
+      if (!signedUrl) return p;
+      return { ...p, image_key: signedUrl };
+    });
   }
 );
 

@@ -14,7 +14,7 @@ const ProductInput = z.object({
   price: z.number().min(0).max(100000),
   currency: z.string().trim().max(4).default("AZN"),
   period: z.string().trim().max(40).default("/ month"),
-  image_key: z.string().trim().max(300).nullable().default(null),
+  image_key: z.string().trim().max(500000).nullable().default(null),
   perks: z.array(z.string().trim().max(80)).max(8).default([]),
   badge: z.string().trim().max(40).nullable().default(null),
   active: z.boolean().default(true),
@@ -101,6 +101,66 @@ export const adminDeleteProduct = createServerFn({ method: "POST" })
       .eq("id", data.id);
     if (error) throw error;
     return { ok: true as const };
+  });
+
+export const adminUploadProductImage = createServerFn({ method: "POST" })
+  .inputValidator((input) =>
+    z
+      .object({
+        filename: z.string().trim().min(1).max(200),
+        base64: z.string().trim().min(1).max(10_000_000),
+      })
+      .parse(input)
+  )
+  .handler(async ({ data }) => {
+    await requireAdmin();
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+
+    const match = data.base64.match(/^data:([^;]+);base64,(.+)$/);
+    if (!match) throw new Error("Invalid image data");
+    const contentType = match[1] || "image/png";
+    const base64Body = match[2] as string;
+    const buffer = Buffer.from(base64Body, "base64");
+
+    const ext = data.filename.split(".").pop() || "png";
+    const safeName = data.filename
+      .replace(/[^a-zA-Z0-9._-]/g, "_")
+      .replace(/\.{2,}/g, ".");
+    const path = `${crypto.randomUUID()}-${safeName}.${ext}`;
+
+    const { error: uploadError } = await supabaseAdmin.storage
+      .from("product-images")
+      .upload(path, buffer, {
+        contentType,
+        upsert: false,
+      });
+    if (uploadError) throw uploadError;
+
+    return { image_key: `storage:${path}` };
+  });
+
+export const adminResolveImageUrl = createServerFn({ method: "POST" })
+  .inputValidator((input) =>
+    z.object({ image_key: z.string().trim().min(1) }).parse(input)
+  )
+  .handler(async ({ data }) => {
+    await requireAdmin();
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+
+    if (!data.image_key.startsWith("storage:")) {
+      return { url: data.image_key };
+    }
+
+    const path = data.image_key.replace("storage:", "");
+    const { data: signed, error } = await supabaseAdmin.storage
+      .from("product-images")
+      .createSignedUrl(path, 60 * 60 * 24 * 365);
+    if (error) throw error;
+    return { url: signed?.signedUrl ?? "" };
   });
 
 export const adminGetSettings = createServerFn({ method: "GET" }).handler(
