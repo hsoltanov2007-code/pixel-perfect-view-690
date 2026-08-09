@@ -170,7 +170,7 @@ export default function CartDrawer() {
                 {t("cart.vaultTitle")}
               </h2>
               <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                {t("cart.title")} // {String(count).padStart(2, "0") {count.toString().padStart(2, "0")}
+                {t("cart.title")} // {count.toString().padStart(2, "0")}
               </p>
             </div>
           </div>
