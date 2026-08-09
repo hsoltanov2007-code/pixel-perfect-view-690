@@ -30,7 +30,11 @@ export default function CartDrawer() {
       const lines = items
         .map((i) => `• ${i.title} × ${i.qty} — ${formatPrice(i.price * i.qty, i.currency)}`)
         .join("\n");
-      const text = `Здравствуйте! Хочу купить:\n${lines}\n\nИтого: ${formatPrice(total)}\nКорзина: ${link}`;
+      const text = buildCheckoutMessage({
+        lines,
+        total: formatPrice(total),
+        link,
+      });
 
       let url = "";
       if (channel === "whatsapp") {
