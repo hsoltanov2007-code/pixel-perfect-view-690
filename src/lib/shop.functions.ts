@@ -72,8 +72,13 @@ export const createCartLink = createServerFn({ method: "POST" })
   });
 
 export const getCartById = createServerFn({ method: "GET" })
-  .inputValidator((input) => z.object({ id: z.string().uuid() }).parse(input))
+  .inputValidator((input) => z.object({ id: z.string().max(64) }).parse(input))
   .handler(async ({ data }) => {
+    const isUuid =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        data.id
+      );
+    if (!isUuid) return null;
     const { supabaseAdmin } = await import(
       "@/integrations/supabase/client.server"
     );
