@@ -89,16 +89,13 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
               aria-disabled="true"
               tabIndex={-1}
               onKeyDown={blockKeyNav}
-              className="cursor-default text-lg font-semibold tracking-tight text-gradient"
+              className="cursor-default flex items-center"
             >
-              2G SHOP
+              <img src={logoWhite.url} alt="2G SHOP" className="h-8 w-auto" />
             </span>
           ) : (
-            <Link
-              to="/"
-              className="text-lg font-semibold tracking-tight text-gradient"
-            >
-              2G SHOP
+            <Link to="/" className="flex items-center">
+              <img src={logoWhite.url} alt="2G SHOP" className="h-8 w-auto" />
             </Link>
           )}
 
