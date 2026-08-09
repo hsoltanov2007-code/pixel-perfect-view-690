@@ -177,7 +177,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
         {
           heading: "Üçüncü tərəflər",
           body: [
-            "Məlumatlarınızı satmırıq. Onlar bizimlə əlaqə saxladığınız xidmətlər (WhatsApp, Telegram, Instagram) və hostinq təchizatçıları tərəfindən emal oluna bilər.",
+            "Məlumatlarınızı satmırıq. Onlar bizimlə əlaqə saxladığınız xidmətlər (Telegram, Instagram) və hostinq təchizatçıları tərəfindən emal oluna bilər.",
           ],
         },
         {
