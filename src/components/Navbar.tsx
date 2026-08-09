@@ -203,56 +203,75 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
 
 
       <div
-        className={`pointer-events-auto fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-background transition-transform duration-500 md:hidden ${
-          open ? "translate-x-0" : "translate-x-full"
+        className={`pointer-events-auto absolute right-4 top-full z-40 mt-3 w-56 origin-top-right rounded-2xl p-2 transition-all duration-300 md:hidden ${
+          open ? "scale-100 opacity-100 translate-y-0" : "scale-95 opacity-0 -translate-y-2 pointer-events-none"
         }`}
-        style={{ background: "oklch(0.09 0 0 / 98%)", backdropFilter: "blur(28px)" }}
+        style={{
+          background: "oklch(0.09 0 0 / 80%)",
+          backdropFilter: "blur(22px)",
+          WebkitBackdropFilter: "blur(22px)",
+          border: "1px solid oklch(1 0 0 / 18%)",
+          boxShadow: "0 18px 50px -12px oklch(0 0 0 / 0.5)",
+        }}
       >
-        {links.map((l) =>
-          l.href === "/contact" || l.href === "/catalog" ? (
+        <ul className="flex flex-col gap-1">
+          {links.map((l) =>
+            l.href === "/contact" || l.href === "/catalog" ? (
+              <li key={l.href}>
+                <Link
+                  to={l.href}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/10"
+                >
+                  {t(l.key)}
+                </Link>
+              </li>
+            ) : l.id === "home" && isHome ? (
+              <li key={l.href}>
+                <span
+                  aria-disabled="true"
+                  tabIndex={-1}
+                  onKeyDown={blockKeyNav}
+                  className="block cursor-default rounded-xl px-4 py-3 text-sm font-medium text-foreground/50"
+                >
+                  {t(l.key)}
+                </span>
+              </li>
+            ) : l.id === "home" ? (
+              <li key={l.href}>
+                <Link
+                  to="/"
+                  onClick={() => setOpen(false)}
+                  className="block rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/10"
+                >
+                  {t(l.key)}
+                </Link>
+              </li>
+            ) : (
+              <li key={l.href}>
+                <a
+                  href={alwaysVisible && l.href.startsWith("#") ? `/${l.href}` : l.href}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-xl px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/10"
+                >
+                  {t(l.key)}
+                </a>
+              </li>
+            )
+          )}
+          <li className="border-t border-foreground/10 pt-1">
             <Link
-              key={l.href}
-              to={l.href}
+              to="/catalog"
               onClick={() => setOpen(false)}
-              className="text-2xl font-light text-foreground"
+              className="block rounded-xl px-4 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/10"
             >
-              {t(l.key)}
+              {t("nav.shopNow")}
             </Link>
-          ) : l.id === "home" && isHome ? (
-            <span
-              key={l.href}
-              aria-disabled="true"
-              tabIndex={-1}
-              onKeyDown={blockKeyNav}
-              className="cursor-default text-2xl font-light text-foreground/50"
-            >
-              {t(l.key)}
-            </span>
-          ) : l.id === "home" ? (
-            <Link
-              key={l.href}
-              to="/"
-              onClick={() => setOpen(false)}
-              className="text-2xl font-light text-foreground"
-            >
-              {t(l.key)}
-            </Link>
-          ) : (
-            <a
-              key={l.href}
-              href={alwaysVisible && l.href.startsWith("#") ? `/${l.href}` : l.href}
-              onClick={() => setOpen(false)}
-              className="text-2xl font-light text-foreground"
-            >
-              {t(l.key)}
-            </a>
-          )
-        )}
-
-        <Link to="/catalog" onClick={() => setOpen(false)} className="btn-neon mt-4">
-          {t("nav.shopNow")}
-        </Link>
-        <LanguageSwitcher compact />
+          </li>
+        </ul>
+        <div className="mt-1 border-t border-foreground/10 px-3 py-2">
+          <LanguageSwitcher compact />
+        </div>
       </div>
     </header>
   );
