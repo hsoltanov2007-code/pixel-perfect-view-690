@@ -1,11 +1,31 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Globe, Check } from "@phosphor-icons/react";
 import { LANGS, LANG_LABELS, LANG_NAMES, useI18n } from "@/lib/i18n";
 
 export default function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   const { lang, setLang, t } = useI18n();
   const [open, setOpen] = useState(false);
+  const [pos, setPos] = useState<{ top: number; right: number } | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  const place = () => {
+    const r = btnRef.current?.getBoundingClientRect();
+    if (r) setPos({ top: r.bottom + 8, right: window.innerWidth - r.right });
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    place();
+    const onScroll = () => place();
+    window.addEventListener("scroll", onScroll, true);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
