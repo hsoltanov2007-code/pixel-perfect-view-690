@@ -179,6 +179,8 @@ export const adminGetSettings = createServerFn({ method: "GET" }).handler(
       whatsapp: map["whatsapp"] ?? "",
       telegram: map["telegram"] ?? "",
       instagram: map["instagram"] ?? "",
+      footer_telegram: map["footer_telegram"] ?? "",
+      footer_instagram: map["footer_instagram"] ?? "",
     };
   }
 );
@@ -187,9 +189,11 @@ export const adminSaveSettings = createServerFn({ method: "POST" })
   .inputValidator((input) =>
     z
       .object({
-        whatsapp: z.string().trim().max(120).default(""),
-        telegram: z.string().trim().max(120).default(""),
-        instagram: z.string().trim().max(120).default(""),
+        whatsapp: z.string().trim().max(200).default(""),
+        telegram: z.string().trim().max(200).default(""),
+        instagram: z.string().trim().max(200).default(""),
+        footer_telegram: z.string().trim().max(200).default(""),
+        footer_instagram: z.string().trim().max(200).default(""),
       })
       .parse(input)
   )

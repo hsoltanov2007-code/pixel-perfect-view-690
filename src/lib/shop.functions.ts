@@ -70,6 +70,8 @@ export const getPublicContacts = createServerFn({ method: "GET" }).handler(
       whatsapp: map["whatsapp"] ?? "",
       telegram: map["telegram"] ?? "",
       instagram: map["instagram"] ?? "",
+      footer_telegram: map["footer_telegram"] ?? "",
+      footer_instagram: map["footer_instagram"] ?? "",
     };
   }
 );
