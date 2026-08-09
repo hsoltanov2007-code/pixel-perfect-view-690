@@ -497,17 +497,18 @@ function ProductForm({
             value={form.badge ?? ""}
             onChange={(e) => setForm({ ...form, badge: e.target.value })}
           />
-          <input
-            className={field}
-            placeholder="Преимущества через запятую"
-            value={form.perks.join(", ")}
+          <textarea
+            className={`${field} min-h-24`}
+            placeholder={"Преимущества — по одному в строке\nНапример:\nБезлимитный доступ\nМоментальная выдача"}
+            value={form.perks.join("\n")}
             onChange={(e) =>
               setForm({
                 ...form,
-                perks: e.target.value.split(",").map((s) => s.trim()),
+                perks: e.target.value.split("\n").map((s) => s.trim()),
               })
             }
           />
+
           <label className="flex items-center gap-2 text-sm text-muted-foreground">
             <input
               type="checkbox"
