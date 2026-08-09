@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { List, X } from "@phosphor-icons/react";
+import { List, X, ShoppingBag } from "@phosphor-icons/react";
+import { useCart } from "@/lib/cart";
 
 const links = [
   { label: "Home", href: "#home" },
