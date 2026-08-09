@@ -39,7 +39,7 @@ export function localizeDescription(
   const blocks: Record<string, string> = {};
   for (let i = 0; i < matches.length; i++) {
     const match = matches[i];
-    if (!match || match.index === undefined) continue;
+    if (!match || match.index === undefined || !match[1]) continue;
     const code = match[1].toLowerCase();
     const start = match.index + match[0].length;
     const end =
