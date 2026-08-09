@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Globe, Check } from "@phosphor-icons/react";
-import { LANGS, LANG_LABELS, LANG_NAMES, type Lang, useI18n } from "@/lib/i18n";
+import { Check } from "@phosphor-icons/react";
+import { LANGS, LANG_NAMES, type Lang, useI18n } from "@/lib/i18n";
 
 const LANG_FLAGS: Record<Lang, string> = {
   ru: "🇷🇺",
@@ -54,17 +54,15 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
           <button
             key={l}
             onClick={() => setLang(l)}
+            aria-label={LANG_NAMES[l]}
             aria-pressed={lang === l}
-            className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium tracking-wide transition-colors ${
+            className={`flex h-8 w-8 items-center justify-center rounded-full text-lg transition-all ${
               lang === l
-                ? "bg-foreground text-background"
-                : "text-muted-foreground hover:text-foreground"
+                ? "bg-foreground text-background shadow-[0_0_12px_rgba(255,255,255,0.15)]"
+                : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
             }`}
           >
-            <span className="text-sm leading-none" aria-hidden="true">
-              {LANG_FLAGS[l]}
-            </span>
-            {LANG_LABELS[l]}
+            <span aria-hidden="true">{LANG_FLAGS[l]}</span>
           </button>
         ))}
       </div>
@@ -80,13 +78,9 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 rounded-full bg-foreground/10 px-3 py-2 text-xs font-medium text-foreground ring-1 ring-foreground/20 backdrop-blur-md transition-colors hover:bg-foreground/15"
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/10 text-lg text-foreground ring-1 ring-foreground/20 backdrop-blur-md transition-colors hover:bg-foreground/15"
       >
-        <Globe size={16} weight="light" />
-        <span className="text-sm leading-none" aria-hidden="true">
-          {LANG_FLAGS[lang]}
-        </span>
-        {LANG_LABELS[lang]}
+        <span aria-hidden="true">{LANG_FLAGS[lang]}</span>
       </button>
 
       {open &&

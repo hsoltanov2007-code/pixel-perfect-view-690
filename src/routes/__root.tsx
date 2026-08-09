@@ -16,7 +16,8 @@ import { Toaster } from "sonner";
 import SplineBackground from "@/components/SplineBackground";
 import CartDrawer from "@/components/CartDrawer";
 import { CartProvider } from "@/lib/cart";
-import { I18nProvider } from "@/lib/i18n";
+import { I18nProvider, type Lang } from "@/lib/i18n";
+import { getLangCookie } from "@/lib/i18n.functions";
 
 
 
@@ -108,6 +109,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
   }),
 
+  loader: async () => {
+    const initialLang = await getLangCookie();
+    return { initialLang };
+  },
+
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -131,12 +137,13 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
 
   const { queryClient } = Route.useRouteContext();
+  const { initialLang } = Route.useLoaderData() as { initialLang: Lang | null };
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isHome = pathname === "/";
 
   return (
     <QueryClientProvider client={queryClient}>
-      <I18nProvider>
+      <I18nProvider initialLang={initialLang}>
       <CartProvider>
         {/* Persistent 3D scene: stays mounted between routes so returning home is instant */}
         <SplineBackground active={isHome} />
