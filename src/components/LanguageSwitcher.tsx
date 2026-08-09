@@ -51,7 +51,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
             onClick={() => setLang(l)}
             aria-label={LANG_NAMES[l]}
             aria-pressed={lang === l}
-            className={`flex h-8 w-8 items-center justify-center rounded-full text-lg transition-all ${
+            className={`flex h-8 w-8 items-center justify-center rounded-full text-xs transition-all ${
               lang === l
                 ? "bg-foreground text-background shadow-[0_0_12px_rgba(255,255,255,0.15)]"
                 : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
