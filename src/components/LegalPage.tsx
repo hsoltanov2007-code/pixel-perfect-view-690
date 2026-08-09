@@ -17,7 +17,7 @@ export default function LegalPage({ slug }: { slug: LegalSlug }) {
 
   return (
     <div className="relative min-h-screen bg-background">
-      <Navbar />
+      <Navbar alwaysVisible />
       <main className="relative mx-auto max-w-3xl px-6 pb-24 pt-32">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">2G SHOP</p>
         <h1 className="mt-4 text-4xl font-semibold text-gradient sm:text-5xl">{doc.title}</h1>

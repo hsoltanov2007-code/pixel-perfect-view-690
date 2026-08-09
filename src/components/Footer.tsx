@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TelegramLogo, InstagramLogo } from "@phosphor-icons/react";
 import { useI18n } from "@/lib/i18n";
+import { legalLabels } from "@/lib/legal";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Footer() {
@@ -49,10 +50,13 @@ export default function Footer() {
       ))}
       <div className="footer-inner relative mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 sm:flex-row sm:justify-between">
         <span className="text-lg font-semibold text-gradient">2G SHOP</span>
-        <nav className="flex gap-6 text-sm text-muted-foreground">
+        <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
           <a href="/#home" className="transition-colors hover:text-foreground">{t("nav.home")}</a>
           <Link to="/catalog" className="transition-colors hover:text-foreground">{t("nav.catalog")}</Link>
           <Link to="/contact" className="transition-colors hover:text-foreground">{t("nav.contact")}</Link>
+          <Link to="/privacy" className="transition-colors hover:text-foreground">{legalLabels[lang].privacy}</Link>
+          <Link to="/terms" className="transition-colors hover:text-foreground">{legalLabels[lang].terms}</Link>
+          <Link to="/refund" className="transition-colors hover:text-foreground">{legalLabels[lang].refund}</Link>
         </nav>
         <div className="flex items-center gap-3">
           <LanguageSwitcher compact />
