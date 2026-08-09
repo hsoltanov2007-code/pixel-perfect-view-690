@@ -44,7 +44,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
 
   if (compact) {
     return (
-      <div className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] p-1">
+      <div className="flex items-center gap-1 rounded-full border border-border/80 bg-background/95 p-1 backdrop-blur-md">
         {LANGS.map((l) => (
           <button
             key={l}
@@ -54,7 +54,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
             className={`flex h-8 w-8 items-center justify-center rounded-full text-xs transition-all ${
               lang === l
                 ? "bg-foreground text-background shadow-[0_0_12px_rgba(255,255,255,0.15)]"
-                : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
+                : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
             }`}
           >
             <span aria-hidden="true">{l.toUpperCase()}</span>
@@ -73,7 +73,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/10 text-xs text-foreground ring-1 ring-foreground/20 backdrop-blur-md transition-colors hover:bg-foreground/15"
+        className="flex h-9 w-9 items-center justify-center rounded-full border border-border/80 bg-background/95 text-xs text-foreground backdrop-blur-md transition-colors hover:bg-background"
       >
         <span aria-hidden="true">{lang.toUpperCase()}</span>
       </button>
@@ -89,11 +89,8 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
               top: pos.top,
               right: pos.right,
               zIndex: 2147483647,
-              background: "oklch(0.11 0 0)",
-              boxShadow:
-                "0 0 0 1px oklch(1 0 0 / 0.16), 0 24px 70px -12px oklch(0 0 0 / 0.9)",
             }}
-            className="fixed w-44 overflow-hidden rounded-2xl p-1 backdrop-blur-2xl"
+            className="fixed w-44 overflow-hidden rounded-2xl border border-border/80 bg-background/95 p-1 shadow-glow backdrop-blur-2xl"
           >
             {LANGS.map((l) => (
               <li key={l}>
