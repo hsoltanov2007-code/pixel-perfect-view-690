@@ -51,13 +51,6 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
-      {/* top scrim for separation from the 3D background */}
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-background/80 via-background/40 to-transparent transition-opacity duration-700 ${
-          visible ? "opacity-100" : "opacity-0"
-        }`}
-      />
 
       {/* light beam rising out of the bot */}
       <div
