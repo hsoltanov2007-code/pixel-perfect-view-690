@@ -365,8 +365,8 @@ function ProductForm({
       toast.error("Выберите изображение");
       return;
     }
-    if (file.size > 4 * 1024 * 1024) {
-      toast.error("Файл слишком большой (макс. 4 МБ)");
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Файл слишком большой (макс. 2 МБ)");
       return;
     }
 
