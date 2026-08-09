@@ -13,6 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as RefundRouteImport } from './routes/refund'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as CartCartIdRouteImport } from './routes/cart.$cartId'
 import { Route as ContactIndexRouteImport } from './routes/contact.index'
@@ -36,6 +39,21 @@ const CatalogRoute = CatalogRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundRoute = RefundRouteImport.update({
+  id: '/refund',
+  path: '/refund',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
@@ -64,6 +82,9 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/catalog': typeof CatalogRoute
   '/contact': typeof ContactRouteWithChildren
+  '/privacy': typeof PrivacyRoute
+  '/refund': typeof RefundRoute
+  '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
   '/cart/$cartId': typeof CartCartIdRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
@@ -73,6 +94,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/catalog': typeof CatalogRoute
+  '/privacy': typeof PrivacyRoute
+  '/refund': typeof RefundRoute
+  '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
   '/cart/$cartId': typeof CartCartIdRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
@@ -84,6 +108,9 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/catalog': typeof CatalogRoute
   '/contact': typeof ContactRouteWithChildren
+  '/privacy': typeof PrivacyRoute
+  '/refund': typeof RefundRoute
+  '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
   '/cart/$cartId': typeof CartCartIdRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
@@ -96,6 +123,9 @@ export interface FileRouteTypes {
     | '/admin'
     | '/catalog'
     | '/contact'
+    | '/privacy'
+    | '/refund'
+    | '/terms'
     | '/api/chat'
     | '/cart/$cartId'
     | '/contact/$threadId'
@@ -105,6 +135,9 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/catalog'
+    | '/privacy'
+    | '/refund'
+    | '/terms'
     | '/api/chat'
     | '/cart/$cartId'
     | '/contact/$threadId'
@@ -115,6 +148,9 @@ export interface FileRouteTypes {
     | '/admin'
     | '/catalog'
     | '/contact'
+    | '/privacy'
+    | '/refund'
+    | '/terms'
     | '/api/chat'
     | '/cart/$cartId'
     | '/contact/$threadId'
@@ -126,6 +162,9 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   CatalogRoute: typeof CatalogRoute
   ContactRoute: typeof ContactRouteWithChildren
+  PrivacyRoute: typeof PrivacyRoute
+  RefundRoute: typeof RefundRoute
+  TermsRoute: typeof TermsRoute
   ApiChatRoute: typeof ApiChatRoute
   CartCartIdRoute: typeof CartCartIdRoute
 }
@@ -158,6 +197,27 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund': {
+      id: '/refund'
+      path: '/refund'
+      fullPath: '/refund'
+      preLoaderRoute: typeof RefundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/chat': {
@@ -209,6 +269,9 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   CatalogRoute: CatalogRoute,
   ContactRoute: ContactRouteWithChildren,
+  PrivacyRoute: PrivacyRoute,
+  RefundRoute: RefundRoute,
+  TermsRoute: TermsRoute,
   ApiChatRoute: ApiChatRoute,
   CartCartIdRoute: CartCartIdRoute,
 }
