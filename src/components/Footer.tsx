@@ -67,10 +67,10 @@ export default function Footer() {
         </nav>
         <div className="flex items-center gap-3">
           <LanguageSwitcher compact />
-          <a href="https://t.me" target="_blank" rel="noreferrer" aria-label="Telegram" className="rounded-full p-2 glass transition-colors hover:text-accent">
+          <a href={contacts?.telegram || "https://t.me"} target="_blank" rel="noreferrer" aria-label="Telegram" className="rounded-full p-2 glass transition-colors hover:text-accent">
             <TelegramLogo size={18} weight="light" />
           </a>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full p-2 glass transition-colors hover:text-accent">
+          <a href={contacts?.instagram || "https://instagram.com"} target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full p-2 glass transition-colors hover:text-accent">
             <InstagramLogo size={18} weight="light" />
           </a>
         </div>
