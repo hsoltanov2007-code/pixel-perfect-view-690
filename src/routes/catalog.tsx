@@ -206,7 +206,7 @@ function CatalogPage() {
                   </div>
                   <div className="relative h-full w-full overflow-hidden rounded-2xl">
                     <img
-                      src={p.img}
+                      src={productImage(p.image_key)}
                       alt={`${p.title} subscription`}
                       width={1024}
                       height={768}
