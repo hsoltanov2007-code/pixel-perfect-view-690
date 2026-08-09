@@ -16,6 +16,8 @@ import {
 } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { createThread, getOperatorStatus } from "@/lib/chat.functions";
+import { getPublicContacts } from "@/lib/shop.functions";
+import { socialHref } from "@/lib/social";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/contact/")({
