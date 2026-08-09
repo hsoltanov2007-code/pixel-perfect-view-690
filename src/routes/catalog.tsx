@@ -13,9 +13,9 @@ import { useCart } from "@/lib/cart";
 import { getPublicProducts } from "@/lib/shop.functions";
 import {
   formatPrice,
-  localizeDescription,
   productImage,
 } from "@/lib/product-image";
+import { LocalizedDescription } from "@/components/LocalizedDescription";
 import { useI18n } from "@/lib/i18n";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -194,9 +194,10 @@ function CatalogPage() {
                     </div>
                   </div>
 
-                  <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:mb-6 sm:text-sm">
-                    {localizeDescription(p.description, lang)}
-                  </p>
+                  <LocalizedDescription
+                    description={p.description}
+                    className="mb-3 text-xs leading-relaxed text-muted-foreground sm:mb-6 sm:text-sm"
+                  />
 
 
                   <ul className="mb-4 hidden space-y-3 sm:mb-8 sm:block">
