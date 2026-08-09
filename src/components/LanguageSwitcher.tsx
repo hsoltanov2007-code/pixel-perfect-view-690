@@ -84,8 +84,15 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
           <ul
             role="listbox"
             onMouseDown={(e) => e.stopPropagation()}
-            style={{ top: pos.top, right: pos.right }}
-            className="fixed z-[999] w-40 overflow-hidden rounded-2xl border border-white/10 bg-[oklch(0.09_0_0/0.96)] p-1 shadow-[0_20px_60px_-20px_oklch(0_0_0/0.8)] backdrop-blur-2xl"
+            style={{
+              top: pos.top,
+              right: pos.right,
+              zIndex: 2147483647,
+              background: "oklch(0.11 0 0)",
+              boxShadow:
+                "0 0 0 1px oklch(1 0 0 / 0.16), 0 24px 70px -12px oklch(0 0 0 / 0.9)",
+            }}
+            className="fixed w-44 overflow-hidden rounded-2xl p-1 backdrop-blur-2xl"
           >
             {LANGS.map((l) => (
               <li key={l}>
