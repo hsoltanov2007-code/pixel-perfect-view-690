@@ -195,7 +195,7 @@ function CatalogPage() {
                   </div>
 
                   <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:mb-6 sm:text-sm">
-                    {p.description}
+                    {localizeDescription(p.description, lang)}
                   </p>
 
 

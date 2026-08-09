@@ -203,7 +203,7 @@ export default function Products() {
                 </div>
 
                 <p className="mb-3 text-xs leading-relaxed text-muted-foreground md:mb-4 md:text-sm">
-                  {p.description}
+                  {localizeDescription(p.description, lang)}
                 </p>
 
                 <ul className="mb-6 space-y-2">
