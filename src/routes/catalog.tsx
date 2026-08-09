@@ -175,21 +175,21 @@ function CatalogPage() {
                 </div>
 
                 {/* Content */}
-                <div className="relative flex flex-1 flex-col px-6 pb-8">
-                  <div className="mb-4 flex items-end justify-between gap-3">
-                    <div>
-                      <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+                <div className="relative flex flex-1 flex-col px-3 pb-4 sm:px-6 sm:pb-8">
+                  <div className="mb-2 flex items-end justify-between gap-2 sm:mb-4 sm:gap-3">
+                    <div className="min-w-0">
+                      <h3 className="truncate font-display text-base font-semibold tracking-tight text-foreground sm:text-2xl">
                         {p.title}
                       </h3>
-                      <p className="text-xs tracking-[0.16em] text-cosmos-dust uppercase">
+                      <p className="text-[10px] tracking-[0.12em] text-cosmos-dust uppercase sm:text-xs sm:tracking-[0.16em]">
                         2G SHOP
                       </p>
                     </div>
-                    <div className="text-right">
-                      <span className="font-display text-2xl font-semibold tracking-tight text-foreground">
+                    <div className="shrink-0 text-right">
+                      <span className="font-display text-base font-semibold tracking-tight text-foreground sm:text-2xl">
                         {formatPrice(Number(p.price), p.currency)}
                       </span>
-                      <span className="block text-xs text-muted-foreground">
+                      <span className="block text-[10px] text-muted-foreground sm:text-xs">
                         {p.period}
                       </span>
                     </div>
