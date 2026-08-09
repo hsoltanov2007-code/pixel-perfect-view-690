@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Check, ArrowRight } from "@phosphor-icons/react";
 import { toast } from "sonner";
-import p1 from "@/assets/project-1.jpg";
-import p2 from "@/assets/project-2.jpg";
-import p3 from "@/assets/project-3.jpg";
+import { useCart } from "@/lib/cart";
+import { getPublicProducts } from "@/lib/shop.functions";
+import { formatPrice, productImage } from "@/lib/product-image";
 
 function StarField({ count = 10 }: { count?: number }) {
   const stars = Array.from({ length: count }, (_, i) => ({
