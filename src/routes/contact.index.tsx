@@ -37,7 +37,12 @@ function ContactIndex() {
     queryFn: () => getStatusFn(),
     refetchInterval: 30000,
   });
-  const isOperatorOnline = statusData?.online ?? false;
+  const { data: contacts } = useQuery({
+    queryKey: ["public-contacts"],
+    queryFn: () => getPublicContacts(),
+    staleTime: 5 * 60 * 1000,
+  });
+
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
