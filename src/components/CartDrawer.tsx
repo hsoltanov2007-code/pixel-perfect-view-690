@@ -6,7 +6,6 @@ import {
   Minus,
   Plus,
   ShoppingBag,
-  WhatsappLogo,
   TelegramLogo,
   InstagramLogo,
   Copy,
@@ -21,7 +20,7 @@ import { createCartLink, getPublicContacts } from "@/lib/shop.functions";
 import { buildCheckoutMessage } from "@/lib/checkout-message";
 import { useI18n } from "@/lib/i18n";
 
-type Channel = "whatsapp" | "telegram" | "instagram";
+type Channel = "telegram" | "instagram";
 
 const gradients = [
   "from-indigo-600/30 to-violet-600/20",
@@ -133,11 +132,7 @@ export default function CartDrawer() {
       });
 
       let url = "";
-      if (channel === "whatsapp") {
-        const phone = (contacts?.whatsapp ?? "").replace(/[^\d]/g, "");
-        if (!phone) throw new Error(t("cart.notConfigured", { channel: "WhatsApp" }));
-        url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-      } else if (channel === "telegram") {
+      if (channel === "telegram") {
         const handle = (contacts?.telegram ?? "").replace(/^@/, "").trim();
         if (!handle) throw new Error(t("cart.notConfigured", { channel: "Telegram" }));
         url = `https://t.me/${encodeURIComponent(handle)}?text=${encodeURIComponent(text)}`;
@@ -376,13 +371,7 @@ export default function CartDrawer() {
           ) : (
             <div className="mt-5 space-y-3">
               <p className="text-xs text-muted-foreground">{t("cart.choose")}</p>
-              <div className="grid grid-cols-3 gap-2">
-                <ChannelButton
-                  disabled={busy || !contacts?.whatsapp}
-                  onClick={() => checkout("whatsapp")}
-                  icon={<WhatsappLogo size={22} weight="light" />}
-                  label="WhatsApp"
-                />
+              <div className="grid grid-cols-2 gap-2">
                 <ChannelButton
                   disabled={busy || !contacts?.telegram}
                   onClick={() => checkout("telegram")}

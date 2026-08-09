@@ -10,7 +10,6 @@ import {
   Headset,
   Envelope,
   User,
-  WhatsappLogo,
   TelegramLogo,
   InstagramLogo,
 } from "@phosphor-icons/react";
@@ -226,12 +225,6 @@ function ContactIndex() {
 
             <div className="mt-4 flex items-center justify-center gap-3">
               {[
-                {
-                  Icon: WhatsappLogo,
-                  label: "WhatsApp",
-                  href: socialHref(contacts?.whatsapp, "whatsapp"),
-                  className: "hover:bg-[#25D366]/20 hover:border-[#25D366]/50 hover:text-[#25D366]",
-                },
                 {
                   Icon: TelegramLogo,
                   label: "Telegram",

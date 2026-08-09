@@ -675,7 +675,6 @@ function SettingsTab() {
     queryFn: () => adminGetSettings(),
   });
   const [form, setForm] = useState({
-    whatsapp: "",
     telegram: "",
     instagram: "",
     footer_telegram: "",
@@ -690,13 +689,6 @@ function SettingsTab() {
   return (
     <div className="max-w-md space-y-3">
       <p className="text-xs uppercase tracking-widest text-muted-foreground">Заказы (корзина)</p>
-      <label className="block text-xs text-muted-foreground">WhatsApp (номер)</label>
-      <input
-        className={field}
-        placeholder="+994501234567"
-        value={form.whatsapp}
-        onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
-      />
       <label className="block text-xs text-muted-foreground">Telegram (username)</label>
       <input
         className={field}

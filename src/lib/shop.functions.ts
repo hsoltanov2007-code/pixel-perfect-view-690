@@ -12,7 +12,7 @@ const CartItemInput = z.object({
 
 const CreateCartInput = z.object({
   items: z.array(CartItemInput).min(1).max(50),
-  channel: z.enum(["whatsapp", "telegram", "instagram"]),
+  channel: z.enum(["telegram", "instagram"]),
 });
 
 export const getPublicProducts = createServerFn({ method: "GET" }).handler(
@@ -67,7 +67,6 @@ export const getPublicContacts = createServerFn({ method: "GET" }).handler(
     const map: Record<string, string> = {};
     for (const row of data ?? []) map[row.key] = row.value;
     return {
-      whatsapp: map["whatsapp"] ?? "",
       telegram: map["telegram"] ?? "",
       instagram: map["instagram"] ?? "",
       footer_telegram: map["footer_telegram"] ?? "",

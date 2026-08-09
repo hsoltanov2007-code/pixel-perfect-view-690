@@ -176,7 +176,6 @@ export const adminGetSettings = createServerFn({ method: "GET" }).handler(
     const map: Record<string, string> = {};
     for (const row of data ?? []) map[row.key] = row.value;
     return {
-      whatsapp: map["whatsapp"] ?? "",
       telegram: map["telegram"] ?? "",
       instagram: map["instagram"] ?? "",
       footer_telegram: map["footer_telegram"] ?? "",
@@ -189,7 +188,6 @@ export const adminSaveSettings = createServerFn({ method: "POST" })
   .inputValidator((input) =>
     z
       .object({
-        whatsapp: z.string().trim().max(200).default(""),
         telegram: z.string().trim().max(200).default(""),
         instagram: z.string().trim().max(200).default(""),
         footer_telegram: z.string().trim().max(200).default(""),

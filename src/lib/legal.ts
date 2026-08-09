@@ -55,7 +55,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
         {
           heading: "Передача третьим лицам",
           body: [
-            "Мы не продаём ваши данные. Они могут обрабатываться сервисами, через которые вы с нами связываетесь (WhatsApp, Telegram, Instagram), и поставщиками хостинга и инфраструктуры сайта.",
+            "Мы не продаём ваши данные. Они могут обрабатываться сервисами, через которые вы с нами связываетесь (Telegram, Instagram), и поставщиками хостинга и инфраструктуры сайта.",
           ],
         },
         {
@@ -83,7 +83,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
           heading: "О сервисе",
           body: [
             "2G SHOP продаёт цифровые товары: подписки, ключи и аккаунты сервисов.",
-            "Заказ оформляется через корзину и подтверждается в мессенджере: WhatsApp, Telegram или Instagram.",
+            "Заказ оформляется через корзину и подтверждается в мессенджере: Telegram или Instagram.",
           ],
         },
         {
@@ -177,7 +177,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
         {
           heading: "Üçüncü tərəflər",
           body: [
-            "Məlumatlarınızı satmırıq. Onlar bizimlə əlaqə saxladığınız xidmətlər (WhatsApp, Telegram, Instagram) və hostinq təchizatçıları tərəfindən emal oluna bilər.",
+            "Məlumatlarınızı satmırıq. Onlar bizimlə əlaqə saxladığınız xidmətlər (Telegram, Instagram) və hostinq təchizatçıları tərəfindən emal oluna bilər.",
           ],
         },
         {
@@ -204,7 +204,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
           heading: "Xidmət haqqında",
           body: [
             "2G SHOP rəqəmsal məhsullar satır: abunəliklər, açarlar və hesablar.",
-            "Sifariş səbət vasitəsilə verilir və messencerdə (WhatsApp, Telegram, Instagram) təsdiqlənir.",
+            "Sifariş səbət vasitəsilə verilir və messencerdə (Telegram, Instagram) təsdiqlənir.",
           ],
         },
         {
@@ -294,7 +294,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
         {
           heading: "Third parties",
           body: [
-            "We do not sell your data. It may be processed by the services you contact us through (WhatsApp, Telegram, Instagram) and by our hosting and infrastructure providers.",
+            "We do not sell your data. It may be processed by the services you contact us through (Telegram, Instagram) and by our hosting and infrastructure providers.",
           ],
         },
         {
@@ -321,7 +321,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
           heading: "About the service",
           body: [
             "2G SHOP sells digital goods: subscriptions, keys and accounts.",
-            "Orders are placed through the cart and confirmed in a messenger: WhatsApp, Telegram or Instagram.",
+            "Orders are placed through the cart and confirmed in a messenger: Telegram or Instagram.",
           ],
         },
         {
