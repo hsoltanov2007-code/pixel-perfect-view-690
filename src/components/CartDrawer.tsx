@@ -6,7 +6,6 @@ import {
   Minus,
   Plus,
   ShoppingBag,
-  WhatsappLogo,
   TelegramLogo,
   InstagramLogo,
   Copy,
