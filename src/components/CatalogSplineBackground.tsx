@@ -181,8 +181,6 @@ export default function CatalogSplineBackground() {
         ctx.lineWidth = 1;
         ctx.stroke();
       }
-
-      frame = requestAnimationFrame(draw);
     };
 
     draw();
