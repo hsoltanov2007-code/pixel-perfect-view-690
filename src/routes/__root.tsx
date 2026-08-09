@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "sonner";
 import SplineBackground from "@/components/SplineBackground";
+import logoSocial from "@/assets/logo-social.png.asset.json";
 
 
 
