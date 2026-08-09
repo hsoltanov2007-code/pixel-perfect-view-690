@@ -55,12 +55,15 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
             key={l}
             onClick={() => setLang(l)}
             aria-pressed={lang === l}
-            className={`rounded-full px-3 py-1 text-xs font-medium tracking-wide transition-colors ${
+            className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium tracking-wide transition-colors ${
               lang === l
                 ? "bg-foreground text-background"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
+            <span className="text-sm leading-none" aria-hidden="true">
+              {LANG_FLAGS[l]}
+            </span>
             {LANG_LABELS[l]}
           </button>
         ))}
