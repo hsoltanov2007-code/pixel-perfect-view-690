@@ -101,7 +101,7 @@ export default function Products() {
       );
     }, root);
     return () => ctx.revert();
-  }, []);
+  }, [items.length]);
 
   return (
     <section
