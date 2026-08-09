@@ -3,11 +3,6 @@ import { createPortal } from "react-dom";
 import { Check } from "@phosphor-icons/react";
 import { LANGS, LANG_NAMES, type Lang, useI18n } from "@/lib/i18n";
 
-const LANG_FLAGS: Record<Lang, string> = {
-  ru: "🇷🇺",
-  az: "🇦🇿",
-  en: "🇬🇧",
-};
 
 export default function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   const { lang, setLang, t } = useI18n();
@@ -62,7 +57,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
                 : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
             }`}
           >
-            <span aria-hidden="true">{LANG_FLAGS[l]}</span>
+            <span aria-hidden="true">{l.toUpperCase()}</span>
           </button>
         ))}
       </div>
@@ -80,7 +75,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         onClick={() => setOpen((v) => !v)}
         className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/10 text-lg text-foreground ring-1 ring-foreground/20 backdrop-blur-md transition-colors hover:bg-foreground/15"
       >
-        <span aria-hidden="true">{LANG_FLAGS[lang]}</span>
+        <span aria-hidden="true">{lang.toUpperCase()}</span>
       </button>
 
       {open &&
@@ -116,9 +111,6 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
                   }`}
                 >
                   <span className="flex items-center gap-2.5">
-                    <span className="text-base leading-none" aria-hidden="true">
-                      {LANG_FLAGS[l]}
-                    </span>
                     {LANG_NAMES[l]}
                   </span>
                   {lang === l && <Check size={14} weight="bold" />}
