@@ -20,7 +20,7 @@ import { createCartLink, getPublicContacts } from "@/lib/shop.functions";
 import { buildCheckoutMessage } from "@/lib/checkout-message";
 import { useI18n } from "@/lib/i18n";
 
-type Channel = "whatsapp" | "telegram" | "instagram";
+type Channel = "telegram" | "instagram";
 
 const gradients = [
   "from-indigo-600/30 to-violet-600/20",
