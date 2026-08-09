@@ -121,7 +121,12 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
                       : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
                   }`}
                 >
-                  {LANG_NAMES[l]}
+                  <span className="flex items-center gap-2.5">
+                    <span className="text-base leading-none" aria-hidden="true">
+                      {LANG_FLAGS[l]}
+                    </span>
+                    {LANG_NAMES[l]}
+                  </span>
                   {lang === l && <Check size={14} weight="bold" />}
                 </button>
               </li>
