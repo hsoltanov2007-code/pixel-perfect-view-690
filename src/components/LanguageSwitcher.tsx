@@ -62,7 +62,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
                 : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
             }`}
           >
-            <span aria-hidden="true">{LANG_FLAGS[l]}</span>
+            <span aria-hidden="true">{l.toUpperCase()}</span>
           </button>
         ))}
       </div>
