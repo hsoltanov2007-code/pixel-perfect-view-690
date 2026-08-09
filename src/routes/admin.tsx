@@ -274,7 +274,7 @@ function ProductsTab() {
                 )}
               </p>
               <p className="text-xs text-muted-foreground">
-                {formatPrice(Number(p.price), p.currency)} {p.period} · #{p.sort_order}
+                {formatPrice(Number(p.price), p.currency)} {p.period}
               </p>
             </div>
             <div className="flex gap-2">
