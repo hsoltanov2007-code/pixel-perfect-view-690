@@ -337,27 +337,48 @@ type I18nValue = {
 
 const I18nContext = createContext<I18nValue | null>(null);
 
-export function I18nProvider({ children }: { children: ReactNode }) {
+export function I18nProvider({
+  children,
+  initialLang,
+}: {
+  children: ReactNode;
+  initialLang?: Lang | null;
+}) {
   // Server renders the default language; the visitor's choice is applied on mount.
-  const [lang, setLangState] = useState<Lang>("ru");
+  const [lang, setLangState] = useState<Lang>(initialLang ?? "ru");
+  const getCookieLang = useServerFn(getLangCookie);
+  const setCookieLang = useServerFn(setLangCookie);
 
   useEffect(() => {
-    const next = detectLang();
-    setLangState(next);
-  }, []);
+    // Prefer the cookie set by the server, fall back to localStorage / browser detection.
+    getCookieLang()
+      .then((cookieLang) => {
+        const next = cookieLang ?? detectLang();
+        setLangState(next);
+      })
+      .catch(() => {
+        setLangState(detectLang());
+      });
+  }, [getCookieLang]);
 
   useEffect(() => {
     if (typeof document !== "undefined") document.documentElement.lang = lang;
   }, [lang]);
 
-  const setLang = useCallback((l: Lang) => {
-    setLangState(l);
-    try {
-      window.localStorage.setItem(STORAGE_KEY, l);
-    } catch {
-      /* storage unavailable */
-    }
-  }, []);
+  const setLang = useCallback(
+    (l: Lang) => {
+      setLangState(l);
+      try {
+        window.localStorage.setItem(STORAGE_KEY, l);
+      } catch {
+        /* storage unavailable */
+      }
+      setCookieLang({ data: l }).catch(() => {
+        /* ignore network errors */
+      });
+    },
+    [setCookieLang],
+  );
 
   const t = useCallback(
     (key: string, vars?: Record<string, string | number>) => {
