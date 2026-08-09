@@ -58,13 +58,12 @@ export default function CartDrawer() {
   // Lock body scroll while drawer is open
   useEffect(() => {
     if (typeof document === "undefined") return;
-    if (open) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
   }, [open]);
 
   // GSAP entrance animation
