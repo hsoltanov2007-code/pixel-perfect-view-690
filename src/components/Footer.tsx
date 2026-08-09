@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TelegramLogo, InstagramLogo } from "@phosphor-icons/react";
+import logoWhite from "@/assets/logo-white.png.asset.json";
 
 export default function Footer() {
   const root = useRef<HTMLElement>(null);
