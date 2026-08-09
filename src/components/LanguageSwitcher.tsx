@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Globe, Check } from "@phosphor-icons/react";
-import { LANGS, LANG_LABELS, LANG_NAMES, type Lang, useI18n } from "@/lib/i18n";
+import { Check } from "@phosphor-icons/react";
+import { LANGS, LANG_NAMES, type Lang, useI18n } from "@/lib/i18n";
 
 const LANG_FLAGS: Record<Lang, string> = {
   ru: "🇷🇺",
