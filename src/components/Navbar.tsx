@@ -18,6 +18,7 @@ function blockKeyNav(e: React.KeyboardEvent) {
 
 export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
   const { pathname } = useLocation();
+  const { count, setOpen: setCartOpen } = useCart();
   const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(alwaysVisible);
