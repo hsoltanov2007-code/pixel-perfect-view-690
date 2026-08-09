@@ -132,11 +132,7 @@ export default function CartDrawer() {
       });
 
       let url = "";
-      if (channel === "whatsapp") {
-        const phone = (contacts?.whatsapp ?? "").replace(/[^\d]/g, "");
-        if (!phone) throw new Error(t("cart.notConfigured", { channel: "WhatsApp" }));
-        url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-      } else if (channel === "telegram") {
+      if (channel === "telegram") {
         const handle = (contacts?.telegram ?? "").replace(/^@/, "").trim();
         if (!handle) throw new Error(t("cart.notConfigured", { channel: "Telegram" }));
         url = `https://t.me/${encodeURIComponent(handle)}?text=${encodeURIComponent(text)}`;
