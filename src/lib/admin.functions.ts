@@ -120,8 +120,7 @@ export const adminUploadProductImage = createServerFn({ method: "POST" })
 
     const match = data.base64.match(/^data:([^;]+);base64,(.+)$/);
     if (!match) throw new Error("Invalid image data");
-    const contentType = match[1] || "image/png";
-    const base64Body = match[2];
+    const [, contentType = "image/png", base64Body] = match;
     const buffer = Buffer.from(base64Body, "base64");
 
     const ext = data.filename.split(".").pop() || "png";
