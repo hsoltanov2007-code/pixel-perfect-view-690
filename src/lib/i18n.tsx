@@ -112,6 +112,9 @@ const ru: Dict = {
   "contact.askPlaceholder": "Спросите о заказе...",
   "contact.operatorRequested": "Оператор вызван — скоро подключится к чату.",
 
+  "chat.callOperator": "Вызвать оператора",
+  "chat.empty": "Начните диалог",
+  "chat.emptyDesc": "Спросите о заказе, подписке, доставке или гарантии.",
   "footer.rights": "Все права защищены.",
 };
 
@@ -200,6 +203,9 @@ const az: Dict = {
   "contact.askPlaceholder": "Sifarişiniz haqqında soruşun...",
   "contact.operatorRequested": "Operator çağırıldı — tezliklə qoşulacaq.",
 
+  "chat.callOperator": "Operator çağır",
+  "chat.empty": "Söhbətə başlayın",
+  "chat.emptyDesc": "Sifariş, abunəlik, çatdırılma və ya zəmanət haqqında soruşun.",
   "footer.rights": "Bütün hüquqlar qorunur.",
 };
 
@@ -287,6 +293,9 @@ const en: Dict = {
   "contact.askPlaceholder": "Ask about your order...",
   "contact.operatorRequested": "Operator requested — a human will join this chat soon.",
 
+  "chat.callOperator": "Call operator",
+  "chat.empty": "Start chatting",
+  "chat.emptyDesc": "Ask about orders, subscriptions, delivery or warranty.",
   "footer.rights": "All rights reserved.",
 };
 
