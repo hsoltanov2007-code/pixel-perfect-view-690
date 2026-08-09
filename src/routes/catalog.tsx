@@ -226,7 +226,7 @@ function CatalogPage() {
                       });
                       toast.success(tr("products.added", { title: p.title }));
                     }}
-                    className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-4 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98]"
+                    className="group/btn mt-auto flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/8 bg-white/5 py-2.5 text-xs font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98] sm:gap-2 sm:rounded-xl sm:py-4 sm:text-sm"
                   >
                     {tr("products.add")}
                     <ArrowRight
