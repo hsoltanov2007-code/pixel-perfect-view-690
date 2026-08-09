@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Globe, Check } from "@phosphor-icons/react";
-import { LANGS, LANG_LABELS, LANG_NAMES, useI18n } from "@/lib/i18n";
+import { LANGS, LANG_LABELS, LANG_NAMES, type Lang, useI18n } from "@/lib/i18n";
+
+const LANG_FLAGS: Record<Lang, string> = {
+  ru: "🇷🇺",
+  az: "🇦🇿",
+  en: "🇬🇧",
+};
 
 export default function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   const { lang, setLang, t } = useI18n();
@@ -49,12 +55,15 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
             key={l}
             onClick={() => setLang(l)}
             aria-pressed={lang === l}
-            className={`rounded-full px-3 py-1 text-xs font-medium tracking-wide transition-colors ${
+            className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium tracking-wide transition-colors ${
               lang === l
                 ? "bg-foreground text-background"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
+            <span className="text-sm leading-none" aria-hidden="true">
+              {LANG_FLAGS[l]}
+            </span>
             {LANG_LABELS[l]}
           </button>
         ))}
@@ -74,6 +83,9 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         className="flex items-center gap-1.5 rounded-full bg-foreground/10 px-3 py-2 text-xs font-medium text-foreground ring-1 ring-foreground/20 backdrop-blur-md transition-colors hover:bg-foreground/15"
       >
         <Globe size={16} weight="light" />
+        <span className="text-sm leading-none" aria-hidden="true">
+          {LANG_FLAGS[lang]}
+        </span>
         {LANG_LABELS[lang]}
       </button>
 
@@ -109,7 +121,12 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
                       : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
                   }`}
                 >
-                  {LANG_NAMES[l]}
+                  <span className="flex items-center gap-2.5">
+                    <span className="text-base leading-none" aria-hidden="true">
+                      {LANG_FLAGS[l]}
+                    </span>
+                    {LANG_NAMES[l]}
+                  </span>
                   {lang === l && <Check size={14} weight="bold" />}
                 </button>
               </li>
