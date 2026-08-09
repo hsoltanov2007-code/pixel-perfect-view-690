@@ -321,7 +321,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
           heading: "About the service",
           body: [
             "2G SHOP sells digital goods: subscriptions, keys and accounts.",
-            "Orders are placed through the cart and confirmed in a messenger: WhatsApp, Telegram or Instagram.",
+            "Orders are placed through the cart and confirmed in a messenger: Telegram or Instagram.",
           ],
         },
         {
