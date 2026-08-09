@@ -9,9 +9,9 @@ import { useCart } from "@/lib/cart";
 import { getPublicProducts } from "@/lib/shop.functions";
 import {
   formatPrice,
-  localizeDescription,
   productImage,
 } from "@/lib/product-image";
+import { LocalizedDescription } from "@/components/LocalizedDescription";
 import { useI18n } from "@/lib/i18n";
 
 function StarField({ count = 10 }: { count?: number }) {
@@ -44,7 +44,7 @@ function StarField({ count = 10 }: { count?: number }) {
 }
 
 export default function Products() {
-  const { t: tr, lang } = useI18n();
+  const { t: tr } = useI18n();
   const root = useRef<HTMLElement>(null);
   const { add } = useCart();
   const { data } = useQuery({
@@ -202,9 +202,10 @@ export default function Products() {
                   </div>
                 </div>
 
-                <p className="mb-3 text-xs leading-relaxed text-muted-foreground md:mb-4 md:text-sm">
-                  {localizeDescription(p.description, lang)}
-                </p>
+                <LocalizedDescription
+                  description={p.description}
+                  className="mb-3 text-xs leading-relaxed text-muted-foreground md:mb-4 md:text-sm"
+                />
 
                 <ul className="mb-6 space-y-2">
                   {p.perks.map((t) => (
