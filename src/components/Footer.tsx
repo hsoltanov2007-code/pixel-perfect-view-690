@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TelegramLogo, InstagramLogo } from "@phosphor-icons/react";
-import logoWhite from "@/assets/logo-white.png.asset.json";
 
 export default function Footer() {
   const root = useRef<HTMLElement>(null);
@@ -46,9 +45,7 @@ export default function Footer() {
         />
       ))}
       <div className="footer-inner relative mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 sm:flex-row sm:justify-between">
-        <Link to="/" className="flex items-center">
-          <img src={logoWhite.url} alt="2G SHOP" className="h-8 w-auto" />
-        </Link>
+        <span className="text-lg font-semibold text-gradient">2G SHOP</span>
         <nav className="flex gap-6 text-sm text-muted-foreground">
           <a href="/#home" className="transition-colors hover:text-foreground">Home</a>
           <Link to="/catalog" className="transition-colors hover:text-foreground">Catalog</Link>

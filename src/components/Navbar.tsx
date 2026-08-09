@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { List, X } from "@phosphor-icons/react";
-import logoWhite from "@/assets/logo-white.png.asset.json";
 
 const links = [
   { label: "Home", href: "#home" },
@@ -89,13 +88,16 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
               aria-disabled="true"
               tabIndex={-1}
               onKeyDown={blockKeyNav}
-              className="cursor-default flex items-center"
+              className="cursor-default text-lg font-semibold tracking-tight text-gradient"
             >
-              <img src={logoWhite.url} alt="2G SHOP" className="h-8 w-auto" />
+              2G SHOP
             </span>
           ) : (
-            <Link to="/" className="flex items-center">
-              <img src={logoWhite.url} alt="2G SHOP" className="h-8 w-auto" />
+            <Link
+              to="/"
+              className="text-lg font-semibold tracking-tight text-gradient"
+            >
+              2G SHOP
             </Link>
           )}
 
