@@ -41,62 +41,6 @@ function StarField({ count = 12 }: { count?: number }) {
   );
 }
 
-const catalogItems = [
-  {
-    img: p1,
-    title: "Streaming Pro",
-    price: "$4.99",
-    period: "/ month",
-    desc: "4K streaming subscription, instant delivery to your inbox.",
-    perks: ["4K + HDR", "Works worldwide", "Instant activation"],
-    badge: "Popular",
-  },
-  {
-    img: p2,
-    title: "Music Unlimited",
-    price: "$3.49",
-    period: "/ month",
-    desc: "Ad-free music on every device with offline downloads.",
-    perks: ["Ad-free", "Offline mode", "Up to 6 devices"],
-    badge: "Best value",
-  },
-  {
-    img: p3,
-    title: "AI Assistant Plus",
-    price: "$9.99",
-    period: "/ month",
-    desc: "Premium AI access with priority speed and higher limits.",
-    perks: ["Priority speed", "Higher limits", "Early features"],
-    badge: "Enterprise",
-  },
-  {
-    img: p1,
-    title: "Gaming Pass",
-    price: "$7.99",
-    period: "/ month",
-    desc: "Access a growing library of premium games and online multiplayer.",
-    perks: ["100+ titles", "Online multiplayer", "New releases"],
-    badge: "Gaming",
-  },
-  {
-    img: p2,
-    title: "VPN Shield",
-    price: "$2.99",
-    period: "/ month",
-    desc: "Fast, secure VPN with no logs and global server coverage.",
-    perks: ["No logs", "50+ locations", "Unlimited bandwidth"],
-    badge: "Secure",
-  },
-  {
-    img: p3,
-    title: "Creative Cloud",
-    price: "$14.99",
-    period: "/ month",
-    desc: "Full suite of design, video and photo editing tools.",
-    perks: ["20+ apps", "100GB cloud", "Premium fonts"],
-    badge: "Creative",
-  },
-];
 
 export const Route = createFileRoute("/catalog")({
   head: () => ({
