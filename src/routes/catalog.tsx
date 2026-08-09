@@ -71,6 +71,7 @@ function CatalogPage() {
   const { t: tr } = useI18n();
   const root = useRef<HTMLDivElement>(null);
   const { add } = useCart();
+  const isMobile = useIsMobile();
   const { data } = useQuery({
     queryKey: ["public-products"],
     queryFn: () => getPublicProducts(),
