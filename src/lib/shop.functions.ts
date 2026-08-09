@@ -5,7 +5,7 @@ const CartItemInput = z.object({
   id: z.string().max(64),
   title: z.string().trim().min(1).max(120),
   price: z.number().min(0).max(100000),
-  currency: z.string().max(4).default("$"),
+  currency: z.string().max(4).default("AZN"),
   period: z.string().max(40).default(""),
   qty: z.number().int().min(1).max(99),
 });
