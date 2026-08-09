@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Check, ArrowRight, ArrowLeft } from "@phosphor-icons/react";
@@ -8,9 +9,9 @@ import { toast } from "sonner";
 import CatalogSplineBackground from "@/components/CatalogSplineBackground";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import p1 from "@/assets/project-1.jpg";
-import p2 from "@/assets/project-2.jpg";
-import p3 from "@/assets/project-3.jpg";
+import { useCart } from "@/lib/cart";
+import { getPublicProducts } from "@/lib/shop.functions";
+import { formatPrice, productImage } from "@/lib/product-image";
 
 function StarField({ count = 12 }: { count?: number }) {
   const stars = Array.from({ length: count }, (_, i) => ({
@@ -41,62 +42,6 @@ function StarField({ count = 12 }: { count?: number }) {
   );
 }
 
-const catalogItems = [
-  {
-    img: p1,
-    title: "Streaming Pro",
-    price: "$4.99",
-    period: "/ month",
-    desc: "4K streaming subscription, instant delivery to your inbox.",
-    perks: ["4K + HDR", "Works worldwide", "Instant activation"],
-    badge: "Popular",
-  },
-  {
-    img: p2,
-    title: "Music Unlimited",
-    price: "$3.49",
-    period: "/ month",
-    desc: "Ad-free music on every device with offline downloads.",
-    perks: ["Ad-free", "Offline mode", "Up to 6 devices"],
-    badge: "Best value",
-  },
-  {
-    img: p3,
-    title: "AI Assistant Plus",
-    price: "$9.99",
-    period: "/ month",
-    desc: "Premium AI access with priority speed and higher limits.",
-    perks: ["Priority speed", "Higher limits", "Early features"],
-    badge: "Enterprise",
-  },
-  {
-    img: p1,
-    title: "Gaming Pass",
-    price: "$7.99",
-    period: "/ month",
-    desc: "Access a growing library of premium games and online multiplayer.",
-    perks: ["100+ titles", "Online multiplayer", "New releases"],
-    badge: "Gaming",
-  },
-  {
-    img: p2,
-    title: "VPN Shield",
-    price: "$2.99",
-    period: "/ month",
-    desc: "Fast, secure VPN with no logs and global server coverage.",
-    perks: ["No logs", "50+ locations", "Unlimited bandwidth"],
-    badge: "Secure",
-  },
-  {
-    img: p3,
-    title: "Creative Cloud",
-    price: "$14.99",
-    period: "/ month",
-    desc: "Full suite of design, video and photo editing tools.",
-    perks: ["20+ apps", "100GB cloud", "Premium fonts"],
-    badge: "Creative",
-  },
-];
 
 export const Route = createFileRoute("/catalog")({
   head: () => ({
@@ -122,6 +67,12 @@ export const Route = createFileRoute("/catalog")({
 
 function CatalogPage() {
   const root = useRef<HTMLDivElement>(null);
+  const { add } = useCart();
+  const { data } = useQuery({
+    queryKey: ["public-products"],
+    queryFn: () => getPublicProducts(),
+  });
+  const products = data ?? [];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -156,7 +107,7 @@ function CatalogPage() {
       );
     }, root);
     return () => ctx.revert();
-  }, []);
+  }, [products.length]);
 
   return (
     <div ref={root} className="pointer-events-none relative min-h-screen">
@@ -181,9 +132,9 @@ function CatalogPage() {
         </div>
 
         <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {catalogItems.map((p) => (
+          {products.map((p) => (
             <article
-              key={p.title}
+              key={p.id}
               className="catalog-card pointer-events-auto group relative"
             >
               {/* Soft nebula halo */}
@@ -206,7 +157,7 @@ function CatalogPage() {
                   </div>
                   <div className="relative h-full w-full overflow-hidden rounded-2xl">
                     <img
-                      src={p.img}
+                      src={productImage(p.image_key)}
                       alt={`${p.title} subscription`}
                       width={1024}
                       height={768}
@@ -231,15 +182,18 @@ function CatalogPage() {
                     </div>
                     <div className="text-right">
                       <span className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                        {p.price}
+                        {formatPrice(Number(p.price), p.currency)}
                       </span>
-                      <span className="block text-xs text-muted-foreground">/month</span>
+                      <span className="block text-xs text-muted-foreground">
+                        {p.period}
+                      </span>
                     </div>
                   </div>
 
                   <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-                    {p.desc}
+                    {p.description}
                   </p>
+
 
                   <ul className="mb-8 space-y-3">
                     {p.perks.map((t) => (
@@ -257,10 +211,19 @@ function CatalogPage() {
 
                   {/* CTA */}
                   <button
-                    onClick={() => toast.success(`${p.title} added — we'll contact you to finish checkout.`)}
+                    onClick={() => {
+                      add({
+                        id: p.id,
+                        title: p.title,
+                        price: Number(p.price),
+                        currency: p.currency,
+                        period: p.period,
+                      });
+                      toast.success(`${p.title} добавлен в корзину`);
+                    }}
                     className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-4 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98]"
                   >
-                    Buy now
+                    В корзину
                     <ArrowRight
                       size={16}
                       weight="bold"

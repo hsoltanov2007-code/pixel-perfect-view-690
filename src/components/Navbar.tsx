@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { List, X } from "@phosphor-icons/react";
+import { List, X, ShoppingBag } from "@phosphor-icons/react";
+import { useCart } from "@/lib/cart";
 
 const links = [
   { label: "Home", href: "#home" },
@@ -17,6 +18,7 @@ function blockKeyNav(e: React.KeyboardEvent) {
 
 export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
   const { pathname } = useLocation();
+  const { count, setOpen: setCartOpen } = useCart();
   const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(alwaysVisible);
@@ -152,15 +154,32 @@ export default function Navbar({ alwaysVisible = false }: { alwaysVisible?: bool
               </li>
             ))}
           </ul>
-          <Link
-            to="/catalog"
-            className={`hidden btn-neon !px-5 !py-2 !text-sm transition-all duration-500 md:inline-flex ${
-              visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
-            }`}
-            style={{ transitionDelay: visible ? "620ms" : "0ms" }}
-          >
-            Shop now
-          </Link>
+          <div className="flex items-center gap-2">
+            <button
+              aria-label="Open cart"
+              onClick={() => setCartOpen(true)}
+              className={`relative rounded-full bg-foreground/10 p-2 text-foreground ring-1 ring-foreground/20 backdrop-blur-md transition-all duration-500 ${
+                visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
+              }`}
+              style={{ transitionDelay: visible ? "560ms" : "0ms" }}
+            >
+              <ShoppingBag size={20} weight="light" />
+              {count > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-foreground px-1 text-[10px] font-semibold text-background">
+                  {count}
+                </span>
+              )}
+            </button>
+            <Link
+              to="/catalog"
+              className={`hidden btn-neon !px-5 !py-2 !text-sm transition-all duration-500 md:inline-flex ${
+                visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
+              }`}
+              style={{ transitionDelay: visible ? "620ms" : "0ms" }}
+            >
+              Shop now
+            </Link>
+          </div>
           <button
             aria-label="Toggle menu"
             onClick={() => setOpen((v) => !v)}

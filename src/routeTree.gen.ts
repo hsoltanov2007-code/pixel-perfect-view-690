@@ -10,15 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as CartCartIdRouteImport } from './routes/cart.$cartId'
 import { Route as ContactIndexRouteImport } from './routes/contact.index'
 import { Route as ContactThreadIdRouteImport } from './routes/contact.$threadId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CatalogRoute = CatalogRouteImport.update({
@@ -36,6 +43,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CartCartIdRoute = CartCartIdRouteImport.update({
+  id: '/cart/$cartId',
+  path: '/cart/$cartId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactIndexRoute = ContactIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,25 +61,31 @@ const ContactThreadIdRoute = ContactThreadIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/catalog': typeof CatalogRoute
   '/contact': typeof ContactRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/cart/$cartId': typeof CartCartIdRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
   '/contact/': typeof ContactIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/catalog': typeof CatalogRoute
   '/api/chat': typeof ApiChatRoute
+  '/cart/$cartId': typeof CartCartIdRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
   '/contact': typeof ContactIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/catalog': typeof CatalogRoute
   '/contact': typeof ContactRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/cart/$cartId': typeof CartCartIdRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
   '/contact/': typeof ContactIndexRoute
 }
@@ -75,28 +93,41 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/catalog'
     | '/contact'
     | '/api/chat'
+    | '/cart/$cartId'
     | '/contact/$threadId'
     | '/contact/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catalog' | '/api/chat' | '/contact/$threadId' | '/contact'
+  to:
+    | '/'
+    | '/admin'
+    | '/catalog'
+    | '/api/chat'
+    | '/cart/$cartId'
+    | '/contact/$threadId'
+    | '/contact'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/catalog'
     | '/contact'
     | '/api/chat'
+    | '/cart/$cartId'
     | '/contact/$threadId'
     | '/contact/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   CatalogRoute: typeof CatalogRoute
   ContactRoute: typeof ContactRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
+  CartCartIdRoute: typeof CartCartIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -106,6 +137,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/catalog': {
@@ -127,6 +165,13 @@ declare module '@tanstack/react-router' {
       path: '/api/chat'
       fullPath: '/api/chat'
       preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cart/$cartId': {
+      id: '/cart/$cartId'
+      path: '/cart/$cartId'
+      fullPath: '/cart/$cartId'
+      preLoaderRoute: typeof CartCartIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact/': {
@@ -161,20 +206,12 @@ const ContactRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   CatalogRoute: CatalogRoute,
   ContactRoute: ContactRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
+  CartCartIdRoute: CartCartIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

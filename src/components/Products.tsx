@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Check, ArrowRight } from "@phosphor-icons/react";
 import { toast } from "sonner";
-import p1 from "@/assets/project-1.jpg";
-import p2 from "@/assets/project-2.jpg";
-import p3 from "@/assets/project-3.jpg";
+import { useCart } from "@/lib/cart";
+import { getPublicProducts } from "@/lib/shop.functions";
+import { formatPrice, productImage } from "@/lib/product-image";
 
 function StarField({ count = 10 }: { count?: number }) {
   const stars = Array.from({ length: count }, (_, i) => ({
@@ -37,38 +38,15 @@ function StarField({ count = 10 }: { count?: number }) {
   );
 }
 
-const items = [
-  {
-    img: p1,
-    title: "Streaming Pro",
-    price: "$4.99",
-    period: "/ month",
-    desc: "4K streaming subscription, instant delivery to your inbox.",
-    perks: ["4K + HDR", "Works worldwide", "Instant activation"],
-    badge: "Popular",
-  },
-  {
-    img: p2,
-    title: "Music Unlimited",
-    price: "$3.49",
-    period: "/ month",
-    desc: "Ad-free music on every device with offline downloads.",
-    perks: ["Ad-free", "Offline mode", "Up to 6 devices"],
-    badge: "Best value",
-  },
-  {
-    img: p3,
-    title: "AI Assistant Plus",
-    price: "$9.99",
-    period: "/ month",
-    desc: "Premium AI access with priority speed and higher limits.",
-    perks: ["Priority speed", "Higher limits", "Early features"],
-    badge: "Enterprise",
-  },
-];
-
 export default function Products() {
   const root = useRef<HTMLElement>(null);
+  const { add } = useCart();
+  const { data } = useQuery({
+    queryKey: ["public-products"],
+    queryFn: () => getPublicProducts(),
+  });
+  const items = (data ?? []).slice(0, 3);
+
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -123,7 +101,7 @@ export default function Products() {
       );
     }, root);
     return () => ctx.revert();
-  }, []);
+  }, [items.length]);
 
   return (
     <section
@@ -143,7 +121,7 @@ export default function Products() {
       <div className="product-grid relative mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3">
         {items.map((p) => (
           <article
-            key={p.title}
+            key={p.id}
             className="product-card pointer-events-auto group relative"
           >
             {/* Soft nebula halo */}
@@ -166,7 +144,7 @@ export default function Products() {
                 </div>
                 <div className="relative h-full w-full overflow-hidden rounded-2xl">
                   <img
-                    src={p.img}
+                    src={productImage(p.image_key)}
                     alt={`${p.title} subscription`}
                     width={1024}
                     height={768}
@@ -191,14 +169,16 @@ export default function Products() {
                   </div>
                   <div className="text-right">
                     <span className="font-display text-xl font-semibold tracking-tight text-foreground">
-                      {p.price}
+                      {formatPrice(Number(p.price), p.currency)}
                     </span>
-                    <span className="block text-[10px] text-muted-foreground">/month</span>
+                    <span className="block text-[10px] text-muted-foreground">
+                      {p.period}
+                    </span>
                   </div>
                 </div>
 
                 <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-                  {p.desc}
+                  {p.description}
                 </p>
 
                 <ul className="mb-6 space-y-2">
@@ -217,10 +197,19 @@ export default function Products() {
 
                 {/* CTA */}
                 <button
-                  onClick={() => toast.success(`${p.title} added — we'll contact you to finish checkout.`)}
+                  onClick={() => {
+                    add({
+                      id: p.id,
+                      title: p.title,
+                      price: Number(p.price),
+                      currency: p.currency,
+                      period: p.period,
+                    });
+                    toast.success(`${p.title} добавлен в корзину`);
+                  }}
                   className="group/btn mt-auto flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 py-3 text-sm font-medium tracking-wide text-foreground backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/10 active:scale-[0.98]"
                 >
-                  Buy now
+                  В корзину
                   <ArrowRight
                     size={16}
                     weight="bold"

@@ -1,0 +1,27 @@
+import p1 from "@/assets/project-1.jpg";
+import p2 from "@/assets/project-2.jpg";
+import p3 from "@/assets/project-3.jpg";
+import p4 from "@/assets/project-4.jpg";
+import p5 from "@/assets/project-5.jpg";
+import p6 from "@/assets/project-6.jpg";
+
+const map: Record<string, string> = {
+  "project-1": p1,
+  "project-2": p2,
+  "project-3": p3,
+  "project-4": p4,
+  "project-5": p5,
+  "project-6": p6,
+};
+
+export const imageKeys = Object.keys(map);
+
+export function productImage(key?: string | null): string {
+  if (!key) return p1;
+  if (key.startsWith("http") || key.startsWith("/")) return key;
+  return map[key] ?? p1;
+}
+
+export function formatPrice(price: number, currency = "$"): string {
+  return `${currency}${price.toFixed(2)}`;
+}
