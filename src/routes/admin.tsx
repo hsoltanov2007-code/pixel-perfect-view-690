@@ -504,7 +504,7 @@ function ProductForm({
             onChange={(e) =>
               setForm({
                 ...form,
-                perks: e.target.value.split("\n").map((s) => s.trim()),
+                perks: e.target.value.split("\n"),
               })
             }
           />
