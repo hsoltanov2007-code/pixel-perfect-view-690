@@ -9,6 +9,13 @@ import { legalLabels } from "@/lib/legal";
 import { getPublicContacts } from "@/lib/shop.functions";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
+function socialHref(value: string | undefined, base: string, fallback: string) {
+  const v = (value ?? "").trim();
+  if (!v) return fallback;
+  if (/^https?:\/\//i.test(v)) return v;
+  return base + v.replace(/^@/, "");
+}
+
 export default function Footer() {
   const { t, lang } = useI18n();
   const root = useRef<HTMLElement>(null);
@@ -17,6 +24,16 @@ export default function Footer() {
     queryFn: () => getPublicContacts(),
     staleTime: 5 * 60 * 1000,
   });
+  const tgHref = socialHref(
+    contacts?.footer_telegram || contacts?.telegram,
+    "https://t.me/",
+    "https://t.me",
+  );
+  const igHref = socialHref(
+    contacts?.footer_instagram || contacts?.instagram,
+    "https://instagram.com/",
+    "https://instagram.com",
+  );
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -67,10 +84,10 @@ export default function Footer() {
         </nav>
         <div className="flex items-center gap-3">
           <LanguageSwitcher compact />
-          <a href={contacts?.telegram || "https://t.me"} target="_blank" rel="noreferrer" aria-label="Telegram" className="rounded-full p-2 glass transition-colors hover:text-accent">
+          <a href={tgHref} target="_blank" rel="noreferrer" aria-label="Telegram" className="rounded-full p-2 glass transition-colors hover:text-accent">
             <TelegramLogo size={18} weight="light" />
           </a>
-          <a href={contacts?.instagram || "https://instagram.com"} target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full p-2 glass transition-colors hover:text-accent">
+          <a href={igHref} target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full p-2 glass transition-colors hover:text-accent">
             <InstagramLogo size={18} weight="light" />
           </a>
         </div>
