@@ -48,11 +48,14 @@ function Index() {
     let restore = 0;
     if (introPassed) {
       // The router may reset the offset right after mount, so re-apply the
-      // landing position for a few frames until it sticks.
+      // landing position for a few frames until it sticks (a long rAF loop
+      // here used to fight the browser and make the first second feel laggy).
       let tries = 0;
       const settle = () => {
-        window.scrollTo(0, floorOf());
-        if (++tries < 60) restore = requestAnimationFrame(settle);
+        const target = floorOf();
+        if (Math.abs(window.scrollY - target) > 1) window.scrollTo(0, target);
+        else tries += 3;
+        if (++tries < 12) restore = requestAnimationFrame(settle);
       };
       settle();
     } else {

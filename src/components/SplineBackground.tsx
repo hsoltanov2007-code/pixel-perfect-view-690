@@ -10,10 +10,25 @@ export default function SplineBackground({ active = true }: { active?: boolean }
 
   // Mount only on the client: an SSR-rendered iframe can finish loading before
   // React hydrates, so its onLoad never fires and it stays invisible forever.
+  // The WebGL scene is the heaviest thing on the page, so we defer it until the
+  // browser is idle — otherwise it competes with hydration and the first paint
+  // and the whole site feels laggy for the first seconds.
   useEffect(() => {
-    setMounted(true);
-    const t = setTimeout(() => setLoaded(true), 2500);
-    return () => clearTimeout(t);
+    let idle = 0;
+    let timer = 0 as unknown as ReturnType<typeof setTimeout>;
+    const start = () => {
+      setMounted(true);
+      timer = setTimeout(() => setLoaded(true), 2500);
+    };
+    const ric = (window as any).requestIdleCallback as
+      | ((cb: () => void, o?: { timeout: number }) => number)
+      | undefined;
+    if (ric) idle = ric(start, { timeout: 1200 });
+    else timer = setTimeout(start, 300);
+    return () => {
+      clearTimeout(timer);
+      if (idle && (window as any).cancelIdleCallback) (window as any).cancelIdleCallback(idle);
+    };
   }, []);
 
   // Subtle parallax so the scene still reacts to the cursor, while the iframe
@@ -22,6 +37,8 @@ export default function SplineBackground({ active = true }: { active?: boolean }
   useEffect(() => {
     const layer = layerRef.current;
     if (!layer) return;
+    // Pointer parallax is pointless on touch devices and only adds work.
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     let frame = 0;
     let tx = 0;
     let ty = 0;
@@ -100,8 +117,9 @@ export default function SplineBackground({ active = true }: { active?: boolean }
       {/* Soft vignette that keeps the robot visible in the center */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,transparent_45%,var(--background)_92%)]" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
-      <div className="glow-orb pointer-events-none absolute top-1/4 left-[6%] h-64 w-64 rounded-full bg-foreground/8 blur-[110px]" />
-      <div className="glow-orb pointer-events-none absolute right-[8%] bottom-1/4 h-80 w-80 rounded-full bg-foreground/8 blur-[130px]" />
+      {/* Heavy blur layers are desktop-only — on phones they cost more than they add */}
+      <div className="glow-orb pointer-events-none absolute top-1/4 left-[6%] hidden h-64 w-64 rounded-full bg-foreground/8 blur-[110px] md:block" />
+      <div className="glow-orb pointer-events-none absolute right-[8%] bottom-1/4 hidden h-80 w-80 rounded-full bg-foreground/8 blur-[130px] md:block" />
     </div>
   );
 }
