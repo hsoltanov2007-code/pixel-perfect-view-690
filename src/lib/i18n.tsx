@@ -77,6 +77,10 @@ const ru: Dict = {
   "cart.back": "Назад",
   "cart.notConfigured": "{channel} не настроен",
   "cart.copied": "Текст заказа скопирован — вставьте его в директ",
+  "cart.igHint":
+    "Instagram не поддерживает автотекст. Скопируйте сообщение и вставьте его в директ.",
+  "cart.igCopy": "Скопировать сообщение",
+  "cart.igOpen": "Открыть Instagram",
   "cart.sent": "Корзина отправлена и очищена",
   "cart.failed": "Не удалось оформить заказ",
   "cart.copyLink": "Скопировать ссылку",
