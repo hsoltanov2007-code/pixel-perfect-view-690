@@ -1,15 +1,22 @@
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TelegramLogo, InstagramLogo } from "@phosphor-icons/react";
 import { useI18n } from "@/lib/i18n";
 import { legalLabels } from "@/lib/legal";
+import { getPublicContacts } from "@/lib/shop.functions";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Footer() {
   const { t, lang } = useI18n();
   const root = useRef<HTMLElement>(null);
+  const { data: contacts } = useQuery({
+    queryKey: ["public-contacts"],
+    queryFn: () => getPublicContacts(),
+    staleTime: 5 * 60 * 1000,
+  });
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -60,10 +67,10 @@ export default function Footer() {
         </nav>
         <div className="flex items-center gap-3">
           <LanguageSwitcher compact />
-          <a href="https://t.me" target="_blank" rel="noreferrer" aria-label="Telegram" className="rounded-full p-2 glass transition-colors hover:text-accent">
+          <a href={contacts?.telegram || "https://t.me"} target="_blank" rel="noreferrer" aria-label="Telegram" className="rounded-full p-2 glass transition-colors hover:text-accent">
             <TelegramLogo size={18} weight="light" />
           </a>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full p-2 glass transition-colors hover:text-accent">
+          <a href={contacts?.instagram || "https://instagram.com"} target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full p-2 glass transition-colors hover:text-accent">
             <InstagramLogo size={18} weight="light" />
           </a>
         </div>
