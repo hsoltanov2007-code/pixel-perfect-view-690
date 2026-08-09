@@ -122,6 +122,12 @@ export const Route = createFileRoute("/catalog")({
 
 function CatalogPage() {
   const root = useRef<HTMLDivElement>(null);
+  const { add } = useCart();
+  const { data } = useQuery({
+    queryKey: ["public-products"],
+    queryFn: () => getPublicProducts(),
+  });
+  const products = data ?? [];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
