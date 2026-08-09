@@ -327,7 +327,10 @@ function ProductForm({
   const resolveImage = useServerFn(adminResolveImageUrl);
 
   const [imageMode, setImageMode] = useState<"file" | "link">(
-    form.image_key && !form.image_key.startsWith("storage:") ? "link" : "file"
+    form.image_key &&
+      (form.image_key.startsWith("http") || form.image_key.startsWith("/"))
+      ? "link"
+      : "file"
   );
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string>("");
