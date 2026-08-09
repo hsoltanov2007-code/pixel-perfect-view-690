@@ -109,6 +109,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
   }),
 
+  loader: async () => {
+    const initialLang = await getLangCookie();
+    return { initialLang };
+  },
+
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
