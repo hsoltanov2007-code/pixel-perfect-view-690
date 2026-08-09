@@ -124,7 +124,7 @@ export default function Products() {
         {items.map((p) => (
           <article
             key={p.id}
-            className="product-card pointer-events-auto group relative"
+            className="product-card w-[260px] shrink-0 snap-center pointer-events-auto group relative md:w-auto"
           >
             {/* Soft nebula halo */}
             <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-[radial-gradient(ellipse_at_50%_0%,var(--cosmos-nebula),transparent_65%)] opacity-10 blur-2xl transition-opacity duration-700 group-hover:opacity-20" />
