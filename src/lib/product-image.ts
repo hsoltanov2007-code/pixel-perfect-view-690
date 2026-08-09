@@ -25,3 +25,33 @@ export function productImage(key?: string | null): string {
 export function formatPrice(price: number, currency = "AZN"): string {
   return `${price.toFixed(2)} ${currency}`;
 }
+
+export function localizeDescription(
+  description: string,
+  lang: string
+): string {
+  if (!description) return "";
+
+  const regex = /\b(RU|AZ|EN):\s*/gi;
+  const matches = Array.from(description.matchAll(regex));
+  if (matches.length === 0) return description;
+
+  const blocks: Record<string, string> = {};
+  for (let i = 0; i < matches.length; i++) {
+    const match = matches[i];
+    if (!match || match.index === undefined || !match[1]) continue;
+    const code = match[1].toLowerCase();
+    const start = match.index + match[0].length;
+    const end =
+      i < matches.length - 1 ? matches[i + 1]?.index ?? description.length : description.length;
+    blocks[code] = description.slice(start, end).trim();
+  }
+
+  return (
+    blocks[lang.toLowerCase()] ??
+    blocks["ru"] ??
+    blocks["az"] ??
+    blocks["en"] ??
+    description
+  );
+}

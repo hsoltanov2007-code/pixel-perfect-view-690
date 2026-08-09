@@ -7,7 +7,11 @@ import { Check, ArrowRight } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { useCart } from "@/lib/cart";
 import { getPublicProducts } from "@/lib/shop.functions";
-import { formatPrice, productImage } from "@/lib/product-image";
+import {
+  formatPrice,
+  localizeDescription,
+  productImage,
+} from "@/lib/product-image";
 import { useI18n } from "@/lib/i18n";
 
 function StarField({ count = 10 }: { count?: number }) {
@@ -40,7 +44,7 @@ function StarField({ count = 10 }: { count?: number }) {
 }
 
 export default function Products() {
-  const { t: tr } = useI18n();
+  const { t: tr, lang } = useI18n();
   const root = useRef<HTMLElement>(null);
   const { add } = useCart();
   const { data } = useQuery({
@@ -199,7 +203,7 @@ export default function Products() {
                 </div>
 
                 <p className="mb-3 text-xs leading-relaxed text-muted-foreground md:mb-4 md:text-sm">
-                  {p.description}
+                  {localizeDescription(p.description, lang)}
                 </p>
 
                 <ul className="mb-6 space-y-2">
