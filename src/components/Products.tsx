@@ -37,38 +37,15 @@ function StarField({ count = 10 }: { count?: number }) {
   );
 }
 
-const items = [
-  {
-    img: p1,
-    title: "Streaming Pro",
-    price: "$4.99",
-    period: "/ month",
-    desc: "4K streaming subscription, instant delivery to your inbox.",
-    perks: ["4K + HDR", "Works worldwide", "Instant activation"],
-    badge: "Popular",
-  },
-  {
-    img: p2,
-    title: "Music Unlimited",
-    price: "$3.49",
-    period: "/ month",
-    desc: "Ad-free music on every device with offline downloads.",
-    perks: ["Ad-free", "Offline mode", "Up to 6 devices"],
-    badge: "Best value",
-  },
-  {
-    img: p3,
-    title: "AI Assistant Plus",
-    price: "$9.99",
-    period: "/ month",
-    desc: "Premium AI access with priority speed and higher limits.",
-    perks: ["Priority speed", "Higher limits", "Early features"],
-    badge: "Enterprise",
-  },
-];
-
 export default function Products() {
   const root = useRef<HTMLElement>(null);
+  const { add } = useCart();
+  const { data } = useQuery({
+    queryKey: ["public-products"],
+    queryFn: () => getPublicProducts(),
+  });
+  const items = (data ?? []).slice(0, 3);
+
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
