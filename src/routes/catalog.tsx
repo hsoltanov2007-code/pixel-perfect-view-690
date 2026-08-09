@@ -11,7 +11,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useCart } from "@/lib/cart";
 import { getPublicProducts } from "@/lib/shop.functions";
-import { formatPrice, productImage } from "@/lib/product-image";
+import {
+  formatPrice,
+  localizeDescription,
+  productImage,
+} from "@/lib/product-image";
 import { useI18n } from "@/lib/i18n";
 import { useIsMobile } from "@/hooks/use-mobile";
 
