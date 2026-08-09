@@ -175,12 +175,7 @@ export default function CatalogSplineBackground() {
       frame = requestAnimationFrame(draw);
     };
 
-    if (reduceMotion) {
-      // Static frame only — no animation loop
-      draw();
-    } else {
-      draw();
-    }
+    draw();
 
     return () => {
       running = false;
