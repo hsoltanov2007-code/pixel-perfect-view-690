@@ -14,9 +14,11 @@ import {
   adminListThreads,
   adminLogin,
   adminLogout,
+  adminResolveImageUrl,
   adminSaveProduct,
   adminSaveSettings,
   adminSetOperatorOnline,
+  adminUploadProductImage,
   getAdminStatus,
 } from "@/lib/admin.functions";
 import { formatPrice } from "@/lib/product-image";
