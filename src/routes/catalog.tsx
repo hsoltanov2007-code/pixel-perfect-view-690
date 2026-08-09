@@ -155,11 +155,6 @@ function CatalogPage() {
 
                 {/* Image */}
                 <div className="relative h-28 w-full overflow-hidden p-2 sm:h-48 sm:p-3">
-                  <div className="absolute top-3 left-3 z-20 sm:top-5 sm:left-5">
-                    <span className="rounded-full border border-white/10 bg-black/45 px-2 py-0.5 text-[8px] font-medium tracking-[0.14em] text-cosmos-star uppercase backdrop-blur-md sm:px-3 sm:py-1 sm:text-[10px] sm:tracking-[0.18em]">
-                      {p.badge}
-                    </span>
-                  </div>
                   <div className="relative h-full w-full overflow-hidden rounded-2xl">
                     <img
                       src={productImage(p.image_key)}
