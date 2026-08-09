@@ -204,7 +204,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
           heading: "Xidmət haqqında",
           body: [
             "2G SHOP rəqəmsal məhsullar satır: abunəliklər, açarlar və hesablar.",
-            "Sifariş səbət vasitəsilə verilir və messencerdə (WhatsApp, Telegram, Instagram) təsdiqlənir.",
+            "Sifariş səbət vasitəsilə verilir və messencerdə (Telegram, Instagram) təsdiqlənir.",
           ],
         },
         {
