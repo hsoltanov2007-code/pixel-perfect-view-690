@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useCart } from "@/lib/cart";
 import { formatPrice } from "@/lib/product-image";
 import { createCartLink, getPublicContacts } from "@/lib/shop.functions";
+import { buildCheckoutMessage } from "@/lib/checkout-message";
 
 type Channel = "whatsapp" | "telegram" | "instagram";
 
@@ -30,7 +31,11 @@ export default function CartDrawer() {
       const lines = items
         .map((i) => `• ${i.title} × ${i.qty} — ${formatPrice(i.price * i.qty, i.currency)}`)
         .join("\n");
-      const text = `Здравствуйте! Хочу купить:\n${lines}\n\nИтого: ${formatPrice(total)}\nКорзина: ${link}`;
+      const text = buildCheckoutMessage({
+        lines,
+        total: formatPrice(total),
+        link,
+      });
 
       let url = "";
       if (channel === "whatsapp") {
