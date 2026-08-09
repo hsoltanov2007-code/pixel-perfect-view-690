@@ -294,7 +294,7 @@ const docs: Record<Lang, Record<LegalSlug, LegalDoc>> = {
         {
           heading: "Third parties",
           body: [
-            "We do not sell your data. It may be processed by the services you contact us through (WhatsApp, Telegram, Instagram) and by our hosting and infrastructure providers.",
+            "We do not sell your data. It may be processed by the services you contact us through (Telegram, Instagram) and by our hosting and infrastructure providers.",
           ],
         },
         {
