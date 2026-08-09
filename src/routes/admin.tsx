@@ -675,7 +675,6 @@ function SettingsTab() {
     queryFn: () => adminGetSettings(),
   });
   const [form, setForm] = useState({
-    whatsapp: "",
     telegram: "",
     instagram: "",
     footer_telegram: "",
