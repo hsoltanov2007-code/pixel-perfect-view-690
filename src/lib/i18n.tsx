@@ -79,6 +79,11 @@ const ru: Dict = {
   "cart.failed": "Не удалось оформить заказ",
   "cart.copyLink": "Скопировать ссылку",
   "cart.linkCopied": "Ссылка скопирована",
+  "cart.vaultTitle": "Ваша ячейка",
+  "cart.subtotal": "Подытог",
+  "cart.fee": "Комиссия",
+  "cart.secure": "Защищённое соединение активно",
+  "cart.checkout": "Оформить заказ",
 
   "shared.title": "Корзина покупателя",
   "shared.created": "Создана",
