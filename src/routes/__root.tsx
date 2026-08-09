@@ -16,7 +16,8 @@ import { Toaster } from "sonner";
 import SplineBackground from "@/components/SplineBackground";
 import CartDrawer from "@/components/CartDrawer";
 import { CartProvider } from "@/lib/cart";
-import { I18nProvider } from "@/lib/i18n";
+import { I18nProvider, type Lang } from "@/lib/i18n";
+import { getLangCookie } from "@/lib/i18n.functions";
 
 
 
