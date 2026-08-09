@@ -12,7 +12,7 @@ const CartItemInput = z.object({
 
 const CreateCartInput = z.object({
   items: z.array(CartItemInput).min(1).max(50),
-  channel: z.enum(["whatsapp", "telegram", "instagram"]),
+  channel: z.enum(["telegram", "instagram"]),
 });
 
 export const getPublicProducts = createServerFn({ method: "GET" }).handler(
