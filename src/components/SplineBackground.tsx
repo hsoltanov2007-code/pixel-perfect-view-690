@@ -117,8 +117,9 @@ export default function SplineBackground({ active = true }: { active?: boolean }
       {/* Soft vignette that keeps the robot visible in the center */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,transparent_45%,var(--background)_92%)]" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
-      <div className="glow-orb pointer-events-none absolute top-1/4 left-[6%] h-64 w-64 rounded-full bg-foreground/8 blur-[110px]" />
-      <div className="glow-orb pointer-events-none absolute right-[8%] bottom-1/4 h-80 w-80 rounded-full bg-foreground/8 blur-[130px]" />
+      {/* Heavy blur layers are desktop-only — on phones they cost more than they add */}
+      <div className="glow-orb pointer-events-none absolute top-1/4 left-[6%] hidden h-64 w-64 rounded-full bg-foreground/8 blur-[110px] md:block" />
+      <div className="glow-orb pointer-events-none absolute right-[8%] bottom-1/4 hidden h-80 w-80 rounded-full bg-foreground/8 blur-[130px] md:block" />
     </div>
   );
 }
