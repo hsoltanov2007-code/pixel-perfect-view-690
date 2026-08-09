@@ -16,6 +16,7 @@ import { Toaster } from "sonner";
 import SplineBackground from "@/components/SplineBackground";
 import CartDrawer from "@/components/CartDrawer";
 import { CartProvider } from "@/lib/cart";
+import { I18nProvider } from "@/lib/i18n";
 
 
 
@@ -115,7 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="ru" className="dark">
       <head>
         <HeadContent />
       </head>
@@ -135,6 +136,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <I18nProvider>
       <CartProvider>
         {/* Persistent 3D scene: stays mounted between routes so returning home is instant */}
         <SplineBackground active={isHome} />
@@ -143,6 +145,7 @@ function RootComponent() {
         <CartDrawer />
         <Toaster position="bottom-right" theme="dark" />
       </CartProvider>
+      </I18nProvider>
     </QueryClientProvider>
   );
 }
