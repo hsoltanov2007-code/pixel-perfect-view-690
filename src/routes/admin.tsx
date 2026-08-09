@@ -21,7 +21,14 @@ import {
   adminUploadProductImage,
   getAdminStatus,
 } from "@/lib/admin.functions";
-import { formatPrice } from "@/lib/product-image";
+import {
+  formatPrice,
+  splitDescription,
+  joinDescription,
+  splitPerks,
+  joinPerks,
+  type LangBlocks,
+} from "@/lib/product-image";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -321,7 +328,26 @@ function ProductForm({
   onCancel: () => void;
 }) {
   const [form, setForm] = useState<ProductRow>(value);
-  useEffect(() => setForm(value), [value]);
+  const [desc, setDesc] = useState<LangBlocks>(() => splitDescription(value.description));
+  const [perksBlocks, setPerksBlocks] = useState<LangBlocks>(() => splitPerks(value.perks ?? []));
+  useEffect(() => {
+    setForm(value);
+    setDesc(splitDescription(value.description));
+    setPerksBlocks(splitPerks(value.perks ?? []));
+  }, [value]);
+
+  function updateDesc(k: keyof LangBlocks, v: string) {
+    const next = { ...desc, [k]: v };
+    setDesc(next);
+    setForm((prev) => ({ ...prev, description: joinDescription(next) }));
+  }
+
+  function updatePerks(k: keyof LangBlocks, v: string) {
+    const next = { ...perksBlocks, [k]: v };
+    setPerksBlocks(next);
+    setForm((prev) => ({ ...prev, perks: joinPerks(next) }));
+  }
+
 
   const uploadImage = useServerFn(adminUploadProductImage);
   const resolveImage = useServerFn(adminResolveImageUrl);
@@ -398,13 +424,24 @@ function ProductForm({
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
           />
-          <textarea
-            className={field}
-            rows={3}
-            placeholder="Описание"
-            value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
-          />
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">Описание</p>
+            {(["ru", "az", "en"] as const).map((k) => (
+              <div key={k} className="flex items-start gap-2">
+                <span className="mt-2.5 w-7 shrink-0 text-xs font-semibold text-muted-foreground">
+                  {k.toUpperCase()}
+                </span>
+                <textarea
+                  className={field}
+                  rows={2}
+                  placeholder={`Описание (${k.toUpperCase()})`}
+                  value={desc[k]}
+                  onChange={(e) => updateDesc(k, e.target.value)}
+                />
+              </div>
+            ))}
+          </div>
+
           <div className="grid grid-cols-3 gap-3">
             <input
               className={field}
@@ -497,17 +534,25 @@ function ProductForm({
             value={form.badge ?? ""}
             onChange={(e) => setForm({ ...form, badge: e.target.value })}
           />
-          <textarea
-            className={`${field} min-h-24`}
-            placeholder={"Преимущества — по одному в строке\nНапример:\nБезлимитный доступ\nМоментальная выдача"}
-            value={form.perks.join("\n")}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                perks: e.target.value.split("\n"),
-              })
-            }
-          />
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">
+              Преимущества — по одному в строке
+            </p>
+            {(["ru", "az", "en"] as const).map((k) => (
+              <div key={k} className="flex items-start gap-2">
+                <span className="mt-2.5 w-7 shrink-0 text-xs font-semibold text-muted-foreground">
+                  {k.toUpperCase()}
+                </span>
+                <textarea
+                  className={`${field} min-h-20`}
+                  placeholder={`Преимущества (${k.toUpperCase()})`}
+                  value={perksBlocks[k]}
+                  onChange={(e) => updatePerks(k, e.target.value)}
+                />
+              </div>
+            ))}
+          </div>
+
 
           <label className="flex items-center gap-2 text-sm text-muted-foreground">
             <input
