@@ -204,7 +204,7 @@ const emptyProduct: ProductRow = {
   price: 0,
   currency: "AZN",
   period: "/ month",
-  image_key: "project-1",
+  image_key: "",
   perks: [],
   badge: "",
   active: true,
