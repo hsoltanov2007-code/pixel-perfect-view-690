@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useCart } from "@/lib/cart";
 import { formatPrice } from "@/lib/product-image";
 import { createCartLink, getPublicContacts } from "@/lib/shop.functions";
+import { buildCheckoutMessage } from "@/lib/checkout-message";
 
 type Channel = "whatsapp" | "telegram" | "instagram";
 
