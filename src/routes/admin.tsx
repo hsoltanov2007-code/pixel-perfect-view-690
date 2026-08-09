@@ -533,7 +533,7 @@ function OrdersTab() {
               {formatPrice(Number(c.total))} · {c.channel ?? "—"}
             </p>
             <a
-              href={`/cart/${c.id}`}
+              href={`https://2gshop.com/cart/${c.id}`}
               target="_blank"
               rel="noreferrer"
               className="text-xs text-muted-foreground underline hover:text-foreground"

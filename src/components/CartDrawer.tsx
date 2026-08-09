@@ -121,7 +121,7 @@ export default function CartDrawer() {
     setBusy(true);
     try {
       const { id } = await createLink({ data: { items, channel } });
-      const link = `${window.location.origin}/cart/${id}`;
+      const link = `https://2gshop.com/cart/${id}`;
       const lines = items
         .map((i) => `• ${i.title} × ${i.qty} — ${formatPrice(i.price * i.qty, i.currency)}`)
         .join("\n");
