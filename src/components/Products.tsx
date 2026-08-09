@@ -51,12 +51,31 @@ export default function Products() {
 
 
   useEffect(() => {
+    const isMobile =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(max-width: 767px)").matches ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+    if (isMobile) {
+      const cards = gsap.utils.toArray<HTMLElement>(".product-card");
+      gsap.set([...cards, ".product-cta"], {
+        clearProps: "all",
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scale: 1,
+        filter: "none",
+      });
+      return;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>(".product-card");
       const grid = root.current?.querySelector(".product-grid") as HTMLElement | null;
 
       gsap.set(cards, { transformOrigin: "50% 50%" });
+
       gsap.fromTo(
         cards,
         {
