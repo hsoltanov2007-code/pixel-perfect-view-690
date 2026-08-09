@@ -37,6 +37,8 @@ export default function SplineBackground({ active = true }: { active?: boolean }
   useEffect(() => {
     const layer = layerRef.current;
     if (!layer) return;
+    // Pointer parallax is pointless on touch devices and only adds work.
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     let frame = 0;
     let tx = 0;
     let ty = 0;
