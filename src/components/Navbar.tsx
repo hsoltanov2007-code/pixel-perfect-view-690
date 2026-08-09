@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { List, X } from "@phosphor-icons/react";
+import logoWhite from "@/assets/logo-white.png.asset.json";
 
 const links = [
   { label: "Home", href: "#home" },
