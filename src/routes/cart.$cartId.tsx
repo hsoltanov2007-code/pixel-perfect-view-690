@@ -48,11 +48,12 @@ export const Route = createFileRoute("/cart/$cartId")({
   notFoundComponent: () => <CartFallback messageKey="shared.notFound" />,
 });
 
-function CartFallback({ message }: { message: string }) {
+function CartFallback({ messageKey }: { messageKey: string }) {
+  const { t } = useI18n();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-6 text-center">
       <div>
-        <h1 className="font-display text-2xl font-semibold">{message}</h1>
+        <h1 className="font-display text-2xl font-semibold">{t(messageKey)}</h1>
         <Link to="/" className="mt-4 inline-block text-sm text-muted-foreground hover:text-foreground">
           {t("shared.home")}
         </Link>
