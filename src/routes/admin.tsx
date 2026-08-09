@@ -200,7 +200,7 @@ const emptyProduct: ProductRow = {
   title: "",
   description: "",
   price: 0,
-  currency: "$",
+  currency: "AZN",
   period: "/ month",
   image_key: "project-1",
   perks: [],

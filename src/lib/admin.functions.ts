@@ -12,7 +12,7 @@ const ProductInput = z.object({
   title: z.string().trim().min(1).max(120),
   description: z.string().trim().max(600).default(""),
   price: z.number().min(0).max(100000),
-  currency: z.string().trim().max(4).default("$"),
+  currency: z.string().trim().max(4).default("AZN"),
   period: z.string().trim().max(40).default("/ month"),
   image_key: z.string().trim().max(300).nullable().default(null),
   perks: z.array(z.string().trim().max(80)).max(8).default([]),

@@ -22,6 +22,6 @@ export function productImage(key?: string | null): string {
   return map[key] ?? p1;
 }
 
-export function formatPrice(price: number, currency = "$"): string {
-  return `${currency}${price.toFixed(2)}`;
+export function formatPrice(price: number, currency = "AZN"): string {
+  return `${price.toFixed(2)} ${currency}`;
 }
