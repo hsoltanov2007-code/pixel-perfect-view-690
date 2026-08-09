@@ -297,7 +297,7 @@ function detectLang(): Lang {
   const stored = window.localStorage.getItem(STORAGE_KEY);
   if (stored && (LANGS as readonly string[]).includes(stored)) return stored as Lang;
   const raw = navigator.language || navigator.languages?.[0] || "en";
-  const code = raw.toLowerCase().split("-")[0];
+  const code = raw.toLowerCase().split("-")[0] ?? "en";
   if (code === "az" || code === "tr") return "az";
   if (["ru", "be", "uk", "kk", "ky", "uz"].includes(code)) return "ru";
   return "en";
