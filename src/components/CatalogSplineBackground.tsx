@@ -63,6 +63,11 @@ export default function CatalogSplineBackground() {
 
     const draw = () => {
       if (!running) return;
+      if (reduceMotion) {
+        // Static frame only — no animation loop
+        renderFrame();
+        return;
+      }
       const now = performance.now();
       const elapsed = now - lastTime;
       if (elapsed < frameInterval) {
@@ -70,6 +75,11 @@ export default function CatalogSplineBackground() {
         return;
       }
       lastTime = now - (elapsed % frameInterval);
+      renderFrame();
+      frame = requestAnimationFrame(draw);
+    };
+
+    const renderFrame = () => {
 
       ctx.clearRect(0, 0, width, height);
 
