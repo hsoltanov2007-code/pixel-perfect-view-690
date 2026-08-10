@@ -170,6 +170,9 @@ function ContactIndex() {
 
           <form onSubmit={onSubmit} className="mt-6 space-y-3">
             <div className="relative">
+              <label htmlFor="contact-name" className="sr-only">
+                {t("contact.name")}
+              </label>
               <User
                 size={16}
                 weight="light"
@@ -177,12 +180,16 @@ function ContactIndex() {
               />
               <input
                 required
+                id="contact-name"
                 name="name"
                 placeholder={t("contact.name")}
                 className="field-glass !pl-11"
               />
             </div>
             <div className="relative">
+              <label htmlFor="contact-email" className="sr-only">
+                {t("contact.email")}
+              </label>
               <Envelope
                 size={16}
                 weight="light"
@@ -190,24 +197,36 @@ function ContactIndex() {
               />
               <input
                 required
+                id="contact-email"
                 type="email"
                 name="email"
                 placeholder={t("contact.email")}
                 className="field-glass !pl-11"
               />
             </div>
-            <textarea
-              required
-              name="message"
-              rows={4}
-              placeholder={t("contact.message")}
-              className="field-glass resize-none"
-            />
-            <button type="submit" className="btn-neon w-full !py-3">
+            <div>
+              <label htmlFor="contact-message" className="sr-only">
+                {t("contact.message")}
+              </label>
+              <textarea
+                required
+                id="contact-message"
+                name="message"
+                rows={4}
+                placeholder={t("contact.message")}
+                className="field-glass resize-none"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={sending}
+              className="btn-neon w-full !py-3 disabled:cursor-not-allowed disabled:opacity-50"
+            >
               {t("contact.send")}
               <PaperPlaneTilt size={17} weight="light" />
             </button>
           </form>
+
         </div>
 
         {/* Live chat card */}
