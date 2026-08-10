@@ -13,6 +13,7 @@ import {
   localizePerks,
 } from "@/lib/product-image";
 import { LocalizedDescription } from "@/components/LocalizedDescription";
+import { productSlug } from "@/lib/slug";
 import { useI18n } from "@/lib/i18n";
 
 function StarField({ count = 10 }: { count?: number }) {
@@ -188,7 +189,13 @@ export default function Products() {
                 <div className="mb-3 flex items-end justify-between gap-3">
                   <div>
                     <h3 className="font-display text-lg font-semibold tracking-tight text-foreground md:text-xl">
-                      {p.title}
+                      <Link
+                        to="/p/$slug"
+                        params={{ slug: productSlug(p, data ?? []) }}
+                        className="transition-colors hover:text-cosmos-star"
+                      >
+                        {p.title}
+                      </Link>
                     </h3>
                     <p className="text-[10px] tracking-[0.16em] text-cosmos-dust uppercase">
                       2G SHOP

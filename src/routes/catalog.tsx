@@ -17,6 +17,7 @@ import {
   localizePerks,
 } from "@/lib/product-image";
 import { LocalizedDescription } from "@/components/LocalizedDescription";
+import { productSlug } from "@/lib/slug";
 import { useI18n } from "@/lib/i18n";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -156,7 +157,7 @@ function CatalogPage() {
                   item: {
                     "@type": "Product",
                     name: p.title,
-                    url: "https://2gshop.com/catalog",
+                    url: `https://2gshop.com/p/${productSlug(p, products)}`,
                     offers: {
                       "@type": "Offer",
                       price: p.price,
@@ -209,7 +210,13 @@ function CatalogPage() {
                   <div className="mb-2 flex items-end justify-between gap-2 sm:mb-4 sm:gap-3">
                     <div className="min-w-0">
                       <h3 className="truncate font-display text-base font-semibold tracking-tight text-foreground sm:text-2xl">
-                        {p.title}
+                        <Link
+                          to="/p/$slug"
+                          params={{ slug: productSlug(p, products) }}
+                          className="transition-colors hover:text-cosmos-star"
+                        >
+                          {p.title}
+                        </Link>
                       </h3>
                       <p className="text-[10px] tracking-[0.12em] text-cosmos-dust uppercase sm:text-xs sm:tracking-[0.16em]">
                         2G SHOP
