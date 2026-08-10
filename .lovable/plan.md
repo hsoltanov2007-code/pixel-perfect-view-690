@@ -1,55 +1,30 @@
-# Plan: What people should search to find 2G SHOP
+# Avtomatik SEO səhifələri — hər məhsul üçün
 
-## Current search status
+Yalnız ChatGPT Plus üçün deyil: kataloqa əlavə etdiyiniz **hər məhsul** üçün öz ünvanı olan ayrıca səhifə avtomatik yaranacaq (Spotify, Netflix, YouTube Premium, VPN və s.).
 
-- Google Search Console is connected and the sitemap is submitted.
-- Google's stored result for `https://2gshop.com` is **"Crawled - currently not indexed"** — the site has been crawled but is not yet in the search index, so it will not appear for any query right now.
-- Search Console shows **no search-performance data** for the last 28 days.
-- Semrush has no Azerbaijan-market data for the target phrases, which means search demand in Azerbaijani is either very low or not tracked.
-- The site currently has **one active product**: ChatGPT Plus shared account at 7 AZN/month.
+## Nə olacaq
 
-## What people should type
+- Hər məhsul öz linkini alır: `2gshop.com/p/chatgpt-plus`, `/p/spotify-premium`, `/p/netflix` ...
+- Link məhsulun adından avtomatik düzəlir (slug). Adminkada heç nə əlavə yazmaq lazım deyil.
+- Səhifə 3 dildə işləyir və artıq adminkada yazdığınız RU/AZ/EN təsvir və üstünlükləri göstərir.
+- Səhifədə: şəkil, qiymət (AZN), üstünlüklər, "Səbətə at" düymələri, Telegram/Instagram ilə birbaşa alış.
+- Hər səhifənin öz title/description/canonical/og teqləri məhsulun adı və qiyməti ilə.
+- Hər səhifəyə Product + Offer JSON-LD (Google-un qiyməti nəticələrdə göstərməsi üçün).
+- Sitemap avtomatik olaraq bütün aktiv məhsul səhifələrini əlavə edir — yeni məhsul əlavə edən kimi Google onu tapır.
+- Kataloq və ana səhifədəki kartlar bu səhifələrə link verir (daxili keçidlər indeksləşməyə kömək edir).
 
-Because the homepage title/description are in Azerbaijani but the only product page is ChatGPT Plus, the strongest queries are a mix of Azerbaijani, Russian and English.
+Yeni məhsul əlavə edəndə heç bir kod dəyişikliyi lazım deyil — səhifə, meta teqlər və sitemap yazısı özü yaranır.
 
-### Primary queries (best fit for the current product)
+## Texniki hissə
 
-| Language | Query | Why it fits |
-|---|---|---|
-| AZ | `chatgpt plus abunəliyi` | Direct match to the only product, in the site language. |
-| AZ | `chatgpt plus almaq` | Purchase intent in Azerbaijani. |
-| AZ | `chatgpt plus azərbaycan` | Local intent; no Semrush data, but matches audience. |
-| RU | `купить chatgpt plus` | Russian-speaking buyers in Azerbaijan; low competition. |
-| RU | `chatgpt plus дешево` | Price-sensitive buyers. |
-| RU | `общий аккаунт chatgpt plus` | Matches the shared-account offer. |
-| EN | `buy chatgpt plus` | 210/mo searches, KD 40 — possible to rank with a dedicated page. |
-| EN | `chatgpt plus shared account` | 20/mo, KD 0 — very easy, directly describes the product. |
+1. `src/lib/slug.ts` — başlıqdan slug düzəldən köməkçi (kiril/AZ hərfləri translit, unikallıq üçün lazım olsa `id` prefiksi).
+2. `src/lib/shop.functions.ts` — yeni server funksiyası `getProductBySlug` (aktiv məhsullar arasından slug üzrə tapır, imza URL-i də qaytarır) və sitemap üçün `getProductSlugs`.
+3. `src/routes/p.$slug.tsx` — yeni marşrut:
+   - `loader` ilə məhsulu yükləyir, tapılmasa `notFound()`.
+   - `head()`: title `{Ad} — 2G SHOP`, description = localizasiya olunmuş təsvirin ilk cümləsi + qiymət, canonical/og:url `https://2gshop.com/p/{slug}`, og:type `product`, məhsul şəkli varsa og:image.
+   - JSON-LD: `Product` + `Offer` (price, priceCurrency AZN, availability), üstəgəl `BreadcrumbList`.
+   - UI: mövcud kataloq kart dizaynı ("Cosmos" stili), `LocalizedDescription`, `localizePerks`, `useCart` ilə səbətə əlavə, `src/lib/social.ts` ilə Telegram/Instagram düymələri.
+4. `src/routes/sitemap[.]xml.ts` — statik siyahıya `getProductSlugs` nəticəsindən `/p/{slug}` yazıları əlavə olunur (`changefreq: weekly`, `priority: 0.8`).
+5. `src/routes/catalog.tsx` və `src/components/Products.tsx` — kartların başlığı/şəkli `/p/{slug}` səhifəsinə link olur; "Səbətə at" düyməsi əvvəlki kimi işləyir (link kliki ilə toqquşmasın).
 
-### Secondary / broader queries
-
-| Language | Query | Note |
-|---|---|---|
-| RU | `спотифай премиум` / `spotify premium` | High volume (12,100/mo RU), but you do not currently sell Spotify. Only target after adding the product. |
-| RU | `подписка спотифай` | 3,600/mo; same caveat. |
-| EN | `chatgpt plus subscription` | 9,900/mo, but KD 78 — very hard for a new site. |
-| EN | `chatgpt plus` | 74,000/mo, KD 79 — brand term owned by OpenAI; hard to outrank. |
-
-## What must happen before the site appears at all
-
-1. **Get indexed.** "Crawled - currently not indexed" means Google has not added the page to its index. This usually resolves on its own within days to weeks after the verification/sitemap was submitted, but it can be accelerated by:
-   - Earning a backlink from an already-indexed site (social profile, directory, forum post).
-   - Publishing the site again so the latest build with the meta tag is live.
-   - Waiting; the last crawl was 2026-05-29, before the recent SEO fixes.
-2. **Add more products.** One product limits how many different queries the site can rank for. Adding Spotify, Netflix, YouTube Premium, VPN, etc. would unlock the high-volume Russian keywords above.
-
-## Recommended next steps
-
-1. **Create a dedicated `/chatgpt-plus` page** with the title/description focused on "buy ChatGPT Plus" / "ChatGPT Plus shared account" in all three languages. This gives Google a clear page to rank for the specific, low-difficulty English/Russian queries.
-2. **Add product-specific structured data** to the catalog so each product page can rank independently.
-3. **Build a few backlinks** from indexed Azerbaijani/Russian forums, social profiles, or listings pointing to `https://2gshop.com`.
-4. **Publish the site** so the latest Search Console verification and sitemap are live, then wait 1-2 weeks and recheck indexing status.
-5. **Expand the catalog** with the other subscription products mentioned in the marketing copy (Spotify, Netflix, YouTube Premium, VPN) so the site can rank for the higher-volume Russian keywords.
-
-## Success metric
-
-After indexing, the first queries the site is likely to appear for are the low-competition, product-specific ones: `chatgpt plus shared account`, `купить chatgpt plus`, and `chatgpt plus abunəliyi`. Broader terms will require more products and authority over time.
+Verilənlər bazasına dəyişiklik lazım deyil — slug adından hesablanır.
