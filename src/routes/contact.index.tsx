@@ -53,6 +53,8 @@ function ContactIndex() {
   const queryClient = useQueryClient();
   const createThreadFn = useServerFn(createThread);
   const getStatusFn = useServerFn(getOperatorStatus);
+  const submitSupportFn = useServerFn(submitSupportMessage);
+  const [sending, setSending] = useState(false);
   const root = useRef<HTMLDivElement>(null);
 
   const { data: statusData } = useQuery({
