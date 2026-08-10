@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -14,7 +14,11 @@ import {
   InstagramLogo,
 } from "@phosphor-icons/react";
 import { toast } from "sonner";
-import { createThread, getOperatorStatus } from "@/lib/chat.functions";
+import {
+  createThread,
+  getOperatorStatus,
+  submitSupportMessage,
+} from "@/lib/chat.functions";
 import { getPublicContacts } from "@/lib/shop.functions";
 import { socialHref } from "@/lib/social";
 import { useI18n } from "@/lib/i18n";
