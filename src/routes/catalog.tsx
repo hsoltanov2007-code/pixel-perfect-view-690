@@ -143,6 +143,34 @@ function CatalogPage() {
           </p>
         </div>
 
+        {products.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                itemListElement: products.map((p, i) => ({
+                  "@type": "ListItem",
+                  position: i + 1,
+                  item: {
+                    "@type": "Product",
+                    name: p.title,
+                    url: "https://2gshop.com/catalog",
+                    offers: {
+                      "@type": "Offer",
+                      price: p.price,
+                      priceCurrency: "AZN",
+                      availability: "https://schema.org/InStock",
+                    },
+                  },
+                })),
+              }),
+            }}
+          />
+        )}
+
+        <h2 className="sr-only">{tr("catalog.title")} {tr("catalog.titleAccent")}</h2>
         <div className="catalog-grid relative mx-auto mt-14 grid max-w-6xl grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {products.map((p) => (
             <article
