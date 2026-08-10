@@ -15,6 +15,7 @@ import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RefundRouteImport } from './routes/refund'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as CartCartIdRouteImport } from './routes/cart.$cartId'
@@ -51,6 +52,11 @@ const RefundRoute = RefundRouteImport.update({
   path: '/refund',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/refund': typeof RefundRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
   '/cart/$cartId': typeof CartCartIdRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/catalog': typeof CatalogRoute
   '/privacy': typeof PrivacyRoute
   '/refund': typeof RefundRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
   '/cart/$cartId': typeof CartCartIdRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/refund': typeof RefundRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
   '/cart/$cartId': typeof CartCartIdRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/privacy'
     | '/refund'
+    | '/sitemap.xml'
     | '/terms'
     | '/api/chat'
     | '/cart/$cartId'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/catalog'
     | '/privacy'
     | '/refund'
+    | '/sitemap.xml'
     | '/terms'
     | '/api/chat'
     | '/cart/$cartId'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/privacy'
     | '/refund'
+    | '/sitemap.xml'
     | '/terms'
     | '/api/chat'
     | '/cart/$cartId'
@@ -164,6 +176,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   RefundRoute: typeof RefundRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   ApiChatRoute: typeof ApiChatRoute
   CartCartIdRoute: typeof CartCartIdRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       path: '/refund'
       fullPath: '/refund'
       preLoaderRoute: typeof RefundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -271,6 +291,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   RefundRoute: RefundRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   ApiChatRoute: ApiChatRoute,
   CartCartIdRoute: CartCartIdRoute,

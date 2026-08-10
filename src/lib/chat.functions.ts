@@ -13,6 +13,41 @@ const EscalateInput = z.object({
   threadId: z.string().uuid(),
   contactInfo: z.string().trim().max(500).optional(),
 });
+const SupportMessageInput = z.object({
+  name: z.string().trim().min(1).max(120),
+  email: z.string().trim().email().max(200),
+  message: z.string().trim().min(1).max(4000),
+});
+
+export const submitSupportMessage = createServerFn({ method: "POST" })
+  .inputValidator((input) => SupportMessageInput.parse(input))
+  .handler(async ({ data }) => {
+    const sessionId = await getOrCreateSessionId();
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+    const { data: thread, error: threadError } = await supabaseAdmin
+      .from("chat_threads")
+      .insert({
+        session_id: sessionId,
+        title: `Support: ${data.name}`,
+        status: "needs_operator",
+      })
+      .select("id")
+      .single();
+    if (threadError || !thread) {
+      throw threadError ?? new Error("Could not save message");
+    }
+    const { error: messageError } = await supabaseAdmin
+      .from("chat_messages")
+      .insert({
+        thread_id: thread.id,
+        role: "user",
+        content: `Name: ${data.name}\nEmail: ${data.email}\n\n${data.message}`,
+      });
+    if (messageError) throw messageError;
+    return { ok: true };
+  });
 
 export const getThreads = createServerFn({ method: "GET" }).handler(
   async () => {
