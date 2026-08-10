@@ -107,10 +107,27 @@ function ContactIndex() {
     }
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success(t("contact.sent"));
-    (e.target as HTMLFormElement).reset();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    setSending(true);
+    try {
+      await submitSupportFn({
+        data: {
+          name: String(fd.get("name") ?? ""),
+          email: String(fd.get("email") ?? ""),
+          message: String(fd.get("message") ?? ""),
+        },
+      });
+      toast.success(t("contact.sent"));
+      form.reset();
+    } catch (error) {
+      console.error("Failed to send support message:", error);
+      toast.error(t("contact.chatError"));
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
