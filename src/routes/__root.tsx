@@ -87,6 +87,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: "2G SHOP" },
+      { name: "google-site-verification", content: "FLzlyrEs0zuNF7JSCJEyk7ooQzwoI8MYK0GjkirJ-8k" },
       { property: "og:site_name", content: "2G SHOP" },
     ],
     scripts: [
