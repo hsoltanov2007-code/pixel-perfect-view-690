@@ -66,8 +66,10 @@ export const Route = createFileRoute("/catalog")({
           "Premium subscriptions and digital goods at the best prices, delivered instantly.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://2gshop.com/catalog" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://2gshop.com/catalog" }],
   }),
   component: CatalogPage,
 });
