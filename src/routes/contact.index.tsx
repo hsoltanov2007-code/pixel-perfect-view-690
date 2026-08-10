@@ -20,6 +20,26 @@ import { socialHref } from "@/lib/social";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/contact/")({
+  head: () => ({
+    meta: [
+      { title: "Support & Live Chat — 2G SHOP" },
+      {
+        name: "description",
+        content:
+          "Contact 2G SHOP support: send a message, start a live chat, or reach us on Telegram and Instagram for help with your subscription order.",
+      },
+      { property: "og:title", content: "Support & Live Chat — 2G SHOP" },
+      {
+        property: "og:description",
+        content:
+          "Send a message, start a live chat, or reach 2G SHOP on Telegram and Instagram.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://2gshop.com/contact" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "https://2gshop.com/contact" }],
+  }),
   component: ContactIndex,
 });
 
