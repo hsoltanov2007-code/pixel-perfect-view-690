@@ -21,6 +21,7 @@ import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as CartCartIdRouteImport } from './routes/cart.$cartId'
 import { Route as ContactIndexRouteImport } from './routes/contact.index'
 import { Route as ContactThreadIdRouteImport } from './routes/contact.$threadId'
+import { Route as PSlugRouteImport } from './routes/p.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,6 +83,11 @@ const ContactThreadIdRoute = ContactThreadIdRouteImport.update({
   path: '/$threadId',
   getParentRoute: () => ContactRoute,
 } as any)
+const PSlugRoute = PSlugRouteImport.update({
+  id: '/p/$slug',
+  path: '/p/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/cart/$cartId': typeof CartCartIdRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
+  '/p/$slug': typeof PSlugRoute
   '/contact/': typeof ContactIndexRoute
 }
 export interface FileRoutesByTo {
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/cart/$cartId': typeof CartCartIdRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
+  '/p/$slug': typeof PSlugRoute
   '/contact': typeof ContactIndexRoute
 }
 export interface FileRoutesById {
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/cart/$cartId': typeof CartCartIdRoute
   '/contact/$threadId': typeof ContactThreadIdRoute
+  '/p/$slug': typeof PSlugRoute
   '/contact/': typeof ContactIndexRoute
 }
 export interface FileRouteTypes {
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/cart/$cartId'
     | '/contact/$threadId'
+    | '/p/$slug'
     | '/contact/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -152,6 +162,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/cart/$cartId'
     | '/contact/$threadId'
+    | '/p/$slug'
     | '/contact'
   id:
     | '__root__'
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/cart/$cartId'
     | '/contact/$threadId'
+    | '/p/$slug'
     | '/contact/'
   fileRoutesById: FileRoutesById
 }
@@ -180,6 +192,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   ApiChatRoute: typeof ApiChatRoute
   CartCartIdRoute: typeof CartCartIdRoute
+  PSlugRoute: typeof PSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -268,6 +281,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactThreadIdRouteImport
       parentRoute: typeof ContactRoute
     }
+    '/p/$slug': {
+      id: '/p/$slug'
+      path: '/p/$slug'
+      fullPath: '/p/$slug'
+      preLoaderRoute: typeof PSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -295,17 +315,8 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   ApiChatRoute: ApiChatRoute,
   CartCartIdRoute: CartCartIdRoute,
+  PSlugRoute: PSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

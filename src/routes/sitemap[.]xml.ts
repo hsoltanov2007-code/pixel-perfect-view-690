@@ -22,6 +22,16 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/refund", changefreq: "yearly", priority: "0.3" },
         ];
 
+        try {
+          const { getProductSlugs } = await import("@/lib/shop.functions");
+          const slugs = await getProductSlugs();
+          for (const slug of slugs) {
+            entries.push({ path: `/p/${slug}`, changefreq: "weekly", priority: "0.8" });
+          }
+        } catch {
+          /* products unavailable — keep static entries */
+        }
+
         const urls = entries.map((e) =>
           [
             `  <url>`,

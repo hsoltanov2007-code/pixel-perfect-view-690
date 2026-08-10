@@ -114,3 +114,52 @@ export const getCartById = createServerFn({ method: "GET" })
     if (error) throw error;
     return cart;
   });
+
+export const getProductBySlug = createServerFn({ method: "GET" })
+  .inputValidator((input) => z.object({ slug: z.string().max(80) }).parse(input))
+  .handler(async ({ data }) => {
+    const { productSlug } = await import("@/lib/slug");
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+    const { data: rows, error } = await supabaseAdmin
+      .from("products")
+      .select(
+        "id, title, description, price, currency, period, image_key, perks, badge, sort_order"
+      )
+      .eq("active", true)
+      .order("sort_order", { ascending: true });
+    if (error) throw error;
+
+    const products = rows ?? [];
+    const product = products.find((p) => productSlug(p, products) === data.slug);
+    if (!product) return null;
+
+    let image = product.image_key;
+    if (image?.startsWith("storage:")) {
+      const path = image.replace("storage:", "");
+      const { data: signed } = await supabaseAdmin.storage
+        .from("product-images")
+        .createSignedUrl(path, 60 * 60 * 24 * 365);
+      image = signed?.signedUrl ?? null;
+    }
+
+    return { ...product, image_key: image, slug: data.slug };
+  });
+
+export const getProductSlugs = createServerFn({ method: "GET" }).handler(
+  async () => {
+    const { productSlug } = await import("@/lib/slug");
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+    const { data, error } = await supabaseAdmin
+      .from("products")
+      .select("id, title")
+      .eq("active", true)
+      .order("sort_order", { ascending: true });
+    if (error) throw error;
+    const products = data ?? [];
+    return products.map((p) => productSlug(p, products));
+  }
+);
