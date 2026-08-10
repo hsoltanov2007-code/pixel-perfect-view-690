@@ -86,11 +86,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "2G SHOP — Premium Subscriptions Online" },
-      { name: "description", content: "Buy premium digital subscriptions online with instant delivery." },
       { name: "author", content: "2G SHOP" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:site_name", content: "2G SHOP" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: "2G SHOP",
+              url: "https://2gshop.com",
+              logo: "https://2gshop.com/favicon.png",
+            },
+            {
+              "@type": "WebSite",
+              name: "2G SHOP",
+              url: "https://2gshop.com",
+            },
+          ],
+        }),
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
