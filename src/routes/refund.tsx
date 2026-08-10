@@ -17,7 +17,9 @@ export const Route = createFileRoute("/refund")({
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://2gshop.com/refund" },
     ],
+    links: [{ rel: "canonical", href: "https://2gshop.com/refund" }],
   }),
   component: () => <LegalPage slug="refund" />,
 });

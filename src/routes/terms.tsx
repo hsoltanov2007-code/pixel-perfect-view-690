@@ -17,7 +17,9 @@ export const Route = createFileRoute("/terms")({
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://2gshop.com/terms" },
     ],
+    links: [{ rel: "canonical", href: "https://2gshop.com/terms" }],
   }),
   component: () => <LegalPage slug="terms" />,
 });

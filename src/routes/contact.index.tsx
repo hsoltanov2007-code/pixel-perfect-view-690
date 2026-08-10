@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -14,12 +14,36 @@ import {
   InstagramLogo,
 } from "@phosphor-icons/react";
 import { toast } from "sonner";
-import { createThread, getOperatorStatus } from "@/lib/chat.functions";
+import {
+  createThread,
+  getOperatorStatus,
+  submitSupportMessage,
+} from "@/lib/chat.functions";
 import { getPublicContacts } from "@/lib/shop.functions";
 import { socialHref } from "@/lib/social";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/contact/")({
+  head: () => ({
+    meta: [
+      { title: "Support & Live Chat — 2G SHOP" },
+      {
+        name: "description",
+        content:
+          "Contact 2G SHOP support: send a message, start a live chat, or reach us on Telegram and Instagram for help with your subscription order.",
+      },
+      { property: "og:title", content: "Support & Live Chat — 2G SHOP" },
+      {
+        property: "og:description",
+        content:
+          "Send a message, start a live chat, or reach 2G SHOP on Telegram and Instagram.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://2gshop.com/contact" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "https://2gshop.com/contact" }],
+  }),
   component: ContactIndex,
 });
 
@@ -29,6 +53,8 @@ function ContactIndex() {
   const queryClient = useQueryClient();
   const createThreadFn = useServerFn(createThread);
   const getStatusFn = useServerFn(getOperatorStatus);
+  const submitSupportFn = useServerFn(submitSupportMessage);
+  const [sending, setSending] = useState(false);
   const root = useRef<HTMLDivElement>(null);
 
   const { data: statusData } = useQuery({
@@ -87,10 +113,27 @@ function ContactIndex() {
     }
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success(t("contact.sent"));
-    (e.target as HTMLFormElement).reset();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    setSending(true);
+    try {
+      await submitSupportFn({
+        data: {
+          name: String(fd.get("name") ?? ""),
+          email: String(fd.get("email") ?? ""),
+          message: String(fd.get("message") ?? ""),
+        },
+      });
+      toast.success(t("contact.sent"));
+      form.reset();
+    } catch (error) {
+      console.error("Failed to send support message:", error);
+      toast.error(t("contact.chatError"));
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -127,6 +170,9 @@ function ContactIndex() {
 
           <form onSubmit={onSubmit} className="mt-6 space-y-3">
             <div className="relative">
+              <label htmlFor="contact-name" className="sr-only">
+                {t("contact.name")}
+              </label>
               <User
                 size={16}
                 weight="light"
@@ -134,12 +180,16 @@ function ContactIndex() {
               />
               <input
                 required
+                id="contact-name"
                 name="name"
                 placeholder={t("contact.name")}
                 className="field-glass !pl-11"
               />
             </div>
             <div className="relative">
+              <label htmlFor="contact-email" className="sr-only">
+                {t("contact.email")}
+              </label>
               <Envelope
                 size={16}
                 weight="light"
@@ -147,24 +197,36 @@ function ContactIndex() {
               />
               <input
                 required
+                id="contact-email"
                 type="email"
                 name="email"
                 placeholder={t("contact.email")}
                 className="field-glass !pl-11"
               />
             </div>
-            <textarea
-              required
-              name="message"
-              rows={4}
-              placeholder={t("contact.message")}
-              className="field-glass resize-none"
-            />
-            <button type="submit" className="btn-neon w-full !py-3">
+            <div>
+              <label htmlFor="contact-message" className="sr-only">
+                {t("contact.message")}
+              </label>
+              <textarea
+                required
+                id="contact-message"
+                name="message"
+                rows={4}
+                placeholder={t("contact.message")}
+                className="field-glass resize-none"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={sending}
+              className="btn-neon w-full !py-3 disabled:cursor-not-allowed disabled:opacity-50"
+            >
               {t("contact.send")}
               <PaperPlaneTilt size={17} weight="light" />
             </button>
           </form>
+
         </div>
 
         {/* Live chat card */}

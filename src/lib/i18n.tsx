@@ -45,6 +45,7 @@ const ru: Dict = {
   "hero.cta": "Перейти к покупкам",
   "hero.scroll": "Листайте вниз",
 
+  "products.heading": "Популярные подписки",
   "products.eyebrow": "Популярное",
   "products.add": "В корзину",
   "products.added": "{title} добавлен в корзину",
@@ -145,6 +146,7 @@ const az: Dict = {
   "hero.cta": "Alış-verişə başla",
   "hero.scroll": "Aşağı sürüşdürün",
 
+  "products.heading": "Populyar abunəliklər",
   "products.eyebrow": "Populyar",
   "products.add": "Səbətə at",
   "products.added": "{title} səbətə əlavə olundu",
@@ -245,6 +247,7 @@ const en: Dict = {
   "hero.cta": "Shop now",
   "hero.scroll": "Scroll down",
 
+  "products.heading": "Popular subscriptions",
   "products.eyebrow": "Popular",
   "products.add": "Add to cart",
   "products.added": "{title} added to cart",

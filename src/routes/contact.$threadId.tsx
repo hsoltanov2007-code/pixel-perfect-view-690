@@ -35,6 +35,25 @@ const messagesQueryOptions = (threadId: string) =>
   });
 
 export const Route = createFileRoute("/contact/$threadId")({
+  head: () => ({
+    meta: [
+      { title: "Live chat with support — 2G SHOP" },
+      {
+        name: "description",
+        content:
+          "Your private live chat with the 2G SHOP support team — ask about subscriptions, orders, delivery and refunds.",
+      },
+      { property: "og:title", content: "Live chat with support — 2G SHOP" },
+      {
+        property: "og:description",
+        content:
+          "Private live chat with the 2G SHOP support team about your subscription order.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "robots", content: "noindex, nofollow" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   loader: async ({ params, context }) => {
     await context.queryClient.ensureQueryData(
       messagesQueryOptions(params.threadId)

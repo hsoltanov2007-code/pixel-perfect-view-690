@@ -24,8 +24,10 @@ export const Route = createFileRoute("/")({
           "Streaming, music, gaming, AI and VPN subscriptions delivered instantly, with warranty and 24/7 support.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://2gshop.com/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://2gshop.com/" }],
   }),
   component: Index,
 });
