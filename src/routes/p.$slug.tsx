@@ -240,7 +240,7 @@ function ProductPage() {
                   }}
                   className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/12 py-4 text-sm font-semibold text-foreground backdrop-blur-md transition-all hover:bg-white/20 active:scale-[0.98]"
                 >
-                  {tr("cart.checkout")}
+                  {tr("cart.buy")}
                 </button>
               </div>
             </div>
